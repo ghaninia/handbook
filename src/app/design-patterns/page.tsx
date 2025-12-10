@@ -28,13 +28,24 @@ export default function DesignPatternsPage() {
         </p>
         <div className="space-y-3">
           {creationalPatterns.map((pattern) => (
-            <div key={pattern.name} className="card">
+            <Link 
+              key={pattern.name} 
+              href={pattern.link || '#'}
+              className="block card hover:shadow-md transition-shadow"
+            >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium text-gray-900 dark:text-gray-100">{pattern.name}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-medium text-gray-900 dark:text-gray-100">{pattern.name}</h3>
+                  {pattern.tag && (
+                    <span className="text-xs px-2 py-0.5 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-300 rounded">
+                      {pattern.tag}
+                    </span>
+                  )}
+                </div>
                 <span className="tag tag-blue">{pattern.nameEn}</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">{pattern.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -49,13 +60,17 @@ export default function DesignPatternsPage() {
         </p>
         <div className="space-y-3">
           {structuralPatterns.map((pattern) => (
-            <div key={pattern.name} className="card">
+            <Link 
+              key={pattern.name} 
+              href={pattern.link || '#'}
+              className="block card hover:shadow-md transition-shadow"
+            >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">{pattern.name}</h3>
                 <span className="tag tag-green">{pattern.nameEn}</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">{pattern.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -70,13 +85,17 @@ export default function DesignPatternsPage() {
         </p>
         <div className="space-y-3">
           {behavioralPatterns.map((pattern) => (
-            <div key={pattern.name} className="card">
+            <Link 
+              key={pattern.name} 
+              href={pattern.link || '#'}
+              className="block card hover:shadow-md transition-shadow"
+            >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">{pattern.name}</h3>
                 <span className="tag tag-purple">{pattern.nameEn}</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">{pattern.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -88,13 +107,17 @@ export default function DesignPatternsPage() {
         </h2>
         <div className="space-y-3">
           {otherPatterns.map((pattern) => (
-            <div key={pattern.name} className="card">
+            <Link 
+              key={pattern.name} 
+              href={pattern.link || '#'}
+              className="block card hover:shadow-md transition-shadow"
+            >
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-gray-900 dark:text-gray-100">{pattern.name}</h3>
                 <span className="tag tag-amber">{pattern.nameEn}</span>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400">{pattern.description}</p>
-            </div>
+            </Link>
           ))}
         </div>
       </section>
@@ -103,42 +126,39 @@ export default function DesignPatternsPage() {
 }
 
 const creationalPatterns = [
-  { name: 'تک‌نمونه', nameEn: 'Singleton', description: 'اطمینان از وجود تنها یک نمونه از کلاس و فراهم کردن یک نقطه دسترسی سراسری به آن.' },
-  { name: 'کارخانه', nameEn: 'Factory Method', description: 'تعریف یک رابط برای ایجاد اشیاء، اما اجازه می‌دهد زیرکلاس‌ها نوع اشیاء را تعیین کنند.' },
-  { name: 'کارخانه انتزاعی', nameEn: 'Abstract Factory', description: 'یک رابط برای ایجاد خانواده‌های مرتبط یا وابسته از اشیاء بدون مشخص کردن کلاس‌های واقعی.' },
-  { name: 'سازنده', nameEn: 'Builder', description: 'جداسازی ساخت یک شیء پیچیده از نمایش آن تا فرآیند ساخت یکسان بتواند نمایش‌های مختلف ایجاد کند.' },
-  { name: 'نمونه اولیه', nameEn: 'Prototype', description: 'ایجاد اشیاء جدید با کپی کردن یک نمونه موجود.' },
+  { name: 'تک‌نمونه', nameEn: 'Singleton', description: 'اطمینان از وجود تنها یک نمونه از کلاس - توجه: معمولاً یک Antipattern است!', link: '/design-patterns/singleton', tag: 'Antipattern' },
+  { name: 'کارخانه', nameEn: 'Factory Method', description: 'تعریف رابط برای ایجاد اشیاء - زیرکلاس‌ها نوع اشیاء را تعیین می‌کنند', link: '/design-patterns/factory-method' },
+  { name: 'کارخانه انتزاعی', nameEn: 'Abstract Factory', description: 'ایجاد خانواده‌های اشیاء مرتبط بدون مشخص کردن کلاس‌های واقعی', link: '/design-patterns/abstract-factory' },
+  { name: 'سازنده', nameEn: 'Builder', description: 'ساخت تدریجی یک شیء پیچیده - مفید برای تست‌ها', link: '/design-patterns/builder' },
 ]
 
 const structuralPatterns = [
-  { name: 'آداپتور', nameEn: 'Adapter', description: 'تبدیل رابط یک کلاس به رابط دیگری که کلاینت‌ها انتظار دارند.' },
-  { name: 'پل', nameEn: 'Bridge', description: 'جداسازی انتزاع از پیاده‌سازی تا هر دو بتوانند مستقلاً تغییر کنند.' },
-  { name: 'ترکیب', nameEn: 'Composite', description: 'ترکیب اشیاء در ساختارهای درختی برای نمایش سلسله مراتب‌های جزء-کل.' },
-  { name: 'تزئین‌کننده', nameEn: 'Decorator', description: 'افزودن مسئولیت‌های جدید به یک شیء به صورت پویا.' },
-  { name: 'نما', nameEn: 'Facade', description: 'فراهم کردن یک رابط یکپارچه و ساده برای مجموعه‌ای از رابط‌های پیچیده.' },
-  { name: 'وزن مگس', nameEn: 'Flyweight', description: 'استفاده مشترک برای پشتیبانی کارآمد از تعداد زیادی اشیاء ریزدانه.' },
-  { name: 'پروکسی', nameEn: 'Proxy', description: 'فراهم کردن یک جانشین برای کنترل دسترسی به یک شیء.' },
+  { name: 'آداپتور', nameEn: 'Adapter', description: 'تبدیل رابط برای سازگاری - جلوگیری از افشای جزئیات پیاده‌سازی', link: '/design-patterns/adapter' },
+  { name: 'تزئین‌کننده', nameEn: 'Decorator', description: 'افزودن مسئولیت‌های جدید به صورت پویا - عالی برای logging و validation', link: '/design-patterns/decorator' },
+  { name: 'نما', nameEn: 'Facade', description: 'رابط ساده برای زیرسیستم پیچیده - مفید برای bounded contexts', link: '/design-patterns/facade' },
+  { name: 'پروکسی', nameEn: 'Proxy', description: 'کنترل دسترسی به شیء - Virtual, Remote, Cache, Synchronization', link: '/design-patterns/proxy' },
 ]
 
 const behavioralPatterns = [
-  { name: 'زنجیره مسئولیت', nameEn: 'Chain of Responsibility', description: 'عبور درخواست در امتداد زنجیره‌ای از کنترل‌کننده‌ها.' },
-  { name: 'فرمان', nameEn: 'Command', description: 'کپسوله کردن یک درخواست به عنوان یک شیء.' },
-  { name: 'مفسر', nameEn: 'Interpreter', description: 'تعریف نمایشی برای گرامر یک زبان و مفسری که از نمایش استفاده می‌کند.' },
-  { name: 'تکرارکننده', nameEn: 'Iterator', description: 'دسترسی ترتیبی به عناصر یک شیء مجموعه بدون افشای نمایش زیرین.' },
-  { name: 'میانجی', nameEn: 'Mediator', description: 'تعریف یک شیء که چگونگی تعامل مجموعه‌ای از اشیاء را کپسوله می‌کند.' },
-  { name: 'یادبود', nameEn: 'Memento', description: 'ذخیره و بازیابی وضعیت داخلی یک شیء بدون نقض کپسوله‌سازی.' },
-  { name: 'ناظر', nameEn: 'Observer', description: 'تعریف وابستگی یک به چند بین اشیاء برای اطلاع‌رسانی خودکار تغییرات.' },
-  { name: 'وضعیت', nameEn: 'State', description: 'اجازه به یک شیء برای تغییر رفتار هنگام تغییر وضعیت داخلی.' },
-  { name: 'استراتژی', nameEn: 'Strategy', description: 'تعریف خانواده‌ای از الگوریتم‌ها و قابل تعویض کردن آن‌ها.' },
-  { name: 'روش الگو', nameEn: 'Template Method', description: 'تعریف اسکلت یک الگوریتم و واگذاری برخی مراحل به زیرکلاس‌ها.' },
-  { name: 'بازدیدکننده', nameEn: 'Visitor', description: 'تعریف عملیات جدید روی عناصر ساختار شیء بدون تغییر کلاس‌ها.' },
+  { name: 'زنجیره مسئولیت', nameEn: 'Chain of Responsibility', description: 'عبور درخواست در زنجیره handler ها - مثال: ASP.NET Middleware', link: '/design-patterns/chain-of-responsibility' },
+  { name: 'CQRS', nameEn: 'CQRS', description: 'جداسازی Command و Query - مدل‌های خواندن/نوشتن مجزا', link: '/design-patterns/cqrs' },
+  { name: 'میانجی', nameEn: 'Mediator', description: 'هماهنگی بین اجزا - کاهش وابستگی مستقیم (مثال: MediatR)', link: '/design-patterns/mediator' },
+  { name: 'ناظر', nameEn: 'Observer', description: 'اطلاع‌رسانی خودکار تغییرات - مفید برای event-driven systems', link: '/design-patterns/observer' },
+  { name: 'وضعیت', nameEn: 'State', description: 'تغییر رفتار با تغییر وضعیت - مدل‌سازی Finite State Machine', link: '/design-patterns/state' },
+  { name: 'استراتژی', nameEn: 'Strategy', description: 'خانواده الگوریتم‌های قابل تعویض - پایه Dependency Injection', link: '/design-patterns/strategy' },
+  { name: 'یادبود', nameEn: 'Memento', description: 'ذخیره و بازیابی وضعیت - Undo/Redo در برنامه‌ها', link: '/design-patterns/memento' },
 ]
 
 const otherPatterns = [
-  { name: 'مخزن', nameEn: 'Repository', description: 'میانجیگری بین دامنه و لایه‌های نگاشت داده با رابطی شبیه مجموعه.' },
-  { name: 'واحد کار', nameEn: 'Unit of Work', description: 'نگهداری لیستی از اشیاء تحت تأثیر تراکنش تجاری.' },
-  { name: 'کارخانه', nameEn: 'Factory', description: 'الگوی عمومی برای ایجاد اشیاء بدون مشخص کردن کلاس دقیق.' },
-  { name: 'تزریق وابستگی', nameEn: 'Dependency Injection', description: 'تکنیکی که در آن یک شیء وابستگی‌های شیء دیگر را تأمین می‌کند.' },
-  { name: 'مشخصات', nameEn: 'Specification', description: 'ترکیب قوانین تجاری با زنجیره کردن قوانین با منطق بولی.' },
-  { name: 'شیء پوچ', nameEn: 'Null Object', description: 'یک شیء با رفتار تعریف شده خنثی به جای null.' },
+  { name: 'مخزن', nameEn: 'Repository', description: 'انتزاع لایه داده - interface شبیه مجموعه برای دسترسی به اشیاء', link: '/design-patterns/repository' },
+  { name: 'واحد کار', nameEn: 'Unit of Work', description: 'مدیریت تراکنش‌ها - commit اتمی تغییرات چندگانه', link: '/design-patterns/unit-of-work' },
+  { name: 'مشخصات', nameEn: 'Specification', description: 'کپسوله کردن قوانین query - قابل استفاده مجدد و قابل تست', link: '/design-patterns/specification' },
+  { name: 'شیء پوچ', nameEn: 'Null Object', description: 'رفتار خنثی به جای null - حذف null check های تکراری', link: '/design-patterns/null-object' },
+  { name: 'Guard Clause', nameEn: 'Guard Clause', description: 'کاهش پیچیدگی شرطی - بررسی‌های اولیه در توابع', link: '/design-patterns/guard-clause' },
+  { name: 'رویدادهای دامنه', nameEn: 'Domain Events', description: 'ارتباط بین اجزای دامنه - decoupling با رویدادها', link: '/design-patterns/domain-events' },
+  { name: 'موتور قوانین', nameEn: 'Rules Engine', description: 'مدیریت قوانین تجاری - جداسازی منطق از کد اصلی', link: '/design-patterns/rules-engine' },
+  { name: 'Outbox', nameEn: 'Outbox Pattern', description: 'تضمین تحویل پیام - حل مشکل dual-write', link: '/design-patterns/outbox' },
+  { name: 'Strangler Fig', nameEn: 'Strangler Fig', description: 'مهاجرت تدریجی سیستم قدیمی - جایگزینی با Facade', link: '/design-patterns/strangler-fig' },
+  { name: 'REPR', nameEn: 'REPR', description: 'Request-Endpoint-Response - جایگزین ساده‌تر برای MVC', link: '/design-patterns/repr' },
+  { name: 'Object Mother', nameEn: 'Object Mother', description: 'ایجاد fixture های استاندارد - مفید برای تست‌ها', link: '/design-patterns/object-mother' },
 ]
