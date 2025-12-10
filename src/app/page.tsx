@@ -125,6 +125,13 @@ const sections = [
     description: 'واژه‌نامه اصطلاحات توسعه نرم‌افزار',
   },
   {
+    title: 'بوی بد کد',
+    slug: '/code-smells',
+    icon: 'ri-bug-line',
+    gradient: 'linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)',
+    description: 'نشانه‌های مشکلات در کد که نیاز به ریفکتورینگ دارند',
+  },
+  {
     title: 'تست',
     slug: '/testing',
     icon: 'ri-flask-line',

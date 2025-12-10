@@ -126,6 +126,7 @@ const menuSections = [
       { label: 'روش‌ها', href: '/practices', icon: 'ri-settings-4-line' },
       { label: 'ارزش‌ها', href: '/values', icon: 'ri-diamond-line' },
       { label: 'ضدالگوها', href: '/antipatterns', icon: 'ri-alert-line' },
+      { label: 'بوی بد کد', href: '/code-smells', icon: 'ri-bug-line' },
       { label: 'DDD', href: '/domain-driven-design', icon: 'ri-building-2-line' },
       { label: 'ابزارها', href: '/tools', icon: 'ri-tools-line' },
       { label: 'اصطلاحات', href: '/terms', icon: 'ri-book-open-line' },
