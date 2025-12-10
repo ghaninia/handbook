@@ -1,0 +1,104 @@
+export default function TestingPage() {
+  return (
+    <div className="container-custom py-12">
+      <h1 className="text-4xl font-bold mb-6">تست</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+        استراتژی‌ها و روش‌های تست نرم‌افزار برای اطمینان از کیفیت و قابلیت اطمینان.
+      </p>
+
+      <div className="space-y-8">
+        <section className="card">
+          <h2 className="text-2xl font-bold mb-4">انواع تست</h2>
+          <div className="space-y-4">
+            {testTypes.map((test) => (
+              <div key={test.title} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <div className="flex items-center mb-2">
+                  <span className="text-2xl ml-3">{test.icon}</span>
+                  <h3 className="text-lg font-bold">{test.title}</h3>
+                </div>
+                <p className="text-gray-700 dark:text-gray-300 mb-2">
+                  {test.description}
+                </p>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  <strong>زمان: </strong>{test.when}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="card bg-green-50 dark:bg-green-900/20">
+          <h2 className="text-2xl font-bold mb-4">اصول تست</h2>
+          <ul className="space-y-3">
+            {testPrinciples.map((principle) => (
+              <li key={principle} className="flex items-start">
+                <span className="text-green-600 dark:text-green-400 ml-3 mt-1">✓</span>
+                <span className="text-gray-700 dark:text-gray-300">{principle}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section className="card">
+          <h2 className="text-2xl font-bold mb-4">الگوی AAA</h2>
+          <div className="space-y-3">
+            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <h3 className="font-bold mb-2">1. Arrange (آماده‌سازی)</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                تنظیم شرایط اولیه و ایجاد اشیاء مورد نیاز
+              </p>
+            </div>
+            <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+              <h3 className="font-bold mb-2">2. Act (اجرا)</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                فراخوانی متد یا عملکردی که می‌خواهید تست کنید
+              </p>
+            </div>
+            <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+              <h3 className="font-bold mb-2">3. Assert (بررسی)</h3>
+              <p className="text-sm text-gray-700 dark:text-gray-300">
+                تأیید اینکه نتیجه مطابق انتظار است
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  )
+}
+
+const testTypes = [
+  {
+    title: 'تست واحد (Unit Test)',
+    icon: '🔬',
+    description: 'تست کوچک‌ترین واحدهای قابل تست کد مانند توابع یا متدها.',
+    when: 'همیشه و برای هر تابع مهم',
+  },
+  {
+    title: 'تست یکپارچه‌سازی',
+    icon: '🔗',
+    description: 'تست تعامل بین کامپوننت‌های مختلف سیستم.',
+    when: 'هنگام ترکیب چند ماژول',
+  },
+  {
+    title: 'تست End-to-End',
+    icon: '🎯',
+    description: 'تست کل سیستم از ابتدا تا انتها از دیدگاه کاربر.',
+    when: 'قبل از انتشار نسخه جدید',
+  },
+  {
+    title: 'تست عملکرد',
+    icon: '⚡',
+    description: 'تست سرعت، مقیاس‌پذیری و پایداری سیستم.',
+    when: 'برای سیستم‌های با بار بالا',
+  },
+]
+
+const testPrinciples = [
+  'تست‌ها باید سریع باشند تا بتوان آن‌ها را مکرراً اجرا کرد',
+  'تست‌ها باید مستقل باشند و به هم وابسته نباشند',
+  'تست‌ها باید قابل تکرار باشند و همیشه نتیجه یکسانی بدهند',
+  'تست‌ها باید خودکار باشند و نیاز به مداخله دستی نداشته باشند',
+  'هر تست باید یک چیز را بررسی کند',
+  'تست‌ها باید قابل خواندن و قابل فهم باشند',
+]

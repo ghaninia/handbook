@@ -1,0 +1,94 @@
+export default function PracticesPage() {
+  return (
+    <div className="container-custom py-12">
+      <h1 className="text-4xl font-bold mb-6">روش‌های توسعه</h1>
+      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+        بهترین شیوه‌ها و روش‌های اثبات شده برای توسعه نرم‌افزار حرفه‌ای.
+      </p>
+
+      <div className="space-y-8">
+        {practices.map((practice) => (
+          <div key={practice.slug} className="card">
+            <div className="flex items-start">
+              <span className="text-4xl ml-4">{practice.icon}</span>
+              <div className="flex-1">
+                <h3 className="text-2xl font-bold mb-3">{practice.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  {practice.description}
+                </p>
+                <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                  {practice.benefits.map((benefit, index) => (
+                    <li key={index}>{benefit}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+const practices = [
+  {
+    title: 'توسعه مبتنی بر تست (TDD)',
+    slug: 'tdd',
+    icon: '🧪',
+    description: 'ابتدا تست بنویسید، سپس کد را برای عبور از تست پیاده‌سازی کنید.',
+    benefits: [
+      'کد با کیفیت بالاتر',
+      'کاهش باگ‌ها',
+      'طراحی بهتر',
+      'اطمینان از عملکرد صحیح',
+    ],
+  },
+  {
+    title: 'بازبینی کد',
+    slug: 'code-review',
+    icon: '👀',
+    description: 'بررسی سیستماتیک کد توسط اعضای تیم برای یافتن مشکلات و بهبود کیفیت.',
+    benefits: [
+      'کشف باگ‌های زودهنگام',
+      'به اشتراک‌گذاری دانش',
+      'حفظ استانداردهای کدنویسی',
+      'یادگیری تیمی',
+    ],
+  },
+  {
+    title: 'یکپارچه‌سازی مستمر (CI)',
+    slug: 'continuous-integration',
+    icon: '🔄',
+    description: 'ادغام مکرر تغییرات کد در مخزن اصلی و اجرای خودکار تست‌ها.',
+    benefits: [
+      'کشف سریع مشکلات',
+      'کاهش ریسک یکپارچه‌سازی',
+      'بازخورد سریع',
+      'کیفیت بالاتر',
+    ],
+  },
+  {
+    title: 'برنامه‌نویسی جفتی',
+    slug: 'pair-programming',
+    icon: '👥',
+    description: 'دو توسعه‌دهنده روی یک کامپیوتر با هم کار می‌کنند.',
+    benefits: [
+      'کیفیت کد بهتر',
+      'انتقال دانش',
+      'حل سریع‌تر مشکلات',
+      'کاهش اشتباهات',
+    ],
+  },
+  {
+    title: 'ریفکتورینگ',
+    slug: 'refactoring',
+    icon: '♻️',
+    description: 'بهبود ساختار داخلی کد بدون تغییر رفتار خارجی آن.',
+    benefits: [
+      'کد تمیزتر',
+      'قابلیت نگهداری بهتر',
+      'کاهش بدهی فنی',
+      'عملکرد بهتر',
+    ],
+  },
+]
