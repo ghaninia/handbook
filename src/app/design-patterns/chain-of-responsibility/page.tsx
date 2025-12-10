@@ -13,76 +13,76 @@ export default function ChainOfResponsibilityPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Chain of Responsibility Pattern
+        الگوی Chain of Responsibility (زنجیره مسئولیت)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Chain of Responsibility?
+            Chain of Responsibility چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Chain of Responsibility pattern is a behavioral design pattern that allows you to pass requests along a chain of handlers. Upon receiving a request, each handler decides either to process the request or to pass it to the next handler in the chain.
+            الگوی Chain of Responsibility یک الگوی طراحی رفتاری است که به شما اجازه می‌دهد درخواست‌ها را در طول زنجیره‌ای از پردازشکننده‌ها منتقل کنید. هنگام دریافت درخواست، هر پردازشکننده تصمیم می‌گیرد که یا درخواست را پردازش کند یا آن را به پردازشکننده بعدی در زنجیره منتقل کند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Key Components
+            جزء های کلیدی
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Request:</strong> Contains the information to be processed by the chain of handlers</li>
-            <li><strong>Abstract Handler:</strong> Includes two methods - one to set the next handler and one to process requests</li>
-            <li><strong>Concrete Handler:</strong> Specific implementation that handles a specific type of request or passes it on</li>
+            <li><strong>Request:</strong> حاوی اطلاعاتی است که باید توسط زنجیره پردازشکننده‌ها پردازش شود</li>
+            <li><strong>Abstract Handler:</strong> شامل دو متد است - یکی برای تنظیم پردازشکننده بعدی و دیگری برای پردازش درخواست</li>
+            <li><strong>Concrete Handler:</strong> پیاده‌سازی خاصی که نوع خاصی از درخواست را مدیریت می‌کند یا آن را به بعدی منتقل می‌کند</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایا
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Decoupling:</strong> The sender is not aware of the specific handlers that will process it</li>
-            <li><strong>Reusability:</strong> Handlers can be reused in different chains</li>
-            <li><strong>Dynamic handling:</strong> Requests can be handled differently based on runtime context</li>
-            <li><strong>Error handling:</strong> Centralized mechanism for handling errors and exceptions</li>
+            <li><strong>جداسازی:</strong> فرستنده از پردازشکننده‌های خاصی که آن را پردازش می‌کنند آگاه نیست</li>
+            <li><strong>قابلیت استفاده مجدد:</strong> پردازشکننده‌ها می‌توانند در زنجیره‌های مختلف استفاده شوند</li>
+            <li><strong>پردازش پویا:</strong> درخواست‌ها بر اساس زمینه زمان اجرا می‌توانند متفاوت پردازش شوند</li>
+            <li><strong>مدیریت خطا:</strong> مکانیزم متمرکز برای مدیریت خطاها و استثناها</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Applications
+            کاربردها
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Authentication:</strong> Different types of credentials can be accepted</li>
-            <li><strong>Event Handling:</strong> Respond to different types of domain events</li>
-            <li><strong>Workflow:</strong> Execute tasks of an automated business process in sequence</li>
-            <li><strong>Authorization:</strong> Check whether a user has permissions to a process</li>
+            <li><strong>Authentication:</strong> انواع مختلف اعتبارنامه می‌توانند پذیرفته شوند</li>
+            <li><strong>Event Handling:</strong> پاسخ به انواع مختلف رویدادهای domain</li>
+            <li><strong>Workflow:</strong> اجرای وظایف فرآیند خودکار کسب‌وکار به ترتیب</li>
+            <li><strong>Authorization:</strong> بررسی اینکه کاربر مجوز انجام فرآیندی را دارد یا نه</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Chain of Responsibility in .NET
+            Chain of Responsibility در .NET
           </h2>
           
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
             ASP.NET Core Middleware
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The ASP.NET Core middleware layer is made up of many handlers to process requests. The handlers are configured in <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Program.cs</code>. The order they are added is the order that a request is handled - this is how the chain is built.
+            لایه middleware ASP.NET Core از پردازشکننده‌های زیادی برای پردازش درخواست‌ها تشکیل شده است. این پردازشکننده‌ها در <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Program.cs</code> پیکربندی می‌شوند. ترتیب اضافه‌شان همان ترتیبی است که درخواست پردازش می‌شود - به این شکل زنجیره ساخته می‌شود.
           </p>
           
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
             MediatR Pipeline Behaviors
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            MediatR implements the Chain of Responsibility pattern through its use of pipelines. Pipelines are behaviors executed before and after a request is handled. Each behavior can intercept the request, modify it, or prevent it from reaching the handler.
+            MediatR الگوی Chain of Responsibility را از طریق استفاده از pipeline ها پیاده‌سازی می‌کند. Pipeline ها رفتارهایی هستند که قبل و بعد از پردازش درخواست اجرا می‌شوند. هر رفتار می‌تواند درخواست را رهگیری، تغییر یا مانع رسیدن آن به پردازشکننده شود.
           </p>
           
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">

@@ -13,24 +13,24 @@ export default function GuardClausePage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Guard Clause
+        Guard Clause (بند نگهبان)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is a Guard Clause?
+            Guard Clause چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Complexity in code makes it harder to understand what the code is doing. The smallest unit of our code tends to be the function or method. You should be able to look at a given function and quickly determine what it's doing. This is easier if the function is small, well-named, and focused.
+            پیچیدگی در کد درک آنچه که کد انجام می‌دهد را دشوار می‌کند. کوچک‌ترین واحد کد ما معمولاً تابع یا متد است. شما باید بتوانید با نگاه به یک تابع مشخص به سرعت تشخیص دهید که چه کاری انجام می‌دهد. این کار اگر تابع کوچک، خوب نامگذاری شده و متمرکز باشد آسان‌تر است.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            One factor that's constantly working against simplicity is conditional complexity, most often in the form of <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">if</code> and <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">switch</code> statements. A <strong>guard clause</strong> is simply a check that immediately exits the function, either with a return statement or an exception.
+            یکی از عواملی که به طور مداوم علیه سادگی کار می‌کند پیچیدگی شرطی است، که اغلب به شکل دستورات <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">if</code> و <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">switch</code> ظاهر می‌شود. <strong>guard clause</strong> به سادگی بررسی‌ای است که فوراً از تابع خروج می‌کند، یا با دستور return یا با exception.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function GuardClausePage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-2">
-              <strong>Problem:</strong> Deeply nested code is hard to read and maintain.
+              <strong>مشکل:</strong> کد عمیقاً تودرتو خواندن و نگهداری آن دشوار است.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">

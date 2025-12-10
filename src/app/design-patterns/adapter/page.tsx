@@ -27,7 +27,7 @@ export default function AdapterPage() {
             Intent
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed italic mb-4">
-            "Convert the interface of a class into another interface clients expect. Adapter lets classes work together that couldn't otherwise because of incompatible interfaces." [GoF]
+            "رابط یک کلاس را به رابط دیگری تبدیل کن که کلاینت‌ها انتظار دارند. Adapter به کلاس‌هایی اجازه می‌دهد با هم کار کنند که در غیر این صورت به دلیل ناسازگاری رابطها نمی‌توانند." [GoF]
           </p>
         </section>
 
@@ -36,10 +36,10 @@ export default function AdapterPage() {
             What is Adapter?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Adapter Design Pattern, also known as the Wrapper, allows two classes to work together that otherwise would have incompatible interfaces. This maps well to the real-world example of an electrical power adapter.
+            الگوی Adapter Design Pattern که به Wrapper نیز معروف است، به دو کلاس اجازه می‌دهد با هم کار کنند که در غیر این صورت رابط‌های ناسازگاری داشته باشند. این به خوبی با مثال دنیای واقعی یک adapter برقی مطابقت دارد.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            The Adapter pattern relies on a common abstraction which defines the interface client code will consume. Different implementations of this interface are then created to support different otherwise incompatible ways of achieving the goal of the abstraction.
+            الگوی Adapter بر یک abstraction مشترک متکی است که رابطی را تعریف می‌کند که کد کلاینت استفاده خواهد کرد. سپس پیاده‌سازی‌های مختلف این رابط برای پشتیبانی از روش‌های مختلف و در غیر این صورت ناسازگار برای دستیابی به هدف abstraction ایجاد می‌شوند.
           </p>
         </section>
 
@@ -48,7 +48,7 @@ export default function AdapterPage() {
             C# Example: Notification System
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            For example, an application may wish to send notifications. However, there are several approaches with different interfaces:
+            به عنوان مثال، یک اپلیکیشن ممکن است بخواهد اعلان‌هایی ارسال کند. با این حال، چندین رویکرد با رابط‌های متفاوت وجود دارد:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`// Different external interfaces
@@ -111,11 +111,11 @@ public class SmsNotificationAdapter : INotificationAdapter
           </h2>
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-r-4 border-yellow-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              <strong>Important:</strong> The <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">INotificationAdapter</code> abstraction does not expose any details about how the notification might be sent. An Adapter should ideally be written using the abstractions of the application and should avoid exposing implementation details implicitly or explicitly.
+              <strong>مهم:</strong> abstraction معرفی <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">INotificationAdapter</code> هیچ جزئیاتی درباره نحوه ارسال اعلان فاش نمی‌کند. یک Adapter به طور ایده‌آل باید با استفاده از abstractionهای اپلیکیشن نوشته شود و از فاش کردن جزئیات پیاده‌سازی به صورت ضمنی یا صریح پرهیز کند.
             </p>
           </div>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Recall that the <strong>Dependency Inversion Principle</strong> requires that abstractions should not depend on details.
+            به یاد داشته باشید که <strong>Dependency Inversion Principle</strong> ایجاب می‌کند که abstractionها نباید به جزئیات وابسته باشند.
           </p>
         </section>
 
@@ -124,10 +124,10 @@ public class SmsNotificationAdapter : INotificationAdapter
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>Enables the <strong>Open-Closed Principle</strong> - new functionality can be added without modifying existing code</li>
-            <li>Works well with <strong>Dependency Injection</strong></li>
-            <li>Frequently used in <strong>Domain-Driven Design</strong> as part of Anti-Corruption Layers</li>
-            <li>Decouples your code from third-party libraries</li>
+            <li>امکان <strong>Open-Closed Principle</strong> را فراهم می‌کند - عملکرد جدید بدون تغییر کد موجود اضافه می‌شود</li>
+            <li>به خوبی با <strong>Dependency Injection</strong> کار می‌کند</li>
+            <li>به عنوان بخشی از Anti-Corruption Layerها در <strong>Domain-Driven Design</strong> به کرات استفاده می‌شود</li>
+            <li>کد شما را از کتابخانه‌های شخص ثالث جدا می‌کند</li>
           </ul>
         </section>
 
@@ -136,8 +136,8 @@ public class SmsNotificationAdapter : INotificationAdapter
             Related Patterns
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/facade" className="text-blue-600 dark:text-blue-400 hover:underline">Facade Pattern</Link> - provides a simplified interface to a complex subsystem</li>
-            <li><Link href="/design-patterns/proxy" className="text-blue-600 dark:text-blue-400 hover:underline">Proxy Pattern</Link> - provides a surrogate for another object</li>
+            <li><Link href="/design-patterns/facade" className="text-blue-600 dark:text-blue-400 hover:underline">Facade Pattern</Link> - رابط ساده‌ای برای یک زیرسیستم پیچیده فراهم می‌کند</li>
+            <li><Link href="/design-patterns/proxy" className="text-blue-600 dark:text-blue-400 hover:underline">Proxy Pattern</Link> - جانشینی برای شی دیگر فراهم می‌کند</li>
           </ul>
         </section>
 

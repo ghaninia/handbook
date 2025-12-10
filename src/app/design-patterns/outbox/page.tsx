@@ -27,7 +27,7 @@ export default function OutboxPage() {
             What is the Outbox Pattern?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Outbox Pattern ensures reliable messaging in distributed systems by storing outgoing messages in the same database transaction as the business operation. This solves the "dual-write problem" where you need to update a database and send a message, but can't do both atomically.
+            الگوی Outbox پیام‌رسانی قابل اعتماد را در سیستم‌های توزیع‌شده با ذخیره میز‌کردن پیام‌های خروجی در همان transaction دیتابیس به عنوان عملیات تجاری تضمین می‌کند. این "مسئله dual-write" را حل می‌کند که در آن نیاز دارید دیتابیس را به‌روزرسانی و پیام بفرستید، اما نمی‌توانید هر دو را به شکل atomic انجام دهید.
           </p>
         </section>
 
@@ -37,7 +37,7 @@ export default function OutboxPage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              <strong>Problem:</strong> What happens if the database save succeeds but sending the message fails? Or vice versa?
+              <strong>مسئله:</strong> اگر ذخیره دیتابیس موفق باشد اما ارسال پیام ناموفق باشد چه اتفاقی می‌افتد؟ یا برعکس؟
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -176,10 +176,10 @@ public async Task PlaceOrder(Order order)
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Guaranteed Delivery:</strong> Messages will eventually be sent</li>
-            <li><strong>Atomicity:</strong> Database and message operations are atomic</li>
-            <li><strong>Retry Support:</strong> Failed messages can be retried</li>
-            <li><strong>Auditability:</strong> Message history is stored</li>
+            <li><strong>تحویل تضمینی:</strong> پیام‌ها نهایتاً ارسال خواهند شد</li>
+            <li><strong>Atomicity:</strong> عملیات دیتابیس و پیام atomic هستند</li>
+            <li><strong>پشتیبانی مجدد:</strong> پیام‌های ناموفق می‌توانند مجدداً تلاش شوند</li>
+            <li><strong>قابلیت حسابرسی:</strong> تاریخچه پیام‌ها ذخیره می‌شود</li>
           </ul>
         </section>
 
@@ -188,10 +188,10 @@ public async Task PlaceOrder(Order order)
             Libraries & Tools
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>MassTransit:</strong> Built-in Outbox support with EF Core</li>
-            <li><strong>NServiceBus:</strong> Outbox feature for message deduplication</li>
-            <li><strong>CAP:</strong> Distributed transaction solution with Outbox</li>
-            <li><strong>Wolverine:</strong> Message handling with durable Outbox</li>
+            <li><strong>MassTransit:</strong> پشتیبانی داخلی Outbox با EF Core</li>
+            <li><strong>NServiceBus:</strong> قابلیت Outbox برای حذف تکرار پیام</li>
+            <li><strong>CAP:</strong> راه‌حل distributed transaction با Outbox</li>
+            <li><strong>Wolverine:</strong> هندلینگ پیام با Outbox بادوام</li>
           </ul>
         </section>
 

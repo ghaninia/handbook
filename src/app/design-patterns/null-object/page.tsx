@@ -27,10 +27,10 @@ export default function NullObjectPage() {
             What is Null Object?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Null Object pattern provides an object as a surrogate for the lack of an object of a given type. It provides intelligent do-nothing behavior, hiding the details from its collaborators.
+            الگوی Null Object یک شی به عنوان جانشین برای نبود شی از نوع مشخصی فراهم می‌کند. رفتار هوشمند هیچ‌کاری فراهم می‌کند و جزئیات را از همکارانش پنهان می‌کند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Instead of using <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">null</code> references to represent the absence of an object, you use a special null object that implements the expected interface but does nothing or provides default values.
+            به جای استفاده از مراجع <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">null</code> برای نشان دادن نبود شی، از یک null object مخصوص استفاده می‌کنید که رابط مورد انتظار را پیاده‌سازی می‌کند اما هیچ کاری نمی‌کند یا مقادیر پیش‌فرض فراهم می‌کند.
           </p>
         </section>
 
@@ -216,10 +216,10 @@ public class PaymentProcessor
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Eliminates null checks:</strong> Client code is cleaner and simpler</li>
-            <li><strong>Prevents NullReferenceException:</strong> Methods can always be called safely</li>
-            <li><strong>Polymorphism:</strong> Null objects work seamlessly with other implementations</li>
-            <li><strong>Optional behavior:</strong> Easy to disable features without conditionals</li>
+            <li><strong>حذف بررسی‌های null:</strong> کد سمت client ساده‌تر و تمیزتر است</li>
+            <li><strong>جلوگیری از NullReferenceException:</strong> متدها همیشه به صورت ایمن قابل فراخوانی هستند</li>
+            <li><strong>Polymorphism:</strong> Null objects به طور یکپارچه با سایر پیاده‌سازی‌ها کار می‌کنند</li>
+            <li><strong>رفتار اختیاری:</strong> غیرفعال کردن قابلیت‌ها بدون نیاز به conditionals آسان است</li>
           </ul>
         </section>
 

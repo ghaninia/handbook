@@ -13,59 +13,59 @@ export default function CQRSPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        CQRS - Command Query Responsibility Segregation
+        CQRS - جداسازی مسئولیت Command و Query
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is CQRS?
+            CQRS چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            CQRS is a design pattern used in software architecture to address the complexity and performance issues that can arise in systems handling both read (query) and write (command) operations. CQRS suggests <strong>segregating the data models and operations</strong> for reads and writes into separate components, optimizing each for its specific use case.
+            CQRS یک الگوی طراحی است که در معماری نرم‌افزار برای رسیدگی به پیچیدگی و مسایل عملکردی که می‌تواند در سیستم‌های مدیریتکننده هم عملیات خواندن (query) و هم عملیات نوشتن (command) پیش آید استفاده می‌شود. CQRS پیشنهاد <strong>جداسازی مدل‌های داده و عملیات</strong> برای خواندن و نوشتن را به جزء های جداگانه می‌دهد و هر کدام را برای مورد استفاده خاص خود بهینه می‌کند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            In a traditional architecture, the same data model is used for both reading and writing data. However, as an application grows, the read and write patterns might have different requirements and performance characteristics.
+            در معماری سنتی، همان مدل داده برای هم خواندن و هم نوشتن داده استفاده می‌شود. اما هنگامی که برنامه رشد می‌کند، الگوهای خواندن و نوشتن ممکن است نیازمندی‌ها و ویژگی‌های عملکردی متفاوتی داشته باشند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            How CQRS Works
+            نحوه کار CQRS
           </h2>
           
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            Separation of Models
+            جداسازی مدل‌ها
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Instead of using a single data model for both reading and writing, CQRS recommends having separate models:
+            به جای استفاده از یک مدل داده واحد برای هم خواندن و هم نوشتن، CQRS توصیه به داشتن مدل‌های جداگانه می‌کند:
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li><strong>Command Model:</strong> Optimized for handling write operations, ensuring data consistency and integrity</li>
-            <li><strong>Query Model:</strong> Designed for efficient data retrieval and optimized for read operations</li>
+            <li><strong>Command Model:</strong> برای مدیریت عملیات نوشتن بهینه‌سازی شده و سازگاری و یکپارچگی داده‌ها را تضمین می‌کند</li>
+            <li><strong>Query Model:</strong> برای بازیابی کارآمد داده‌ها طراحی و برای عملیات خواندن بهینه‌سازی شده است</li>
           </ul>
 
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            Command and Query Paths
+            مسیرهای Command و Query
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The application's code is divided into two distinct paths:
+            کد برنامه به دو مسیر مجزا تقسیم می‌شود:
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li><strong>Command Path:</strong> Handles write operations (create, update, delete)</li>
-            <li><strong>Query Path:</strong> Handles read operations optimized for displaying data</li>
+            <li><strong>Command Path:</strong> عملیات نوشتن را مدیریت می‌کند (ایجاد، به‌روزرسانی، حذف)</li>
+            <li><strong>Query Path:</strong> عملیات خواندن بهینه‌سازی شده برای نمایش داده‌ها را مدیریت می‌کند</li>
           </ul>
 
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            Optimized Data Stores
+            ذخیره‌سازی بهینه‌سازی شده داده‌ها
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Query Model often uses specialized data stores optimized for querying, such as read-only databases, caching mechanisms, or search indexes. Because write operations are asynchronous and use separate models, it's not unusual for data in the query store to lag behind for recent updates.
+            Query Model اغلب از ذخیره‌های داده تخصصی بهینه‌سازی شده برای query استفاده می‌کند، مانند پایگاه‌داده‌های فقط خواندنی، مکانیزم‌های caching یا ایندکس‌های جستجو. چون عملیات نوشتن ناهم‌زمان هستند و از مدل‌های جداگانه استفاده می‌کنند، طبیعی است که داده‌های ذخیرم query برای به‌روزرسانی‌های اخیر تأخیر داشته باشند.
           </p>
         </section>
 

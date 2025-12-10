@@ -13,41 +13,41 @@ export default function BuilderPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Builder Design Pattern
+        الگوی Builder (سازنده)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Builder?
+            Builder چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Builder design pattern is a creational pattern, similar to the Factory pattern. Unlike the Factory pattern, which typically only offers one method for creating an object, the Builder pattern offers <strong>multiple methods</strong> that can be used to gradually define the characteristics of the type to be created.
+            الگوی Builder یک الگوی creational است، مشابه الگوی Factory. برخلاف الگوی Factory که معمولاً فقط یک متد برای ایجاد شیء ارائه می‌دهد، الگوی Builder <strong>چندین متد</strong> ارائه می‌دهد که می‌توان از آن‌ها برای تعریف تدریجی ویژگی‌های نوع مورد نظر استفاده کرد.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This provides a more flexible interface than a single method with a large number of parameters or a complex parameter object.
+            این الگو رابط انعطاف‌پذیرتری نسبت به یک متد واحد با تعداد زیادی پارامتر یا یک شیء پارامتر پیچیده فراهم می‌کند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Characteristics of a Typical Builder
+            ویژگی‌های یک Builder معمولی
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>Named <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">SomeTypeBuilder</code> to communicate the use of the pattern</li>
-            <li>Initializes a simple (or default) private instance of SomeType upon construction</li>
-            <li>Exposes methods that set properties on the private SomeType instance
+            <li>نام‌گذاری به صورت <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">SomeTypeBuilder</code> برای نشان دادن استفاده از این الگو</li>
+            <li>مقداردهی اولیه یک نمونه خصوصی ساده (یا پیش‌فرض) از SomeType هنگام ایجاد</li>
+            <li>ارائه متدهایی که ویژگی‌های نمونه خصوصی SomeType را تنظیم می‌کنند
               <ul className="list-disc list-inside mr-6 mt-2">
-                <li>Each method returns <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">this</code>, the Builder instance (fluent interface)</li>
+                <li>هر متد <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">this</code>، یعنی نمونه Builder را برمی‌گرداند (رابط روان)</li>
               </ul>
             </li>
-            <li>Exposes a <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Build()</code> or <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Create()</code> method that returns the private instance</li>
-            <li>Optionally, expose (static) methods for getting known common configurations</li>
+            <li>ارائه متد <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Build()</code> یا <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">Create()</code> که نمونه خصوصی را برمی‌گرداند</li>
+            <li>اختیاری: ارائه متدهای (static) برای دریافت پیکربندی‌های مشترک شناخته شده</li>
           </ul>
         </section>
 
@@ -124,11 +124,11 @@ var defaultAddress = AddressBuilder.Default()
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Builder Pattern for Testing
+            الگوی Builder برای تست
           </h2>
           <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              The Builder pattern is especially useful in <strong>unit tests</strong> for creating test fixtures. It makes tests more readable and reduces duplication when creating complex objects with many properties.
+              الگوی Builder به‌ویژه در <strong>تست‌های واحد</strong> برای ایجاد test fixture ها مفید است. این الگو تست‌ها را خواناتر می‌کند و تکرار را هنگام ایجاد اشیاء پیچیده با خصوصیات زیاد کاهش می‌دهد.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -192,7 +192,7 @@ public void VipCustomers_GetDiscount()
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            See Also
+            مطالب مرتبط
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
             <li><Link href="/design-patterns/factory-method" className="text-blue-600 dark:text-blue-400 hover:underline">Factory Method Pattern</Link></li>
@@ -203,7 +203,7 @@ public void VipCustomers_GetDiscount()
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>

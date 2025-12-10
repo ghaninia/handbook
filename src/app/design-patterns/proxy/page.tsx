@@ -27,10 +27,10 @@ export default function ProxyPage() {
             What is Proxy?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Proxy pattern provides a surrogate or placeholder for another object to control access to it. A proxy controls access to the original object, allowing you to perform something either before or after the request gets through to the original object.
+            الگوی Proxy یک جانشین یا placeholder برای شی دیگر فراهم می‌کند تا دسترسی به آن را کنترل کند. Proxy دسترسی به شی اصلی را کنترل می‌کند و به شما اجازه می‌دهد قبل یا بعد از رسیدن درخواست به شی اصلی کاری انجام دهید.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            The proxy implements the same interface as the real subject, so it can be used anywhere the real subject is expected.
+            Proxy همان رابط را پیاده‌سازی می‌کند که real subject دارد، بنابراین می‌توان در هر جایی که real subject مورد انتظار است از آن استفاده کرد.
           </p>
         </section>
 
@@ -39,11 +39,11 @@ export default function ProxyPage() {
             Types of Proxies
           </h2>
           <ul className="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Virtual Proxy:</strong> Controls access to expensive-to-create objects (lazy initialization)</li>
-            <li><strong>Remote Proxy:</strong> Represents an object in a different address space</li>
-            <li><strong>Protection Proxy:</strong> Controls access based on permissions</li>
-            <li><strong>Caching Proxy:</strong> Caches results of expensive operations</li>
-            <li><strong>Smart Reference:</strong> Performs additional actions when object is accessed</li>
+            <li><strong>Virtual Proxy:</strong> دسترسی به اشیاء گران‌ایجاد را کنترل می‌کند (lazy initialization)</li>
+            <li><strong>Remote Proxy:</strong> شی در فضای آدرس متفاوت را نمایندگی می‌کند</li>
+            <li><strong>Protection Proxy:</strong> دسترسی را بر اساس مجوزها کنترل می‌کند</li>
+            <li><strong>Caching Proxy:</strong> نتایج عملیات هزینه‌بر را cache می‌کند</li>
+            <li><strong>Smart Reference:</strong> هنگام دسترسی به شی عملیات اضافی انجام می‌دهد</li>
           </ul>
         </section>
 
@@ -225,8 +225,8 @@ public class DocumentProxy : IDocument
           </h2>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 text-sm">
-              <li><strong>Proxy:</strong> Controls access to an object. Usually manages the object's lifecycle.</li>
-              <li><strong>Decorator:</strong> Adds new functionality. Usually receives the object it wraps.</li>
+              <li><strong>Proxy:</strong> دسترسی به شی را کنترل می‌کند. معمولاً lifecycle شی را مدیریت می‌کند.</li>
+              <li><strong>Decorator:</strong> قابلیت جدید اضافه می‌کند. معمولاً شیئی که wrap می‌کند را دریافت می‌کند.</li>
             </ul>
           </div>
         </section>
@@ -236,10 +236,10 @@ public class DocumentProxy : IDocument
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Lazy Initialization:</strong> Delay expensive object creation</li>
-            <li><strong>Access Control:</strong> Add security checks without changing the real object</li>
-            <li><strong>Caching:</strong> Improve performance by caching results</li>
-            <li><strong>Logging:</strong> Track access to the real object</li>
+            <li><strong>Lazy Initialization:</strong> ایجاد اشیاء گران را به تعویق می‌اندازد</li>
+            <li><strong>Access Control:</strong> بدون تغییر شی واقعی بررسی‌های امنیتی اضافه می‌کند</li>
+            <li><strong>Caching:</strong> با cache کردن نتایج عملکرد را بهبود می‌دهد</li>
+            <li><strong>Logging:</strong> دسترسی به شی واقعی را ردیابی می‌کند</li>
           </ul>
         </section>
 

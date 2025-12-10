@@ -27,10 +27,10 @@ export default function ObjectMotherPage() {
             What is Object Mother?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Object Mother pattern is a factory pattern used primarily in testing. It provides pre-made test objects that are ready to use, making tests cleaner and reducing duplication of object creation code across tests.
+            الگوی Object Mother یک factory pattern است که عمدتاً در تست‌نویسی استفاده می‌شود. اشیاء تست آماده برای استفاده فراهم می‌کند که باعث تمیزتر شدن تست‌ها و کاهش تکرار کد ایجاد اشیاء در تست‌ها می‌شود.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            An Object Mother is a class that provides static factory methods to create objects in a valid state for testing. It centralizes test object creation, making tests more maintainable and readable.
+            Object Mother کلاسی است که متدهای static factory برای ایجاد اشیاء در حالت معتبر برای تست فراهم می‌کند. ایجاد اشیاء تست را متمرکز می‌کند و تست‌ها را قابل نگهداری‌تر و خواناتر می‌سازد.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function ObjectMotherPage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Tests often require complex objects with many properties. Without Object Mother, test setup code becomes repetitive and hard to maintain.
+              تست‌ها اغلب به اشیاء پیچیده با خصوصیات متعدد نیاز دارند. بدون Object Mother، کد راه‌اندازی تست تکراری و سخت برای نگهداری می‌شود.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -148,7 +148,7 @@ public static class AddressMother
           </h2>
           <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Tests become more readable and focused on the behavior being tested.
+              تست‌ها خواناتر و متمرکز بر رفتار تحت تست می‌شوند.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -241,10 +241,10 @@ var customer = CustomerMother.Build()
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>DRY:</strong> Object creation code is centralized</li>
-            <li><strong>Readability:</strong> Test intent is clearer</li>
-            <li><strong>Maintainability:</strong> Changes to object structure only need to be made in one place</li>
-            <li><strong>Consistency:</strong> All tests use the same valid object states</li>
+            <li><strong>DRY:</strong> کد ایجاد object متمرکز شده است</li>
+            <li><strong>Readability:</strong> هدف تست واضح‌تر است</li>
+            <li><strong>Maintainability:</strong> تغییرات ساختار object فقط در یک جا نیاز به اعمال دارد</li>
+            <li><strong>Consistency:</strong> همه تست‌ها از حالت‌های object معتبر یکسان استفاده می‌کنند</li>
           </ul>
         </section>
 

@@ -27,10 +27,10 @@ export default function MementoPage() {
             What is Memento?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Memento pattern captures and externalizes an object's internal state without violating encapsulation, allowing the object to be restored to this state later. Think of it as a snapshot that can be used to roll back to a previous state.
+            الگوی Memento وضعیت داخلی یک شی را بدون نقض encapsulation ضبط و بیرونی می‌کند و به شی اجازه می‌دهد بعداً به این وضعیت بازگردانده شود. به عنوان یک عکس فوری به آن فکر کنید که می‌توان برای برگشت به وضعیت قبلی استفاده شود.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Common use cases include undo/redo functionality, transaction rollback, and game saves.
+            کاربردهای رایج شامل عملکرد undo/redo، برگشت transaction و ذخیره بازی‌ها می‌شود.
           </p>
         </section>
 
@@ -39,9 +39,9 @@ export default function MementoPage() {
             Key Components
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Originator:</strong> The object whose state we want to save and restore</li>
-            <li><strong>Memento:</strong> A snapshot of the Originator's state</li>
-            <li><strong>Caretaker:</strong> Manages the mementos (stores and retrieves them)</li>
+            <li><strong>Originator:</strong> شیئی که می‌خواهیم وضعیتش را ذخیره و بازیابی کنیم</li>
+            <li><strong>Memento:</strong> عکس فوری از وضعیت Originator</li>
+            <li><strong>Caretaker:</strong> مدیر mementoها (ذخیره و بازیابی آنها)</li>
           </ul>
         </section>
 
@@ -195,9 +195,9 @@ public class SaveManager
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Encapsulation:</strong> Internal state is not exposed to external objects</li>
-            <li><strong>Simplicity:</strong> Originator's code is simplified as state management is delegated</li>
-            <li><strong>Flexibility:</strong> Easy to add undo/redo or checkpointing functionality</li>
+            <li><strong>Encapsulation:</strong> وضعیت داخلی به اشیاء بیرونی فاش نمی‌شود</li>
+            <li><strong>سادگی:</strong> کد Originator به دلیل واگذاری مدیریت وضعیت ساده می‌شود</li>
+            <li><strong>انعطاف‌پذیری:</strong> اضافه کردن عملکرد undo/redo یا checkpointing آسان است</li>
           </ul>
         </section>
 
@@ -206,8 +206,8 @@ public class SaveManager
             Drawbacks
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Memory Usage:</strong> Storing many mementos can consume significant memory</li>
-            <li><strong>Performance:</strong> Creating deep copies of large objects can be slow</li>
+            <li><strong>مصرف حافظه:</strong> ذخیره mementoهای زیاد می‌تواند حافظه قابل توجهی مصرف کند</li>
+            <li><strong>عملکرد:</strong> ایجاد کپی عمیق از اشیاء بزرگ می‌تواند کند باشح</li>
           </ul>
         </section>
 

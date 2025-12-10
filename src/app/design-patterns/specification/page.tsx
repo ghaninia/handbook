@@ -27,10 +27,10 @@ export default function SpecificationPage() {
             What is Specification?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Specification pattern encapsulates query logic into reusable, composable objects. A specification is a predicate that determines if an object satisfies certain criteria. This pattern is particularly useful for building complex queries while keeping the repository clean.
+            الگوی Specification منطق query را در اشیاء قابل استفاده مجدد و ترکیب‌پذیر کپسوله می‌کند. Specification یک predicate است که تعیین می‌کند آیا شی معیارهای مشخصی را برآورده می‌کند یا خیر. این الگو به ویژه برای ساخت queryهای پیچیده مفید است در حالی که repository را تمیز نگه می‌دارد.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Specifications can be combined using logical operators (AND, OR, NOT) to create complex criteria without polluting your repository with numerous query methods.
+            Specificationها می‌توانند با استفاده از عملگرهای منطقی (AND, OR, NOT) ترکیب شوند تا بدون آلوده کردن repository با متدهای query متعدد معیارهای پیچیده ایجاد کنند.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function SpecificationPage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Repositories often end up with many specific query methods, leading to bloated interfaces.
+              Repositoryها اغلب به متدهای query مخصوص زیاد منجر می‌شوند و باعث باد کردن رابط‌ها می‌شوند.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -237,7 +237,7 @@ var nonElectronics = repository.Find(spec3);`}</pre>
           </h2>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              The <strong>Ardalis.Specification</strong> NuGet package provides a robust implementation with EF Core integration.
+              پکیج NuGet <strong>Ardalis.Specification</strong> پیاده‌سازی محکم با یکپارچه‌سازی EF Core فراهم می‌کند.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -263,11 +263,11 @@ public class ActiveProductsByCategory : Specification<Product>
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Reusability:</strong> Specifications can be reused across queries</li>
-            <li><strong>Composability:</strong> Complex queries from simple building blocks</li>
-            <li><strong>Clean Repository:</strong> Single query method instead of many</li>
-            <li><strong>Testability:</strong> Specifications can be unit tested</li>
-            <li><strong>DRY:</strong> Query logic defined once</li>
+            <li><strong>Reusability:</strong> Specificationها قابل استفاده مجدد در queryها هستند</li>
+            <li><strong>Composability:</strong> Queryهای پیچیده از بلوک‌های ساختمانی ساده</li>
+            <li><strong>Repository تمیز:</strong> یک متد query به جای متعدد</li>
+            <li><strong>Testability:</strong> Specificationها قابل unit test هستند</li>
+            <li><strong>DRY:</strong> منطق query یک بار تعریف می‌شود</li>
           </ul>
         </section>
 

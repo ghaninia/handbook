@@ -27,10 +27,10 @@ export default function RulesEnginePage() {
             What is a Rules Engine?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            A Rules Engine is a pattern that separates business rules from the application logic. Instead of hardcoding business logic with conditionals throughout your code, rules are defined as separate, reusable components that can be evaluated at runtime.
+            Rules Engine الگویی است که قواعد تجاری را از منطق برنامه جدا می‌کند. به جای hard-code کردن منطق تجاری با conditionalها در سراسر کد، قواعد به عنوان کامپوننت‌های جداگانه و قابل استفاده مجدد تعریف می‌شوند که می‌توانند در runtime ارزیابی شوند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This pattern is particularly useful when business rules are complex, change frequently, or need to be configured by non-developers.
+            این الگو به ویژه وقتی قواعد تجاری پیچیده، مکرراً تغییر می‌کنند یا نیاز به تنظیم توسط افراد غیربرنامه‌نویس دارند مفید است.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function RulesEnginePage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Complex business logic often leads to spaghetti code with many nested conditionals that are hard to test and maintain.
+              منطق تجاری پیچیده اغلب به کد spaghetti با conditionalهای تودرتو زیاد منجر می‌شود که تست و نگهداری‌شان سخت است.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -201,11 +201,11 @@ services.AddTransient<DiscountRulesEngine>();`}</pre>
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Single Responsibility:</strong> Each rule is a separate, focused class</li>
-            <li><strong>Testability:</strong> Rules can be tested in isolation</li>
-            <li><strong>Extensibility:</strong> New rules can be added without modifying existing code</li>
-            <li><strong>Configurability:</strong> Rules can be enabled/disabled at runtime</li>
-            <li><strong>Readability:</strong> Business logic is explicit and well-named</li>
+            <li><strong>Single Responsibility:</strong> هر قاعده یک کلاس جداگانه و متمرکز است</li>
+            <li><strong>Testability:</strong> قوانین می‌توانند به صورت جداگانه تست شوند</li>
+            <li><strong>Extensibility:</strong> قوانین جدید بدون تغییر کد موجود قابل اضافه‌اند</li>
+            <li><strong>Configurability:</strong> قوانین در runtime قابل فعال/غیرفعال کردن هستند</li>
+            <li><strong>Readability:</strong> منطق تجاری صریح و با نام‌گذاری مناسب است</li>
           </ul>
         </section>
 

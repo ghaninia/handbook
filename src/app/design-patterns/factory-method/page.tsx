@@ -13,24 +13,24 @@ export default function FactoryMethodPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Factory Method Pattern
+        الگوی Factory Method (متد کارخانه)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Factory Method?
+            Factory Method چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Factory Method pattern defines an interface for creating an object, but lets subclasses decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.
+            الگوی Factory Method رابطی برای ایجاد شیء تعریف می‌کند، اما به زیرکلاس‌ها اجازه می‌دهد تصمیم بگیرند که کدام کلاس را instantiate کنند. Factory Method به یک کلاس اجازه می‌دهد که instantiation را به زیرکلاس‌ها واگذار کند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This pattern is useful when you need to create objects without specifying the exact class of object that will be created. It promotes loose coupling by eliminating the need to bind application-specific classes into your code.
+            این الگو زمانی مفید است که نیاز به ایجاد اشیاء بدون مشخص کردن کلاس دقیق شیء ایجادشده دارید. با حذف نیاز به بایند کردن کلاس‌های مخصوص برنامه به کد شما، کوپلینگ شل را ترویج می‌کند.
           </p>
         </section>
 
@@ -39,10 +39,10 @@ export default function FactoryMethodPage() {
             When to Use Factory Method
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>A class can't anticipate the class of objects it must create</li>
-            <li>A class wants its subclasses to specify the objects it creates</li>
-            <li>You want to localize the knowledge of which class gets created</li>
-            <li>You want to provide a library of objects without exposing implementation</li>
+            <li>یک کلاس نمی‌تواند کلاس اشیائی را که باید ایجاد کند پیش‌بینی کند</li>
+            <li>یک کلاس می‌خواهد زیرکلاس‌هایش اشیائی را که ایجاد می‌کند مشخص کنند</li>
+            <li>می‌خواهید دانش اینکه کدام کلاس ایجاد می‌شود را محلی کنید</li>
+            <li>می‌خواهید کتابخانه‌ای از اشیاء بدون فاش کردن پیاده‌سازی فراهم کنید</li>
           </ul>
         </section>
 
@@ -172,10 +172,10 @@ var shipping = Money.Euros(15.00m);`}</pre>
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Single Responsibility:</strong> Creation code is separated from business logic</li>
-            <li><strong>Open/Closed Principle:</strong> New types can be added without changing existing code</li>
-            <li><strong>Loose Coupling:</strong> Client code doesn't depend on concrete classes</li>
-            <li><strong>Testability:</strong> Easy to mock and test</li>
+            <li><strong>مسئولیت واحد:</strong> کد ایجاد از منطق کسب‌وکار جدا شده است</li>
+            <li><strong>اصل Open/Closed:</strong> انواع جدید بدون تغییر کد موجود اضافه می‌شوند</li>
+            <li><strong>کوپلینگ شل:</strong> کد کلاینت به کلاس‌های مشخص وابسته نیست</li>
+            <li><strong>تست‌پذیری:</strong> آسان برای mock کردن و تست</li>
           </ul>
         </section>
 

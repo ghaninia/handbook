@@ -13,24 +13,24 @@ export default function MediatorPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Mediator Pattern
+        الگوی Mediator (میانجی)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Mediator?
+            Mediator چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Mediator pattern is a design pattern that facilitates communication between different components in a system without them needing to know about each other directly. Instead of components interacting directly, they communicate through a central mediator, which manages the interactions and orchestration.
+            الگوی Mediator یک الگوی طراحی است که ارتباط بین جزء های مختلف سیستم را بدون نیاز به آگاهی مستقیم آن‌ها از یکدیگر تسهیل می‌کند. به جای تعامل مستقیم جزء ها، آن‌ها از طریق یک mediator مرکزی ارتباط برقرار می‌کنند، که تعاملات و هماهنگی را مدیریت می‌کند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This helps reduce dependencies, promote loose coupling, and make the system more modular and flexible. Commonly used in complex applications where many objects interact with one another—such as in user interfaces, messaging systems, or eCommerce applications.
+            این به کاهش وابستگی‌ها، ترویج کوپلینگ شل و ماژولار و انعطاف‌پذیرتر کردن سیستم کمک می‌کند. به طور معمول در برنامه‌های پیچیده که در آن اشیاء زیادی با یکدیگر تعامل دارند استفاده می‌شود، مانند رابط‌های کاربری، سیستم‌های پیام‌رسانی یا برنامه‌های eCommerce.
           </p>
         </section>
 

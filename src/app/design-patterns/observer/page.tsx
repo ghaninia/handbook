@@ -27,10 +27,10 @@ export default function ObserverPage() {
             What is Observer?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Observer pattern defines a one-to-many dependency between objects so that when one object (the subject) changes state, all its dependents (observers) are notified and updated automatically.
+            الگوی Observer یک وابستگی یک به چند بین اشیاء تعریف می‌کند تا وقتی یک شی (subject) حالت خود را تغییر می‌دهد، همه وابستگانش (observers) به صورت خودکار مطلع و به‌روزرسانی می‌شوند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This pattern is the foundation of event-driven programming and is used extensively in UI frameworks, reactive programming, and messaging systems.
+            این الگو بنیان event-driven programming است و به طور گسترده در UI frameworks، reactive programming و messaging systems استفاده می‌شود.
           </p>
         </section>
 
@@ -39,10 +39,10 @@ export default function ObserverPage() {
             Key Components
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Subject (Observable):</strong> Maintains a list of observers and notifies them of state changes</li>
-            <li><strong>Observer:</strong> Defines an interface for objects that should be notified</li>
-            <li><strong>ConcreteSubject:</strong> Stores state and sends notifications when state changes</li>
-            <li><strong>ConcreteObserver:</strong> Implements the update interface to stay in sync with subject</li>
+            <li><strong>Subject (Observable):</strong> فهرستی از observers را نگهداری می‌کند و آنها را از تغییرات حالت مطلع می‌سازد</li>
+            <li><strong>Observer:</strong> رابطی برای اشیاء تعریف می‌کند که باید مطلع شوند</li>
+            <li><strong>ConcreteSubject:</strong> حالت را ذخیره می‌کند و هنگام تغییر حالت اعلان می‌فرستد</li>
+            <li><strong>ConcreteObserver:</strong> رابط update را پیاده‌سازی می‌کند تا با subject هم‌زمان باقی بماند</li>
           </ul>
         </section>
 
@@ -164,7 +164,7 @@ appleStock.Price = 157.00m; // Display updates + Alert triggered!`}</pre>
             Using C# Events
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            C# has built-in support for the Observer pattern through events:
+            C# پشتیبانی داخلی از الگوی Observer از طریق events دارد:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public class StockEventArgs : EventArgs
@@ -260,10 +260,10 @@ service.UpdatePrice("AAPL", 150.00m);`}</pre>
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Loose Coupling:</strong> Subject and observers are loosely coupled</li>
-            <li><strong>Open/Closed:</strong> New observers can be added without modifying subject</li>
-            <li><strong>Real-time Updates:</strong> Observers receive updates automatically</li>
-            <li><strong>Broadcast:</strong> One-to-many communication is easy</li>
+            <li><strong>Loose Coupling:</strong> Subject و observers به طور شل جفت شده‌اند</li>
+            <li><strong>Open/Closed:</strong> observers جدید بدون تغییر subject قابل اضافه‌اند</li>
+            <li><strong>به‌روزرسانی به زمان واقعی:</strong> Observers به صورت خودکار به‌روزرسانی دریافت می‌کنند</li>
+            <li><strong>Broadcast:</strong> ارتباط یک به چند آسان است</li>
           </ul>
         </section>
 

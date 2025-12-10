@@ -27,7 +27,7 @@ export default function AbstractFactoryPage() {
             What is Abstract Factory?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Abstract Factory pattern provides an interface for creating families of related or dependent objects without specifying their concrete classes. It's a creational pattern that extends the Factory Method pattern.
+            الگوی Abstract Factory رابطی برای ایجاد خانواده‌های اشیاء مرتبط یا وابسته فراهم می‌کند بدون اینکه کلاس‌های مشخص آنها را تعریف کند. این یک الگوی ایجادی است که الگوی Factory Method را گسترش می‌دهد.
           </p>
         </section>
 
@@ -36,9 +36,9 @@ export default function AbstractFactoryPage() {
             When to Use Abstract Factory
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>A system should be independent of how its products are created, composed, and represented</li>
-            <li>A system should be configured with one of multiple families of products</li>
-            <li>A family of related product objects is designed to be used together, and you need to enforce this constraint</li>
+            <li>سیستم باید از نحوه ایجاد، ترکیب و نمایش محصولاتش مستقل باشد</li>
+            <li>سیستم باید با یکی از چندین خانواده محصول پیکربندی شود</li>
+            <li>خانواده‌ای از اشیاء محصول مرتبط برای استفاده همزمان طراحی شده‌اند و نیاز دارید این محدودیت را اعمال کنید</li>
           </ul>
         </section>
 
@@ -132,7 +132,7 @@ public class Application
           </h2>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              In modern .NET applications, you often don't need Abstract Factory because <strong>Dependency Injection containers</strong> handle object creation and lifetime management. The DI container acts as a universal factory. However, Abstract Factory is still useful when you need to create families of related objects at runtime based on configuration or user input.
+              در اپلیکیشن‌های مدرن .NET، اغلب نیازی به Abstract Factory ندارید چون <strong>کانتینرهای Dependency Injection</strong> ایجاد اشیاء و مدیریت چرخه حیات آنها را انجام می‌دهند. کانتینر DI به عنوان یک factory جهانی عمل می‌کند. با این حال، Abstract Factory همچنان زمانی مفید است که نیاز به ایجاد خانواده‌های اشیاء مرتبط در زمان اجرا بر اساس پیکربندی یا ورودی کاربر دارید.
             </p>
           </div>
         </section>
@@ -142,8 +142,8 @@ public class Application
             Related Patterns
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/factory-method" className="text-blue-600 dark:text-blue-400 hover:underline">Factory Method Pattern</Link> - Abstract Factory is often implemented using Factory Methods</li>
-            <li><Link href="/design-patterns/singleton" className="text-blue-600 dark:text-blue-400 hover:underline">Singleton Pattern</Link> - Factory classes are often singletons</li>
+            <li><Link href="/design-patterns/factory-method" className="text-blue-600 dark:text-blue-400 hover:underline">Factory Method Pattern</Link> - Abstract Factory اغلب با استفاده از Factory Method پیاده‌سازی می‌شود</li>
+            <li><Link href="/design-patterns/singleton" className="text-blue-600 dark:text-blue-400 hover:underline">Singleton Pattern</Link> - کلاس‌های Factory اغلب singleton هستند</li>
           </ul>
         </section>
 

@@ -13,50 +13,50 @@ export default function DomainEventsPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← Back to Design Patterns
+          ← بازگشت به الگوهای طراحی
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Domain Events Pattern
+        الگوی Domain Events (رویدادهای حوزه)
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What are Domain Events?
+            Domain Events چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Domain events are events that signify a state change in the domain. They serve as a mechanism to communicate between different parts of the domain without tightly coupling them. In addition to decoupling different areas of the domain model, domain events can also be used (in concert with integration events) to communicate with other parts of the application (such as the UI) or even other systems.
+            Domain Events رویدادهایی هستند که تغییر وضعیت در حوزه را نشان می‌دهند. آن‌ها به عنوان مکانیزمی برای ارتباط بین بخش‌های مختلف حوزه بدون کوپل کردن محکم آن‌ها عمل می‌کنند. علاوه بر جداکردن نواحی مختلف مدل حوزه، domain events می‌توانند (در ترکیب با integration events) برای ارتباط با بخش‌های دیگر برنامه (مانند UI) یا حتی سیستم‌های دیگر استفاده شوند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Pre-Persistence vs Post-Persistence Events
+            رویدادهای Pre-Persistence در مقابل Post-Persistence
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Before diving into code, it's crucial to understand the difference:
+            قبل از ورود به کد، درک تفاوت بسیار مهم است:
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Pre-Persistence Events:</strong> Triggered before the state change is persisted to the database. Typically triggered and resolved immediately.</li>
-            <li><strong>Post-Persistence Events:</strong> Triggered after the state change is saved. Typically queued up on the triggering entity, and then dispatched once saved.</li>
+            <li><strong>رویدادهای Pre-Persistence:</strong> قبل از ذخیره‌سازی تغییر وضعیت در پایگاه داده فعال می‌شوند. معمولاً فوری فعال و حل می‌شوند.</li>
+            <li><strong>رویدادهای Post-Persistence:</strong> پس از ذخیره تغییر وضعیت فعال می‌شوند. معمولاً بر روی entity فعالکننده صف شده و سپس پس از ذخیره ارسال می‌شوند.</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Implementation with MediatR
+            پیاده‌سازی با MediatR
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Mediator pattern is commonly used when working with domain events. Here's how to implement using MediatR in a C#/.NET application:
+            الگوی Mediator به طور معمول هنگام کار با domain events استفاده می‌شود. اینجا نحوه پیاده‌سازی با استفاده از MediatR در برنامه C#/.NET آورده شده است:
           </p>
 
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
-            1. Defining a Domain Event
+            1. تعریف یک Domain Event
           </h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Unlike commands, events can have 0 to many handlers, and should not return a result. The MediatR <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">INotification</code> type is most appropriate:
+            برخلاف command ها، event ها می‌توانند 0 تا چند handler داشته باشند و نباید نتیجه برگردانند. نوع <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">INotification</code> MediatR مناسب‌ترین انتخاب است:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public class NewOrderPlacedEvent : INotification
@@ -127,22 +127,22 @@ public class UpdateInventoryHandler : INotificationHandler<NewOrderPlacedEvent>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایا
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Decoupling:</strong> Different parts of the domain don't need to know about each other</li>
-            <li><strong>Extensibility:</strong> New handlers can be added without modifying the triggering entity</li>
-            <li><strong>Testability:</strong> Events can be tested in isolation</li>
-            <li><strong>Single Responsibility:</strong> Each handler does one thing</li>
+            <li><strong>جداسازی:</strong> بخش‌های مختلف حوزه نیازی به آگاهی از یکدیگر ندارند</li>
+            <li><strong>قابلیت توسعه:</strong> handler های جدید می‌توانند بدون تغییر entity فعالکننده اضافه شوند</li>
+            <li><strong>تست‌پذیری:</strong> رویدادها می‌توانند به صورت مجزا تست شوند</li>
+            <li><strong>مسئولیت واحد:</strong> هر handler یک کار انجام می‌دهد</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Conclusion
+            نتیجه‌گیری
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            The Domain Events pattern is a powerful tool for decoupling different aspects of your domain logic. Using libraries like MediatR makes the implementation in C#/.NET straightforward and clean. Using Domain Events, additional behavior can be added in response to domain state changes, without having to add complexity to the triggering entity or service.
+            الگوی Domain Events ابزار قدرتمندی برای جداسازی جنبه‌های مختلف منطق domain شما است. استفاده از کتابخانه‌هایی مانند MediatR پیاده‌سازی را در C#/.NET ساده و تمیز می‌کند. با استفاده از Domain Events، رفتار اضافی می‌تواند در پاسخ به تغییرات وضعیت domain اضافه شود، بدون اینکه نیاز به اضافه کردن پیچیدگی به entity یا service فعالکننده باشد.
           </p>
         </section>
 

@@ -27,10 +27,10 @@ export default function StatePage() {
             What is State?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The State pattern allows an object to alter its behavior when its internal state changes. The object will appear to change its class. This pattern is useful when you have objects that behave differently depending on their state, and you want to avoid large conditional statements.
+            الگوی State به شی اجازه می‌دهد وقتی حالت داخلی‌ش تغییر می‌کند، رفتارش را تغییر دهد. اشی به نظر می‌رسد که کلاسش را تغییر می‌دهد. این الگو وقتی مفید است که اشیاء بسته به حالت‌شان رفتار متفاوتی دارند و می‌خواهید از دستورات شرطی بزرگ اجتناب کنید.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Instead of having complex if/else or switch statements, each state is represented by a separate class that implements a common interface.
+            به جای داشتن دستورات پیچیده if/else یا switch، هر حالت با یک کلاس جداگانه نمایندگی می‌شود که یک رابط مشترک پیاده‌سازی می‌کند.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function StatePage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Objects with complex state-dependent behavior lead to large, hard-to-maintain conditional statements.
+              اشیاء با رفتار پیچیده وابسته به حالت به دستورات شرطی بزرگ و سخت برای نگهداری منجر می‌شوند.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -280,10 +280,10 @@ public class PaidState : IOrderState
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Single Responsibility:</strong> Each state handles its own behavior</li>
-            <li><strong>Open/Closed:</strong> New states can be added without modifying existing ones</li>
-            <li><strong>Eliminates Conditionals:</strong> No more complex if/switch statements</li>
-            <li><strong>Clear State Transitions:</strong> State changes are explicit and traceable</li>
+            <li><strong>Single Responsibility:</strong> هر state رفتار خودش را handle می‌کند</li>
+            <li><strong>Open/Closed:</strong> state های جدید بدون تغییر موجودی‌ها قابل اضافه‌اند</li>
+            <li><strong>حذف Conditionals:</strong> دیگر دستورات پیچیده if/switch نداریم</li>
+            <li><strong>انتقال واضح State:</strong> تغییرات state صریح و قابل پیگیری هستند</li>
           </ul>
         </section>
 

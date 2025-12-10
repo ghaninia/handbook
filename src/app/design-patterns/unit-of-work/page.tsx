@@ -27,16 +27,16 @@ export default function UnitOfWorkPage() {
             What is Unit of Work?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Unit of Work (UoW) Pattern maintains a list of changes (inserts, updates, deletes) to domain objects and coordinates the writing of these changes as a single atomic operation (usually a database transaction). It helps ensure consistency, reduces round-trips, and provides a single commit (or rollback) point.
+            الگوی Unit of Work (UoW) فهرستی از تغییرات (درج، به‌روزرسانی، حذف) بر اشیاء domain نگهداری می‌کند و نوشتن این تغییرات را به عنوان یک عملیات atomic واحد (معمولاً یک transaction دیتابیس) هماهنگ می‌کند. به تضمین یکپارچگی، کاهش round-tripها و فراهم کردن یک نقطه commit (یا rollback) واحد کمک می‌کند.
           </p>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              <strong>Martin Fowler describes it as:</strong> A pattern that "keeps track of everything you do during a business transaction that can affect the database. When you're done, it figures out everything that needs to be done to alter the database as a result of your work."
+              <strong>Martin Fowler آن را اینطور توصیف می‌کند:</strong> الگویی که "پیگیری همه کارهایی که حین یک تراکنش تجاری انجام می‌دهید و می‌تواند بر دیتابیس تاثیر بگذارد. وقتی کارتان تمام شد، همه کارهایی که برای تغییر دیتابیس بر اساس کارتان لازم است را مشخص می‌کند."
             </p>
           </div>
           <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              <strong>Note for .NET Developers:</strong> Most ORMs (like Entity Framework Core) already implement the Unit of Work pattern through the primary context/session objects. Adding your own abstraction is optional but may be justified depending on your application and concerns like testing, cross-cutting behaviors, transactional boundaries across multiple repositories, domain event dispatching, etc.
+              <strong>نکته برای توسعه‌دهندگان .NET:</strong> اکثر ORMها (مثل Entity Framework Core) قبلاً الگوی Unit of Work را از طریق اشیاء context/session اصلی پیاده‌سازی کرده‌اند. اضافه کردن انتزاع شما اختیاری است اما بسته به برنامه و مسائلی مثل تست، رفتارهای cross-cutting، مرزهای transactional در چند repository، ارسال domain events و غیره ممکن است توجیه‌پذیر باشد.
             </p>
           </div>
         </section>
@@ -46,7 +46,7 @@ export default function UnitOfWorkPage() {
             The Problem
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Without a Unit of Work, application code might:
+            بدون Unit of Work، کد برنامه ممکن است:
           </p>
           <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
             <li>Perform multiple database operations independently (risking partial failure)</li>
@@ -81,11 +81,11 @@ export default function UnitOfWorkPage() {
             Relationship to Repository Pattern
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            These patterns are frequently used together:
+            این الگوها اغلب با هم استفاده می‌شوند:
           </p>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Repository</strong> abstracts data access for domain entities</li>
-            <li><strong>Unit of Work</strong> coordinates the persistence of changes across one or more repositories in a single transaction</li>
+            <li><strong>Repository</strong> دسترسی به دیتا برای انتیتی‌های domain را انتزاع می‌کند</li>
+            <li><strong>Unit of Work</strong> ماندگاری تغییرات را در یک یا چند repository در یک transaction واحد هماهنگ می‌کند</li>
           </ul>
         </section>
 
@@ -94,7 +94,7 @@ export default function UnitOfWorkPage() {
             Implementation Example
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            One way of implementing the Unit of Work pattern is by creating an <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">IUnitOfWork</code> interface that defines the contract for beginning, committing, and rolling back transactions.
+            یکی از راه‌های پیاده‌سازی الگوی Unit of Work ایجاد رابط <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">IUnitOfWork</code> است که قرارداد شروع، commit و rollback کردن transactionها را تعریف می‌کند.
           </p>
 
           <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">

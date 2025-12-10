@@ -27,10 +27,10 @@ export default function ReprPage() {
             What is REPR?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The REPR (Request-Endpoint-Response) pattern is an architectural approach for building APIs that structures each endpoint around three concepts: a <strong>Request</strong> (the input), an <strong>Endpoint</strong> (the handler), and a <strong>Response</strong> (the output).
+            الگوی REPR (Request-Endpoint-Response) یک رویکرد معماری برای ساخت APIها است که هر endpoint را بر اساس سه مفهوم ساختار می‌دهد: <strong>Request</strong> (ورودی)، <strong>Endpoint</strong> (handler) و <strong>Response</strong> (خروجی).
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This pattern promotes single-responsibility endpoints, making APIs more maintainable, testable, and aligned with REST principles.
+            این الگو endpointهای single-responsibility را ترویج می‌کند و APIها را قابل نگهداری‌تر، تست‌پذیرتر و همراستا با اصول REST می‌سازد.
           </p>
         </section>
 
@@ -40,7 +40,7 @@ export default function ReprPage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Traditional MVC controllers tend to grow into "god classes" with many action methods and dependencies, violating the Single Responsibility Principle.
+              Controllerهای سنتی MVC اغلب به "god classes" با متدهای action و وابستگی‌های زیاد تبدیل می‌شوند و اصل Single Responsibility را نقض می‌کنند.
             </p>
           </div>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
@@ -174,7 +174,7 @@ public class CreateOrderValidator : Validator<CreateOrderRequest>
             Ardalis.ApiEndpoints
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Another option is the Ardalis.ApiEndpoints library which integrates with standard ASP.NET Core:
+            گزینه دیگر کتابخانه Ardalis.ApiEndpoints است که با ASP.NET Core استاندارد یکپارچه‌سازی می‌شود:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`// Install-Package Ardalis.ApiEndpoints
@@ -215,11 +215,11 @@ public class GetOrder : EndpointBaseAsync
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Single Responsibility:</strong> Each endpoint has one job</li>
-            <li><strong>Testability:</strong> Easy to test individual endpoints</li>
-            <li><strong>Maintainability:</strong> Small, focused classes are easier to understand</li>
-            <li><strong>Discoverability:</strong> Easy to find the code for a specific API endpoint</li>
-            <li><strong>Dependency Injection:</strong> Only inject what each endpoint needs</li>
+            <li><strong>Single Responsibility:</strong> هر endpoint یک وظیفه دارد</li>
+            <li><strong>Testability:</strong> تست کردن endpointهای جداگانه آسان است</li>
+            <li><strong>Maintainability:</strong> کلاس‌های کوچک و متمرکز آسان‌تر قابل درک هستند</li>
+            <li><strong>Discoverability:</strong> پیدا کردن کد یک API endpoint مشخص آسان است</li>
+            <li><strong>Dependency Injection:</strong> فقط آنچه هر endpoint نیاز دارد inject می‌شود</li>
           </ul>
         </section>
 

@@ -27,10 +27,10 @@ export default function StranglerFigPage() {
             What is Strangler Fig?
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Strangler Fig pattern is a migration strategy for gradually replacing a legacy system with a new one. Named after the strangler fig tree that grows around and eventually replaces its host tree, this pattern allows you to incrementally modernize applications without the risk of a big-bang rewrite.
+            الگوی Strangler Fig یک استراتژی مهاجرت برای جایگزینی تدریجی سیستم legacy با یکی جدید است. این الگو که نامش از درخت strangler fig گرفته شده که دور درخت میزبان رشد می‌کند و نهایتاً جایگزین آن می‌شود، به شما اجازه می‌دهد به صورت تدریجی برنامه‌ها را مدرن کنید بدون ریسک big-bang rewrite.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Instead of replacing the entire system at once, you gradually intercept calls to the legacy system and redirect them to new implementations, eventually "strangling" the old system until it can be safely removed.
+            به جای جایگزینی کل سیستم یکجا، به تدریج فراخوانی‌ها به سیستم legacy را رهگیری و به پیاده‌سازی‌های جدید هدایت می‌کنید و نهایتاً سیستم قدیمی را "خفه" می‌کنید تا بتوان به امنیت آن را حذف کرد.
           </p>
         </section>
 
@@ -40,14 +40,14 @@ export default function StranglerFigPage() {
           </h2>
           <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              <strong>Big Bang Approach Risks:</strong> Replacing entire systems at once is expensive, risky, and often fails due to underestimated complexity and business requirements that emerge during development.
+              <strong>ریسک‌های رویکرد Big Bang:</strong> جایگزینی کل سیستم‌ها یکجا گران، پرمخاطره است و اغلب به دلیل دست‌کم گرفتن پیچیدگی و نیازهای تجاری که حین توسعه پدیدار می‌شوند شکست می‌خورد.
             </p>
           </div>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li>High risk of project failure</li>
-            <li>Long periods without delivering business value</li>
-            <li>Difficult to handle changing requirements</li>
-            <li>Legacy system continues to accumulate technical debt</li>
+            <li>ریسک بالای شکست پروژه</li>
+            <li>دوره‌های طولانی بدون تحویل ارزش تجاری</li>
+            <li>سختی مدیریت نیازهای متغیر</li>
+            <li>سیستم legacy به انباشت technical debt ادامه می‌دهد</li>
             <li>Users must adapt to completely new system all at once</li>
           </ul>
         </section>
@@ -239,11 +239,11 @@ public class ModernPaymentService : IPaymentService
             Benefits
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Reduced Risk:</strong> Incremental changes are less risky than big-bang rewrites</li>
-            <li><strong>Continuous Value:</strong> Deliver improvements incrementally</li>
-            <li><strong>Easier Testing:</strong> Test new components in isolation</li>
-            <li><strong>Gradual User Adoption:</strong> Users adapt to changes slowly</li>
-            <li><strong>Rollback Capability:</strong> Easy to revert if issues arise</li>
+            <li><strong>کاهش ریسک:</strong> تغییرات تدریجی کم ریسک‌تر از big-bang rewrites هستند</li>
+            <li><strong>ارزش مداوم:</strong> بهبودی‌ها را به صورت تدریجی تحویل دهید</li>
+            <li><strong>تست آسان‌تر:</strong> کامپوننت‌های جدید را به صورت جداگانه تست کنید</li>
+            <li><strong>پذیرش تدریجی کاربر:</strong> کاربران به آرامی با تغییرات سازگار می‌شوند</li>
+            <li><strong>قابلیت Rollback:</strong> اگر مشکل پیش بیاید آسان برگرداندن است</li>
           </ul>
         </section>
 
@@ -252,10 +252,10 @@ public class ModernPaymentService : IPaymentService
             Considerations
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Data Synchronization:</strong> May need to keep legacy and new systems in sync</li>
-            <li><strong>Increased Complexity:</strong> Temporarily increases system complexity</li>
-            <li><strong>Performance Overhead:</strong> Facade layer adds some overhead</li>
-            <li><strong>Testing Complexity:</strong> Need to test multiple code paths</li>
+            <li><strong>هم‌زمان‌سازی دیتا:</strong> ممکن است نیاز باشد سیستم‌های legacy و جدید را هم‌زمان نگه دارید</li>
+            <li><strong>افزایش پیچیدگی:</strong> به طور موقت پیچیدگی سیستم را افزایش می‌دهد</li>
+            <li><strong>اضافه بار عملکرد:</strong> لایه Facade کمی اضافه بار ایجاد می‌کند</li>
+            <li><strong>پیچیدگی تست:</strong> نیاز به تست مسیرهای کد متعدد</li>
           </ul>
         </section>
 
