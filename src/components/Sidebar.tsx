@@ -42,20 +42,21 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
   }
 
   const renderMenu = () => (
-    <nav>
+    <nav dir="ltr" style={{ direction: 'ltr', textAlign: 'left' }}>
       {menuSections.map((section) => (
         <div key={section.title} className="border-b border-gray-200 dark:border-gray-800">
           {section.items ? (
             <>
               <button
                 onClick={() => toggleSection(section.title)}
-                className={`w-full flex items-center justify-between py-3 px-4 text-sm font-medium transition-colors ${
+                className={`w-full flex items-center justify-between py-3 px-4 text-sm font-medium transition-colors text-left ${
                   isSectionActive(section)
                     ? 'text-blue-600 dark:text-blue-400'
                     : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
                 }`}
+                style={{ direction: 'ltr' }}
               >
-                <span>{section.title}</span>
+                <span dir="ltr">{section.title}</span>
                 <i
                   className={`ri-arrow-down-s-line transition-transform duration-200 ${
                     expandedSections.includes(section.title) ? 'rotate-180' : ''
@@ -74,14 +75,15 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className={`block py-1.5 px-6 text-sm transition-colors ${
+                        className={`block py-1.5 px-6 text-sm transition-colors text-left ${
                           isActive(item.href)
-                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-r-2 border-blue-600 dark:border-blue-400'
+                            ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 border-l-2 border-blue-600 dark:border-blue-400'
                             : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-50 dark:hover:bg-gray-900'
                         }`}
                         onClick={() => mobile && setIsOpen(false)}
+                        style={{ direction: 'ltr' }}
                       >
-                        {item.label}
+                        <span dir="ltr">{item.label}</span>
                       </Link>
                     </li>
                   ))}
@@ -91,15 +93,16 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
           ) : (
             <Link
               href={section.href!}
-              className={`block py-3 px-4 text-sm font-medium transition-colors ${
+              className={`block py-3 px-4 text-sm font-medium transition-colors text-left ${
                 isActive(section.href!)
                   ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20'
                   : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
               }`}
               onClick={() => mobile && setIsOpen(false)}
+              style={{ direction: 'ltr' }}
             >
-              {section.icon && <span className="ml-2">{section.icon}</span>}
-              {section.title}
+              {section.icon && <span className="mr-2">{section.icon}</span>}
+              <span dir="ltr">{section.title}</span>
             </Link>
           )}
         </div>
@@ -112,7 +115,7 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
     return (
       <>
         <button
-          className="fixed bottom-4 left-4 z-50 w-12 h-12 rounded-lg flex items-center justify-center bg-blue-600 text-white shadow-lg"
+          className="fixed bottom-4 right-4 z-50 w-12 h-12 rounded-lg flex items-center justify-center bg-blue-600 text-white shadow-lg"
           onClick={() => setIsOpen(!isOpen)}
           aria-label="منو"
         >
@@ -125,7 +128,7 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
               className="fixed inset-0 bg-black/20 z-40"
               onClick={() => setIsOpen(false)}
             />
-            <aside className="fixed right-0 top-14 bottom-0 w-72 bg-white dark:bg-gray-950 border-l border-gray-200 dark:border-gray-800 overflow-y-auto z-50">
+            <aside className="fixed left-0 top-14 bottom-0 w-72 bg-white dark:bg-gray-950 border-r border-gray-200 dark:border-gray-800 overflow-y-auto z-50">
               {renderMenu()}
             </aside>
           </>
@@ -136,7 +139,7 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
 
   // Desktop Sidebar
   return (
-    <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-r border-gray-200 dark:border-gray-800">
+    <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-gray-200 dark:border-gray-800">
       {renderMenu()}
     </div>
   )

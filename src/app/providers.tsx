@@ -14,15 +14,15 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         {/* Main Container with Grid */}
         <div className="flex-1 container mx-auto px-4">
           <div className="grid grid-cols-12 gap-6">
-            {/* Content Area - 9 columns on desktop */}
-            <main className="col-span-12 lg:col-span-9 py-8">
-              {children}
-            </main>
-            
             {/* Sidebar - 3 columns on desktop */}
             <aside className="hidden lg:block lg:col-span-3">
               <Sidebar />
             </aside>
+            
+            {/* Content Area - 9 columns on desktop */}
+            <main className="col-span-12 lg:col-span-9 py-8">
+              {children}
+            </main>
           </div>
         </div>
 
