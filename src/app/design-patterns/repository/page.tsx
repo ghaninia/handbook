@@ -120,7 +120,7 @@ export default function RepositoryPage() {
             Repository معمولاً با Specification Pattern ترکیب می‌شود برای query های پیچیده:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Specification برای محصولات فعال
+            <pre className="text-gray-800 dark:text-gray-200">{`// Specification for active products
 public class ActiveProductsSpec : Specification<Product>
 {
     public ActiveProductsSpec()
@@ -129,7 +129,7 @@ public class ActiveProductsSpec : Specification<Product>
     }
 }
 
-// استفاده در سرویس
+// Usage in service
 var activeProducts = await _productRepository
     .ListAsync(new ActiveProductsSpec());`}</pre>
           </div>

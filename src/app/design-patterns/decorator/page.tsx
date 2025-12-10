@@ -152,7 +152,7 @@ public class ValidationBookServiceDecorator : IBookService
             <strong>ثبت سرویس‌ها در DI Container:</strong>
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// در Program.cs
+            <pre className="text-gray-800 dark:text-gray-200">{`// In Program.cs
 services.AddScoped<IBookRepository, BookRepository>();
 services.AddSingleton<IValidator<Book>, BookValidator>();
 services.AddScoped<BookService>();
@@ -162,11 +162,11 @@ services.AddScoped<IBookService>(provider =>
     var baseService = provider.GetRequiredService<BookService>();
     var validators = provider.GetRequiredService<IEnumerable<IValidator<Book>>>();
     
-    // ابتدا validation را wrap می‌کنیم
+    // First wrap with validation
     var validationDecorator = new ValidationBookServiceDecorator(
         baseService, validators);
     
-    // سپس logging را wrap می‌کنیم
+    // Then wrap with logging
     var logger = provider.GetRequiredService<ILogger<LoggingBookServiceDecorator>>();
     return new LoggingBookServiceDecorator(validationDecorator, logger);
 });`}</pre>

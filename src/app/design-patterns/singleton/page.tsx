@@ -50,10 +50,10 @@ export default function SingletonPage() {
             به جای استفاده از Singleton، از Dependency Injection استفاده کنید. در ASP.NET Core:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// در Program.cs یا Startup.cs
+            <pre className="text-gray-800 dark:text-gray-200">{`// In Program.cs or Startup.cs
 services.AddSingleton<IMyService, MyService>();
 
-// در کلاس شما
+// In your class
 public class MyController : Controller
 {
     private readonly IMyService _myService;
@@ -86,7 +86,7 @@ public class MyController : Controller
 
     private Singleton()
     {
-        // سازنده خصوصی
+        // Private constructor
     }
 }`}</pre>
           </div>

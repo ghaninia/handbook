@@ -72,7 +72,7 @@ export default function StrategyPage() {
         _movieRepository = movieRepository;
     }
     
-    // Poor man's dependency injection برای سازنده پیش‌فرض
+    // Poor man's dependency injection for default constructor
     public MoviesController() : this(new EfMovieRepository())
     {}
     
@@ -84,14 +84,14 @@ export default function StrategyPage() {
     }
 }
 
-// استراتژی - رابط Repository
+// Strategy - Repository interface
 public interface IMovieRepository
 {
     IEnumerable<string> ListGenres();
     IEnumerable<Movie> ListMovies(string movieGenre, string searchString);
 }
 
-// پیاده‌سازی خاص - EF
+// Concrete implementation - EF
 public class EfMovieRepository : IMovieRepository
 {
     private readonly MovieDbContext db = new MovieDbContext();
