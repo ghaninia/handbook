@@ -368,73 +368,82 @@ export default function PatternPage({ params }: { params: { slug: string } }) {
   }
 
   return (
-    <div className="container-custom py-12">
-      <Link
-        href="/design-patterns"
-        className="inline-flex items-center text-primary-light dark:text-primary-dark mb-6 hover:underline"
-      >
-        → بازگشت به الگوهای طراحی
-      </Link>
+    <div className="grid grid-cols-12 gap-6">
+      {/* Back Link */}
+      <div className="col-span-12">
+        <Link
+          href="/design-patterns"
+          className="inline-flex items-center text-primary-light dark:text-primary-dark hover:underline text-sm"
+        >
+          → بازگشت به الگوهای طراحی
+        </Link>
+      </div>
 
-      <h1 className="text-4xl font-bold mb-4">{pattern.title}</h1>
-      <span className="inline-block px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm mb-6">
-        {pattern.category}
-      </span>
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-2">{pattern.title}</h1>
+        <span className="inline-block px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-800 dark:text-amber-200 rounded-full text-xs">
+          {pattern.category}
+        </span>
+      </div>
 
-      <p className="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-        {pattern.description}
-      </p>
+      {/* Description */}
+      <div className="col-span-12">
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+          {pattern.description}
+        </p>
+      </div>
 
-      <div className="space-y-8">
-        <section className="card">
-          <h2 className="text-2xl font-bold mb-4">موارد استفاده</h2>
-          <ul className="space-y-2">
-            {pattern.usage.map((item, index) => (
+      {/* Usage Section */}
+      <section className="col-span-12 lg:col-span-6 card">
+        <h2 className="text-lg font-bold mb-3">موارد استفاده</h2>
+        <ul className="grid grid-cols-1 gap-2">
+          {pattern.usage.map((item, index) => (
+            <li key={index} className="flex items-start">
+              <span className="text-primary-light dark:text-primary-dark ml-2">•</span>
+              <span className="text-gray-700 dark:text-gray-300 text-sm">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* Pros & Cons */}
+      <section className="col-span-12 lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="card bg-green-50 dark:bg-green-900/20">
+          <h2 className="text-sm font-bold mb-2 text-green-700 dark:text-green-300">
+            ✓ مزایا
+          </h2>
+          <ul className="grid grid-cols-1 gap-1">
+            {pattern.pros.map((item, index) => (
               <li key={index} className="flex items-start">
-                <span className="text-primary-light dark:text-primary-dark ml-2 mt-1">•</span>
-                <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                <span className="text-green-600 dark:text-green-400 ml-1 text-xs">✓</span>
+                <span className="text-gray-700 dark:text-gray-300 text-xs">{item}</span>
               </li>
             ))}
           </ul>
-        </section>
-
-        <section className="card">
-          <h2 className="text-2xl font-bold mb-4">مثال کد</h2>
-          <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm leading-relaxed" dir="ltr">
-            <code>{pattern.codeExample}</code>
-          </pre>
-        </section>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <section className="card bg-green-50 dark:bg-green-900/20">
-            <h2 className="text-xl font-bold mb-4 text-green-700 dark:text-green-300">
-              ✓ مزایا
-            </h2>
-            <ul className="space-y-2">
-              {pattern.pros.map((item, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-green-600 dark:text-green-400 ml-2">✓</span>
-                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-
-          <section className="card bg-red-50 dark:bg-red-900/20">
-            <h2 className="text-xl font-bold mb-4 text-red-700 dark:text-red-300">
-              ✗ معایب
-            </h2>
-            <ul className="space-y-2">
-              {pattern.cons.map((item, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="text-red-600 dark:text-red-400 ml-2">✗</span>
-                  <span className="text-gray-700 dark:text-gray-300">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
         </div>
-      </div>
+        <div className="card bg-red-50 dark:bg-red-900/20">
+          <h2 className="text-sm font-bold mb-2 text-red-700 dark:text-red-300">
+            ✗ معایب
+          </h2>
+          <ul className="grid grid-cols-1 gap-1">
+            {pattern.cons.map((item, index) => (
+              <li key={index} className="flex items-start">
+                <span className="text-red-600 dark:text-red-400 ml-1 text-xs">✗</span>
+                <span className="text-gray-700 dark:text-gray-300 text-xs">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Code Example */}
+      <section className="col-span-12 card">
+        <h2 className="text-lg font-bold mb-3">مثال کد</h2>
+        <pre className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-sm leading-relaxed text-left" dir="ltr">
+          <code>{pattern.codeExample}</code>
+        </pre>
+      </section>
     </div>
   )
 }

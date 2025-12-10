@@ -2,25 +2,27 @@ import Link from 'next/link'
 
 export default function PrinciplesPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">اصول</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        اصول بنیادی که به شما کمک می‌کنند کد تمیز، قابل نگهداری و قابل توسعه بنویسید.
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {principles.map((principle) => (
-          <div key={principle.slug} className="card">
-            <h3 className="text-2xl font-bold mb-3">{principle.title}</h3>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              {principle.description}
-            </p>
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <p className="text-sm font-mono">{principle.example}</p>
-            </div>
-          </div>
-        ))}
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">اصول</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          اصول بنیادی که به شما کمک می‌کنند کد تمیز، قابل نگهداری و قابل توسعه بنویسید.
+        </p>
       </div>
+
+      {/* Principle Cards */}
+      {principles.map((principle) => (
+        <div key={principle.slug} className="col-span-12 md:col-span-6 card">
+          <h3 className="text-xl font-bold mb-2">{principle.title}</h3>
+          <p className="text-gray-600 dark:text-gray-400 mb-3 text-sm">
+            {principle.description}
+          </p>
+          <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg">
+            <p className="text-sm font-mono">{principle.example}</p>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

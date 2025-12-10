@@ -1,31 +1,33 @@
 export default function PracticesPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">روش‌های توسعه</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        بهترین شیوه‌ها و روش‌های اثبات شده برای توسعه نرم‌افزار حرفه‌ای.
-      </p>
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">روش‌های توسعه</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          بهترین شیوه‌ها و روش‌های اثبات شده برای توسعه نرم‌افزار حرفه‌ای.
+        </p>
+      </div>
 
-      <div className="space-y-8">
-        {practices.map((practice) => (
-          <div key={practice.slug} className="card">
-            <div className="flex items-start">
-              <span className="text-4xl ml-4">{practice.icon}</span>
-              <div className="flex-1">
-                <h3 className="text-2xl font-bold mb-3">{practice.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
-                  {practice.description}
-                </p>
-                <ul className="list-disc list-inside space-y-2 text-sm text-gray-700 dark:text-gray-300">
-                  {practice.benefits.map((benefit, index) => (
-                    <li key={index}>{benefit}</li>
-                  ))}
-                </ul>
-              </div>
+      {/* Practice Cards */}
+      {practices.map((practice) => (
+        <div key={practice.slug} className="col-span-12 lg:col-span-6 card">
+          <div className="flex items-start">
+            <span className="text-3xl ml-3">{practice.icon}</span>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold mb-2">{practice.title}</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-3 text-sm">
+                {practice.description}
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                {practice.benefits.map((benefit, index) => (
+                  <li key={index}>{benefit}</li>
+                ))}
+              </ul>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   )
 }

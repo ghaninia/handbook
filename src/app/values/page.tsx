@@ -1,24 +1,26 @@
 export default function ValuesPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">ارزش‌ها</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        ارزش‌های اصلی که توسعه‌دهندگان حرفه‌ای باید به آن‌ها پایبند باشند.
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {values.map((value) => (
-          <div key={value.slug} className="card">
-            <div className="flex items-center mb-4">
-              <span className="text-4xl ml-4">{value.icon}</span>
-              <h3 className="text-2xl font-bold">{value.title}</h3>
-            </div>
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              {value.description}
-            </p>
-          </div>
-        ))}
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">ارزش‌ها</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          ارزش‌های اصلی که توسعه‌دهندگان حرفه‌ای باید به آن‌ها پایبند باشند.
+        </p>
       </div>
+
+      {/* Value Cards */}
+      {values.map((value) => (
+        <div key={value.slug} className="col-span-12 sm:col-span-6 lg:col-span-4 card">
+          <div className="flex items-center mb-3">
+            <span className="text-3xl ml-3">{value.icon}</span>
+            <h3 className="text-lg font-bold">{value.title}</h3>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+            {value.description}
+          </p>
+        </div>
+      ))}
     </div>
   )
 }

@@ -19,6 +19,10 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css"
           rel="stylesheet"
         />
+        <link
+          href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
+          rel="stylesheet"
+        />
       </head>
       <body>
         <Providers>{children}</Providers>

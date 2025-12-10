@@ -1,29 +1,31 @@
 export default function LawsPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">قوانین توسعه نرم‌افزار</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        قوانین و اصول شناخته شده در صنعت نرم‌افزار که از تجربه و مشاهده حاصل شده‌اند.
-      </p>
-
-      <div className="space-y-6">
-        {laws.map((law) => (
-          <div key={law.name} className="card">
-            <h3 className="text-2xl font-bold mb-3 text-primary-light dark:text-primary-dark">
-              {law.name}
-            </h3>
-            <p className="text-lg text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-              {law.statement}
-            </p>
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                <strong>معنی: </strong>
-                {law.meaning}
-              </p>
-            </div>
-          </div>
-        ))}
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">قوانین توسعه نرم‌افزار</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          قوانین و اصول شناخته شده در صنعت نرم‌افزار که از تجربه و مشاهده حاصل شده‌اند.
+        </p>
       </div>
+
+      {/* Law Cards */}
+      {laws.map((law) => (
+        <div key={law.name} className="col-span-12 md:col-span-6 card">
+          <h3 className="text-lg font-bold mb-2 text-primary-light dark:text-primary-dark">
+            {law.name}
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300 mb-3 text-sm leading-relaxed">
+            {law.statement}
+          </p>
+          <div className="p-2 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <p className="text-xs text-gray-600 dark:text-gray-400">
+              <strong>معنی: </strong>
+              {law.meaning}
+            </p>
+          </div>
+        </div>
+      ))}
     </div>
   )
 }

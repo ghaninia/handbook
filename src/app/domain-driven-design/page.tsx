@@ -1,43 +1,46 @@
 export default function DomainDrivenDesignPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">طراحی مبتنی بر دامنه (DDD)</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        رویکردی برای توسعه نرم‌افزار پیچیده با تمرکز بر دامنه اصلی کسب‌وکار و منطق آن.
-      </p>
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">طراحی مبتنی بر دامنه (DDD)</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          رویکردی برای توسعه نرم‌افزار پیچیده با تمرکز بر دامنه اصلی کسب‌وکار و منطق آن.
+        </p>
+      </div>
 
-      <div className="space-y-8">
-        <section className="card">
-          <h2 className="text-2xl font-bold mb-4">مفاهیم اصلی</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {concepts.map((concept) => (
-              <div key={concept.title} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <h3 className="font-bold text-lg mb-2">{concept.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  {concept.description}
+      {/* Concepts Section */}
+      <section className="col-span-12 card">
+        <h2 className="text-xl font-bold mb-4">مفاهیم اصلی</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {concepts.map((concept) => (
+            <div key={concept.title} className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <h3 className="font-bold mb-1">{concept.title}</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {concept.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Tactical Patterns Section */}
+      <section className="col-span-12 card bg-amber-50 dark:bg-amber-900/20">
+        <h2 className="text-xl font-bold mb-4">الگوهای تاکتیکی</h2>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {tacticalPatterns.map((pattern) => (
+            <li key={pattern.title} className="flex items-start">
+              <span className="text-xl ml-2">{pattern.icon}</span>
+              <div>
+                <h3 className="font-bold text-sm">{pattern.title}</h3>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  {pattern.description}
                 </p>
               </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="card bg-blue-50 dark:bg-blue-900/20">
-          <h2 className="text-2xl font-bold mb-4">الگوهای تاکتیکی</h2>
-          <ul className="space-y-3">
-            {tacticalPatterns.map((pattern) => (
-              <li key={pattern.title} className="flex items-start">
-                <span className="text-2xl ml-3">{pattern.icon}</span>
-                <div>
-                  <h3 className="font-bold">{pattern.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {pattern.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 }

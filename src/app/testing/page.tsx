@@ -1,68 +1,72 @@
 export default function TestingPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">تست</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        استراتژی‌ها و روش‌های تست نرم‌افزار برای اطمینان از کیفیت و قابلیت اطمینان.
-      </p>
-
-      <div className="space-y-8">
-        <section className="card">
-          <h2 className="text-2xl font-bold mb-4">انواع تست</h2>
-          <div className="space-y-4">
-            {testTypes.map((test) => (
-              <div key={test.title} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                <div className="flex items-center mb-2">
-                  <span className="text-2xl ml-3">{test.icon}</span>
-                  <h3 className="text-lg font-bold">{test.title}</h3>
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 mb-2">
-                  {test.description}
-                </p>
-                <div className="text-sm text-gray-600 dark:text-gray-400">
-                  <strong>زمان: </strong>{test.when}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="card bg-green-50 dark:bg-green-900/20">
-          <h2 className="text-2xl font-bold mb-4">اصول تست</h2>
-          <ul className="space-y-3">
-            {testPrinciples.map((principle) => (
-              <li key={principle} className="flex items-start">
-                <span className="text-green-600 dark:text-green-400 ml-3 mt-1">✓</span>
-                <span className="text-gray-700 dark:text-gray-300">{principle}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="card">
-          <h2 className="text-2xl font-bold mb-4">الگوی AAA</h2>
-          <div className="space-y-3">
-            <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-              <h3 className="font-bold mb-2">1. Arrange (آماده‌سازی)</h3>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                تنظیم شرایط اولیه و ایجاد اشیاء مورد نیاز
-              </p>
-            </div>
-            <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-              <h3 className="font-bold mb-2">2. Act (اجرا)</h3>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                فراخوانی متد یا عملکردی که می‌خواهید تست کنید
-              </p>
-            </div>
-            <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
-              <h3 className="font-bold mb-2">3. Assert (بررسی)</h3>
-              <p className="text-sm text-gray-700 dark:text-gray-300">
-                تأیید اینکه نتیجه مطابق انتظار است
-              </p>
-            </div>
-          </div>
-        </section>
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">تست</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          استراتژی‌ها و روش‌های تست نرم‌افزار برای اطمینان از کیفیت.
+        </p>
       </div>
+
+      {/* Test Types */}
+      <section className="col-span-12 lg:col-span-6 card">
+        <h2 className="text-xl font-bold mb-4">انواع تست</h2>
+        <div className="grid grid-cols-1 gap-3">
+          {testTypes.map((test) => (
+            <div key={test.title} className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+              <div className="flex items-center mb-1">
+                <span className="text-xl ml-2">{test.icon}</span>
+                <h3 className="font-bold">{test.title}</h3>
+              </div>
+              <p className="text-gray-700 dark:text-gray-300 text-sm mb-1">
+                {test.description}
+              </p>
+              <div className="text-xs text-gray-600 dark:text-gray-400">
+                <strong>زمان: </strong>{test.when}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Test Principles */}
+      <section className="col-span-12 lg:col-span-6 card bg-green-50 dark:bg-green-900/20">
+        <h2 className="text-xl font-bold mb-4">اصول تست</h2>
+        <ul className="grid grid-cols-1 gap-2">
+          {testPrinciples.map((principle) => (
+            <li key={principle} className="flex items-start">
+              <span className="text-green-600 dark:text-green-400 ml-2">✓</span>
+              <span className="text-gray-700 dark:text-gray-300 text-sm">{principle}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      {/* AAA Pattern */}
+      <section className="col-span-12 card">
+        <h2 className="text-xl font-bold mb-4">الگوی AAA</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+            <h3 className="font-bold mb-1">1. Arrange (آماده‌سازی)</h3>
+            <p className="text-xs text-gray-700 dark:text-gray-300">
+              تنظیم شرایط اولیه و ایجاد اشیاء مورد نیاز
+            </p>
+          </div>
+          <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+            <h3 className="font-bold mb-1">2. Act (اجرا)</h3>
+            <p className="text-xs text-gray-700 dark:text-gray-300">
+              فراخوانی متد یا عملکردی که می‌خواهید تست کنید
+            </p>
+          </div>
+          <div className="p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+            <h3 className="font-bold mb-1">3. Assert (بررسی)</h3>
+            <p className="text-xs text-gray-700 dark:text-gray-300">
+              تأیید اینکه نتیجه مطابق انتظار است
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }

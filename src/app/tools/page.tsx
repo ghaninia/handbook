@@ -1,31 +1,33 @@
 export default function ToolsPage() {
   return (
-    <div className="container-custom py-12">
-      <h1 className="text-4xl font-bold mb-6">ابزارها</h1>
-      <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-        ابزارها و فناوری‌های مفید برای توسعه‌دهندگان نرم‌افزار.
-      </p>
-
-      <div className="space-y-8">
-        {toolCategories.map((category) => (
-          <section key={category.title}>
-            <h2 className="text-2xl font-bold mb-4">{category.title}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {category.tools.map((tool) => (
-                <div key={tool.name} className="card hover:shadow-xl transition-all">
-                  <div className="flex items-center mb-3">
-                    <span className="text-3xl ml-3">{tool.icon}</span>
-                    <h3 className="text-lg font-bold">{tool.name}</h3>
-                  </div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    {tool.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </section>
-        ))}
+    <div className="grid grid-cols-12 gap-6">
+      {/* Header */}
+      <div className="col-span-12">
+        <h1 className="text-3xl font-bold mb-3">ابزارها</h1>
+        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+          ابزارها و فناوری‌های مفید برای توسعه‌دهندگان نرم‌افزار.
+        </p>
       </div>
+
+      {/* Tool Categories */}
+      {toolCategories.map((category) => (
+        <section key={category.title} className="col-span-12">
+          <h2 className="text-xl font-bold mb-4">{category.title}</h2>
+          <div className="grid grid-cols-12 gap-4">
+            {category.tools.map((tool) => (
+              <div key={tool.name} className="col-span-12 sm:col-span-6 lg:col-span-4 card hover:shadow-xl transition-all">
+                <div className="flex items-center mb-2">
+                  <span className="text-2xl ml-2">{tool.icon}</span>
+                  <h3 className="font-bold">{tool.name}</h3>
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {tool.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
     </div>
   )
 }
