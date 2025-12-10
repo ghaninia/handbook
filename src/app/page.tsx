@@ -9,7 +9,7 @@ export default function Home() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="py-12 px-6 lg:px-12"
+      className="py-4"
     >
       {/* Hero Section */}
       <div className="max-w-3xl mb-16">

@@ -65,8 +65,8 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
 
   // Desktop Sidebar
   return (
-    <aside className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto border-l border-gray-200 dark:border-gray-800">
-      <nav className="py-6 pr-2 pl-4">
+    <div className="sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto py-8">
+      <nav className="pr-2 pl-4 border-r border-gray-200 dark:border-gray-800">
         {menuSections.map((section) => (
           <div key={section.title} className="mb-6">
             <h3 className="section-title">{section.title}</h3>
@@ -85,7 +85,7 @@ export default function Sidebar({ mobile = false }: SidebarProps) {
           </div>
         ))}
       </nav>
-    </aside>
+    </div>
   )
 }
 

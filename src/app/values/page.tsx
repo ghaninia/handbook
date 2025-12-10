@@ -8,7 +8,7 @@ export default function ValuesPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.3 }}
-      className="py-12 px-6 lg:px-12 max-w-4xl"
+      className="py-4"
     >
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
         ارزش‌های برنامه‌نویسی مفرط (XP)

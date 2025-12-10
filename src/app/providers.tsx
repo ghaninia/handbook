@@ -3,28 +3,34 @@
 import { ThemeProvider } from 'next-themes'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
+import Footer from '@/components/Footer'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="light">
-      <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="min-h-screen bg-white dark:bg-gray-950 flex flex-col">
         <Header />
         
-        {/* Desktop Layout */}
-        <div className="hidden lg:flex">
-          <main className="flex-1 min-w-0">
-            {children}
-          </main>
-          <div className="w-64 flex-shrink-0">
-            <Sidebar />
+        {/* Main Container with Grid */}
+        <div className="flex-1 container mx-auto px-4">
+          <div className="grid grid-cols-12 gap-6">
+            {/* Content Area - 9 columns on desktop */}
+            <main className="col-span-12 lg:col-span-9 py-8">
+              {children}
+            </main>
+            
+            {/* Sidebar - 3 columns on desktop */}
+            <aside className="hidden lg:block lg:col-span-3">
+              <Sidebar />
+            </aside>
           </div>
         </div>
 
-        {/* Mobile Layout */}
+        {/* Footer */}
+        <Footer />
+
+        {/* Mobile Sidebar */}
         <div className="lg:hidden">
-          <main className="min-h-[calc(100vh-3.5rem)]">
-            {children}
-          </main>
           <Sidebar mobile />
         </div>
       </div>
