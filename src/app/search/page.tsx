@@ -1,97 +1,106 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { useState } from 'react'
+import Link from 'next/link'
 
 export default function SearchPage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [results, setResults] = useState<typeof allContent>([])
+  const [query, setQuery] = useState('')
 
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    if (query.trim() === '') {
-      setResults([])
-      return
-    }
-
-    const filtered = allContent.filter(
-      (item) =>
-        item.title.toLowerCase().includes(query.toLowerCase()) ||
-        item.description.toLowerCase().includes(query.toLowerCase())
-    )
-    setResults(filtered)
-  }
+  const filteredItems = query.length > 1
+    ? allItems.filter(
+        (item) =>
+          item.title.includes(query) ||
+          item.titleEn.toLowerCase().includes(query.toLowerCase()) ||
+          item.description.includes(query)
+      )
+    : []
 
   return (
-    <div className="grid grid-cols-12 gap-6">
-      {/* Header */}
-      <div className="col-span-12">
-        <h1 className="text-3xl font-bold mb-4">جستجو</h1>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="py-12 px-6 lg:px-12 max-w-4xl"
+    >
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+        جستجو
+      </h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-6">
+        جستجو در تمام مفاهیم و الگوها
+      </p>
+
+      <div className="mb-8">
+        <input
+          type="text"
+          placeholder="عبارت مورد نظر را وارد کنید..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="w-full px-4 py-3 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg"
+          autoFocus
+        />
       </div>
 
-      {/* Search Input */}
-      <div className="col-span-12">
-        <div className="relative">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => handleSearch(e.target.value)}
-            placeholder="جستجوی الگوها، اصول و موضوعات..."
-            className="w-full px-4 py-3 pr-12 rounded-lg border-2 border-gray-300 dark:border-gray-600 bg-white dark:bg-surface-dark focus:border-primary-light dark:focus:border-primary-dark focus:outline-none"
-          />
-          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-xl">
-            🔍
-          </span>
-        </div>
-      </div>
-
-      {/* Results Count */}
-      {searchQuery && (
-        <div className="col-span-12 text-gray-600 dark:text-gray-400 text-sm">
-          {results.length} نتیجه یافت شد
-        </div>
+      {query.length > 1 && (
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          {filteredItems.length} نتیجه
+        </p>
       )}
 
-      {/* Results */}
-      {/* Results */}
-      {results.map((item) => (
-        <a
-          key={item.slug}
-          href={item.href}
-          className="col-span-12 sm:col-span-6 lg:col-span-4 card hover:shadow-xl transition-all"
-        >
-          <div className="flex items-start">
-            <span className="text-2xl ml-3">{item.icon}</span>
-            <div className="flex-1">
-              <h3 className="font-bold mb-1">{item.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                {item.description}
-              </p>
-              <span className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs">
-                {item.category}
-              </span>
+      <div className="space-y-3">
+        {filteredItems.map((item) => (
+          <Link
+            key={`${item.category}-${item.title}`}
+            href={item.href}
+            className="card block hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+          >
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100">{item.title}</h3>
+              <div className="flex items-center gap-2">
+                <span className="tag tag-blue">{item.titleEn}</span>
+                <span className="text-xs text-gray-400">{item.category}</span>
+              </div>
             </div>
-          </div>
-        </a>
-      ))}
-
-      {/* No Results */}
-      {searchQuery && results.length === 0 && (
-        <div className="col-span-12 text-center py-12">
-          <span className="text-5xl mb-4 block">🔍</span>
-          <p className="text-gray-600 dark:text-gray-400">
-            نتیجه‌ای یافت نشد
+            <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+          </Link>
+        ))}
+        {query.length > 1 && filteredItems.length === 0 && (
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+            نتیجه‌ای یافت نشد.
           </p>
-        </div>
-      )}
-    </div>
+        )}
+        {query.length <= 1 && (
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+            حداقل ۲ کاراکتر وارد کنید.
+          </p>
+        )}
+      </div>
+    </motion.div>
   )
 }
 
-const allContent = [
-  { title: 'الگوی سینگلتون', slug: 'singleton', href: '/design-patterns/singleton', icon: '🎨', description: 'تضمین می‌کند که یک کلاس فقط یک نمونه داشته باشد', category: 'الگوهای طراحی' },
-  { title: 'الگوی فکتوری', slug: 'factory', href: '/design-patterns/factory', icon: '🎨', description: 'رابطی برای ساخت اشیاء فراهم می‌کند', category: 'الگوهای طراحی' },
-  { title: 'SOLID', slug: 'solid', href: '/principles/solid', icon: '📐', description: 'پنج اصل اساسی طراحی شی‌گرا', category: 'اصول' },
-  { title: 'DRY', slug: 'dry', href: '/principles/dry', icon: '📐', description: 'تکرار نکنید - هر دانش باید یک نمایش واحد داشته باشد', category: 'اصول' },
-  { title: 'توسعه مبتنی بر تست', slug: 'tdd', href: '/practices/tdd', icon: '⚙️', description: 'ابتدا تست بنویسید، سپس کد را پیاده‌سازی کنید', category: 'روش‌ها' },
-  { title: 'God Object', slug: 'god-object', href: '/antipatterns/god-object', icon: '⚠️', description: 'کلاسی با مسئولیت‌های بیش از حد', category: 'ضدالگوها' },
+const allItems = [
+  // Design Patterns
+  { title: 'تک‌نمونه', titleEn: 'Singleton', category: 'الگوهای طراحی', description: 'اطمینان از وجود تنها یک نمونه از کلاس.', href: '/design-patterns' },
+  { title: 'کارخانه', titleEn: 'Factory', category: 'الگوهای طراحی', description: 'ایجاد اشیاء بدون مشخص کردن کلاس دقیق.', href: '/design-patterns' },
+  { title: 'مخزن', titleEn: 'Repository', category: 'الگوهای طراحی', description: 'میانجیگری بین دامنه و لایه داده.', href: '/design-patterns' },
+  { title: 'ناظر', titleEn: 'Observer', category: 'الگوهای طراحی', description: 'اطلاع‌رسانی خودکار تغییرات.', href: '/design-patterns' },
+  { title: 'استراتژی', titleEn: 'Strategy', category: 'الگوهای طراحی', description: 'خانواده‌ای از الگوریتم‌های قابل تعویض.', href: '/design-patterns' },
+  // Principles
+  { title: 'مسئولیت واحد', titleEn: 'SRP', category: 'اصول', description: 'هر کلاس یک دلیل برای تغییر.', href: '/principles' },
+  { title: 'باز-بسته', titleEn: 'OCP', category: 'اصول', description: 'باز برای توسعه، بسته برای تغییر.', href: '/principles' },
+  { title: 'خودت را تکرار نکن', titleEn: 'DRY', category: 'اصول', description: 'هر دانش یک نمایش واحد.', href: '/principles' },
+  { title: 'ساده نگه دار', titleEn: 'KISS', category: 'اصول', description: 'سادگی بهترین است.', href: '/principles' },
+  // Practices
+  { title: 'توسعه تست‌محور', titleEn: 'TDD', category: 'روش‌ها', description: 'تست قبل از کد.', href: '/practices' },
+  { title: 'کد تمیز', titleEn: 'Clean Code', category: 'روش‌ها', description: 'نوشتن کد خوانا و قابل نگهداری.', href: '/practices' },
+  { title: 'بازآرایی', titleEn: 'Refactoring', category: 'روش‌ها', description: 'بهبود ساختار بدون تغییر رفتار.', href: '/practices' },
+  // DDD
+  { title: 'زمینه محدود', titleEn: 'Bounded Context', category: 'DDD', description: 'مرز منطقی مدل دامنه.', href: '/domain-driven-design' },
+  { title: 'تجمیع', titleEn: 'Aggregate', category: 'DDD', description: 'گروهی از موجودیت‌ها با یک ریشه.', href: '/domain-driven-design' },
+  { title: 'موجودیت', titleEn: 'Entity', category: 'DDD', description: 'شیء با هویت مشخص.', href: '/domain-driven-design' },
+  // Architecture
+  { title: 'میکروسرویس‌ها', titleEn: 'Microservices', category: 'معماری', description: 'سرویس‌های کوچک و مستقل.', href: '/architecture' },
+  { title: 'CQRS', titleEn: 'CQRS', category: 'معماری', description: 'جداسازی خواندن و نوشتن.', href: '/architecture' },
+  { title: 'منبع‌یابی رویداد', titleEn: 'Event Sourcing', category: 'معماری', description: 'ذخیره به عنوان رویدادها.', href: '/architecture' },
 ]

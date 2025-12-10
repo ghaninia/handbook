@@ -1,165 +1,78 @@
-import Link from 'next/link'
+'use client'
+
+import { motion } from 'framer-motion'
+import { useState } from 'react'
 
 export default function TermsPage() {
+  const [search, setSearch] = useState('')
+  
+  const filteredTerms = terms.filter(
+    (t) => t.name.includes(search) || t.nameEn.toLowerCase().includes(search.toLowerCase()) || t.description.includes(search)
+  )
+
   return (
-    <div className="grid grid-cols-12 gap-6">
-      {/* Header */}
-      <div className="col-span-12">
-        <h1 className="text-3xl font-bold mb-3">اصطلاحات و مفاهیم</h1>
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-          واژه‌نامه اصطلاحات رایج در توسعه نرم‌افزار و مهندسی نرم‌افزار.
-          درک این مفاهیم برای ارتباط مؤثر در تیم‌های توسعه ضروری است.
-        </p>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="py-12 px-6 lg:px-12 max-w-4xl"
+    >
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+        اصطلاحات
+      </h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-6">
+        واژه‌نامه اصطلاحات تخصصی توسعه نرم‌افزار
+      </p>
+
+      <div className="mb-8">
+        <input
+          type="text"
+          placeholder="جستجوی اصطلاح..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="w-full max-w-md px-4 py-2 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
       </div>
 
-      {/* Key Terms from DevIQ */}
-      <section className="col-span-12">
-        <h2 className="text-xl font-bold mb-4">اصطلاحات کلیدی</h2>
-        <div className="grid grid-cols-12 gap-4">
-          {keyTerms.map((term) => (
-            <Link
-              key={term.slug}
-              href={`/terms/${term.slug}`}
-              className="col-span-12 sm:col-span-6 xl:col-span-4 card hover:shadow-xl transition-all hover:scale-[1.02]"
-            >
-              <h3 className="text-lg font-bold mb-2 text-primary-light dark:text-primary-dark">
-                {term.term}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">
-                {term.definition}
-              </p>
-              <span className="inline-block px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-full text-xs">
-                {term.category}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Glossary */}
-      <section className="col-span-12">
-        <h2 className="text-xl font-bold mb-4">واژه‌نامه عمومی</h2>
-        <div className="grid grid-cols-12 gap-4">
-          {glossary.map((term) => (
-            <div key={term.term} className="col-span-12 md:col-span-6 card">
-              <h3 className="text-lg font-bold mb-2">
-                {term.term}
-                {term.english && (
-                  <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mr-2">
-                    ({term.english})
-                  </span>
-                )}
-              </h3>
-              <p className="text-gray-700 dark:text-gray-300 text-sm">
-                {term.definition}
-              </p>
-              {term.example && (
-                <div className="mt-3 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg text-sm">
-                  <span className="font-semibold text-amber-600 dark:text-amber-400">مثال: </span>
-                  {term.example}
-                </div>
-              )}
+      <div className="space-y-3">
+        {filteredTerms.map((term) => (
+          <div key={term.name} className="card">
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="font-medium text-gray-900 dark:text-gray-100">{term.name}</h3>
+              <span className="tag tag-blue">{term.nameEn}</span>
             </div>
-          ))}
-        </div>
-      </section>
-    </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">{term.description}</p>
+          </div>
+        ))}
+        {filteredTerms.length === 0 && (
+          <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+            نتیجه‌ای یافت نشد.
+          </p>
+        )}
+      </div>
+    </motion.div>
   )
 }
 
-const keyTerms = [
-  {
-    term: 'Technical Debt',
-    slug: 'technical-debt',
-    definition: 'هزینه‌ای که باید در آینده پرداخت شود به دلیل انتخاب راه‌حل سریع به جای معماری بهتر. مثل وام گرفتن از آینده!',
-    category: 'مدیریت',
-  },
-  {
-    term: 'Bus Factor',
-    slug: 'bus-factor',
-    definition: 'تعداد افرادی که اگر ناپدید شوند (مثلاً با اتوبوس تصادف کنند!) پروژه متوقف می‌شود. هرچه بالاتر باشد بهتر است.',
-    category: 'تیمی',
-  },
-  {
-    term: 'Kinds of Models',
-    slug: 'kinds-of-models',
-    description: 'انواع مختلف مدل‌ها در توسعه نرم‌افزار از Domain Model تا View Model.',
-    category: 'معماری',
-    definition: 'انواع مختلف مدل‌ها که هر کدام هدف متفاوتی دارند: Domain Model، View Model، DTO و ...',
-  },
-]
-
-const glossary = [
-  {
-    term: 'انتزاع',
-    english: 'Abstraction',
-    definition: 'فرآیند پنهان کردن جزئیات پیاده‌سازی و نمایش تنها عملکرد ضروری. یکی از چهار ستون برنامه‌نویسی شیءگرا.',
-    example: 'یک interface که فقط متدهای عمومی را تعریف می‌کند.',
-  },
-  {
-    term: 'API',
-    english: 'Application Programming Interface',
-    definition: 'قرارداد بین دو برنامه که مشخص می‌کند چگونه با هم ارتباط برقرار کنند.',
-    example: 'REST API که endpoint ها و فرمت داده را تعریف می‌کند.',
-  },
-  {
-    term: 'تزریق وابستگی',
-    english: 'Dependency Injection',
-    definition: 'الگویی که وابستگی‌ها را از بیرون به کلاس می‌دهد به جای ساختن آنها در داخل.',
-    example: 'ارسال ILogger به constructor به جای new Logger().',
-  },
-  {
-    term: 'ریفکتورینگ',
-    english: 'Refactoring',
-    definition: 'بهبود ساختار داخلی کد بدون تغییر رفتار خارجی آن.',
-    example: 'استخراج متد تکراری به یک تابع جداگانه.',
-  },
-  {
-    term: 'میکروسرویس',
-    english: 'Microservices',
-    definition: 'معماری که برنامه را به سرویس‌های کوچک و مستقل تقسیم می‌کند.',
-    example: 'سرویس جداگانه برای احراز هویت، پرداخت و سفارشات.',
-  },
-  {
-    term: 'مونولیتیک',
-    english: 'Monolithic',
-    definition: 'معماری که کل برنامه به صورت یک واحد یکپارچه ساخته شده است.',
-    example: 'یک فایل exe یا یک container که همه چیز داخل آن است.',
-  },
-  {
-    term: 'Coupling',
-    english: 'Coupling',
-    definition: 'میزان وابستگی بین ماژول‌ها. Loose coupling مطلوب است.',
-    example: 'کلاسی که مستقیماً به کلاس دیگر new می‌کند tight coupling دارد.',
-  },
-  {
-    term: 'Cohesion',
-    english: 'Cohesion',
-    definition: 'میزان مرتبط بودن اعضای یک ماژول با هم. High cohesion مطلوب است.',
-    example: 'کلاسی که فقط کارهای مرتبط با یک مفهوم را انجام می‌دهد.',
-  },
-  {
-    term: 'Idempotent',
-    english: 'Idempotent',
-    definition: 'عملیاتی که اجرای چندباره آن همان نتیجه اجرای یک‌باره را دارد.',
-    example: 'PUT request که چند بار ارسال شود نتیجه یکسان دارد.',
-  },
-  {
-    term: 'Immutable',
-    english: 'Immutable',
-    definition: 'شیءای که پس از ایجاد قابل تغییر نیست و تغییر آن نسخه جدید ایجاد می‌کند.',
-    example: 'String در بسیاری از زبان‌ها immutable است.',
-  },
-  {
-    term: 'Mocking',
-    english: 'Mocking',
-    definition: 'جایگزینی وابستگی‌های واقعی با نسخه‌های ساختگی در تست.',
-    example: 'استفاده از mock database به جای database واقعی در unit test.',
-  },
-  {
-    term: 'Payload',
-    english: 'Payload',
-    definition: 'داده اصلی که در یک پیام یا request ارسال می‌شود.',
-    example: 'بدنه JSON در یک POST request.',
-  },
+const terms = [
+  { name: 'انتزاع', nameEn: 'Abstraction', description: 'پنهان کردن جزئیات پیچیده و نمایش فقط قابلیت‌های ضروری.' },
+  { name: 'کپسوله‌سازی', nameEn: 'Encapsulation', description: 'بسته‌بندی داده و متدها در یک واحد و پنهان کردن جزئیات داخلی.' },
+  { name: 'وراثت', nameEn: 'Inheritance', description: 'مکانیزمی که یک کلاس ویژگی‌های کلاس دیگر را به ارث می‌برد.' },
+  { name: 'چندریختی', nameEn: 'Polymorphism', description: 'قابلیت یک شیء برای رفتار متفاوت در شرایط مختلف.' },
+  { name: 'رابط', nameEn: 'Interface', description: 'قراردادی که رفتار مورد انتظار را بدون پیاده‌سازی تعریف می‌کند.' },
+  { name: 'کلاس انتزاعی', nameEn: 'Abstract Class', description: 'کلاسی که نمی‌توان از آن نمونه ساخت و برای ارث‌بری طراحی شده.' },
+  { name: 'متد', nameEn: 'Method', description: 'تابعی که به یک کلاس یا شیء تعلق دارد.' },
+  { name: 'سازنده', nameEn: 'Constructor', description: 'متد خاصی که هنگام ایجاد شیء فراخوانی می‌شود.' },
+  { name: 'دسترسی‌دهنده', nameEn: 'Getter', description: 'متدی برای خواندن مقدار یک فیلد.' },
+  { name: 'تنظیم‌کننده', nameEn: 'Setter', description: 'متدی برای تغییر مقدار یک فیلد.' },
+  { name: 'ثابت', nameEn: 'Constant', description: 'مقداری که پس از تعریف قابل تغییر نیست.' },
+  { name: 'متغیر', nameEn: 'Variable', description: 'نامی که به یک مقدار در حافظه اشاره می‌کند.' },
+  { name: 'پارامتر', nameEn: 'Parameter', description: 'متغیری که به تابع پاس داده می‌شود.' },
+  { name: 'آرگومان', nameEn: 'Argument', description: 'مقدار واقعی که هنگام فراخوانی به تابع داده می‌شود.' },
+  { name: 'بازگشت', nameEn: 'Return', description: 'مقداری که تابع به فراخواننده برمی‌گرداند.' },
+  { name: 'حلقه', nameEn: 'Loop', description: 'ساختاری برای تکرار یک بلوک کد.' },
+  { name: 'شرط', nameEn: 'Condition', description: 'عبارتی که نتیجه درست یا غلط دارد.' },
+  { name: 'بازگشتی', nameEn: 'Recursion', description: 'تابعی که خودش را فراخوانی می‌کند.' },
+  { name: 'استثناء', nameEn: 'Exception', description: 'رویدادی که جریان عادی برنامه را مختل می‌کند.' },
+  { name: 'مدیریت خطا', nameEn: 'Error Handling', description: 'فرآیند پاسخ به شرایط غیرعادی.' },
 ]

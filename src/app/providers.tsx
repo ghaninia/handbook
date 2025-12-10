@@ -1,31 +1,30 @@
 'use client'
 
-import { ThemeProvider } from '@/contexts/ThemeContext'
+import { ThemeProvider } from 'next-themes'
 import Header from '@/components/Header'
 import Sidebar from '@/components/Sidebar'
-import PageTransition from '@/components/PageTransition'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export default function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <ThemeProvider>
-      <div className="min-h-screen">
+    <ThemeProvider attribute="class" defaultTheme="light">
+      <div className="min-h-screen bg-white dark:bg-gray-950">
         <Header />
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-12 gap-6">
-            {/* Sidebar - 3 columns on lg */}
-            <aside className="hidden lg:block lg:col-span-3 xl:col-span-2">
-              <Sidebar />
-            </aside>
-            {/* Main Content - 9 columns on lg */}
-            <main className="col-span-12 lg:col-span-9 xl:col-span-10 min-h-[calc(100vh-5rem)] py-6">
-              <PageTransition>
-                {children}
-              </PageTransition>
-            </main>
+        
+        {/* Desktop Layout */}
+        <div className="hidden lg:flex">
+          <main className="flex-1 min-w-0">
+            {children}
+          </main>
+          <div className="w-64 flex-shrink-0">
+            <Sidebar />
           </div>
         </div>
-        {/* Mobile Sidebar */}
+
+        {/* Mobile Layout */}
         <div className="lg:hidden">
+          <main className="min-h-[calc(100vh-3.5rem)]">
+            {children}
+          </main>
           <Sidebar mobile />
         </div>
       </div>

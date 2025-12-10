@@ -1,100 +1,107 @@
-import Link from 'next/link'
+'use client'
+
+import { motion } from 'framer-motion'
 
 export default function ValuesPage() {
   return (
-    <div className="grid grid-cols-12 gap-6">
-      {/* Header */}
-      <div className="col-span-12">
-        <h1 className="text-3xl font-bold mb-3">ارزش‌های Extreme Programming</h1>
-        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
-          ارزش‌های اصلی Extreme Programming (XP) که پایه و اساس همه شیوه‌های توسعه چابک هستند.
-          این ارزش‌ها توسط Kent Beck معرفی شده‌اند و راهنمای تیم‌های توسعه در تصمیم‌گیری‌هایشان هستند.
-        </p>
-      </div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="py-12 px-6 lg:px-12 max-w-4xl"
+    >
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+        ارزش‌های برنامه‌نویسی مفرط (XP)
+      </h1>
+      <p className="text-gray-600 dark:text-gray-400 mb-8">
+        پنج ارزش اصلی که پایه Extreme Programming را تشکیل می‌دهند
+      </p>
 
-      {/* XP Values */}
-      <div className="col-span-12">
-        <div className="grid grid-cols-12 gap-6">
-          {xpValues.map((value) => (
-            <Link
-              key={value.slug}
-              href={`/values/${value.slug}`}
-              className="col-span-12 sm:col-span-6 lg:col-span-4 card hover:shadow-xl transition-all hover:scale-[1.02]"
-            >
-              <div className="flex items-center mb-4">
-                <span className="text-4xl ml-4">{value.icon}</span>
-                <div>
-                  <h3 className="text-xl font-bold">{value.title}</h3>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">{value.english}</span>
-                </div>
+      <div className="space-y-6">
+        {values.map((value, index) => (
+          <div key={value.name} className="card">
+            <div className="flex items-center gap-4 mb-3">
+              <span className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                {index + 1}
+              </span>
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">{value.name}</h2>
+                <span className="text-sm text-gray-500 dark:text-gray-400">{value.nameEn}</span>
               </div>
-              <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-4">
-                {value.description}
-              </p>
-              <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
-                <p className="text-sm italic text-amber-800 dark:text-amber-200">
-                  "{value.quote}"
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed">{value.description}</p>
+            <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+              <h4 className="text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">نمونه‌های عملی:</h4>
+              <ul className="space-y-1">
+                {value.examples.map((example, i) => (
+                  <li key={i} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                    <span className="text-blue-500 mt-1">•</span>
+                    {example}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ))}
       </div>
-
-      {/* Quote */}
-      <div className="col-span-12 card bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20">
-        <blockquote className="text-center">
-          <p className="text-lg italic text-gray-700 dark:text-gray-300 mb-4">
-            "ارزش‌ها معیاری برای اولویت‌بندی هستند. آنها به ما کمک می‌کنند تا وقتی با انتخاب‌های متضاد مواجه می‌شویم، تصمیم بگیریم."
-          </p>
-          <footer className="text-sm text-gray-500 dark:text-gray-400">
-            — Kent Beck, Extreme Programming Explained
-          </footer>
-        </blockquote>
-      </div>
-    </div>
+    </motion.div>
   )
 }
 
-const xpValues = [
+const values = [
   {
-    title: 'ارتباطات',
-    english: 'Communication',
-    slug: 'communication',
-    icon: '💬',
-    description: 'ارتباط مؤثر در تیم کلید موفقیت است. مشکلات وقتی حل می‌شوند که همه با هم صحبت کنند. Pair Programming، Planning Games و Daily Standups همه برای ترویج ارتباط هستند.',
-    quote: 'هیچ‌کس به تنهایی همه جواب‌ها را نمی‌داند.',
+    name: 'ارتباط',
+    nameEn: 'Communication',
+    description: 'ارتباط مؤثر بین تمام اعضای تیم و ذینفعان. XP بر ارتباط مداوم و شفاف تأکید می‌کند تا همه در یک صفحه باشند.',
+    examples: [
+      'جلسات استندآپ روزانه',
+      'برنامه‌نویسی جفتی',
+      'حضور مشتری در تیم',
+      'استفاده از تخته سفید و نمودارها',
+    ],
   },
   {
-    title: 'سادگی',
-    english: 'Simplicity',
-    slug: 'simplicity',
-    icon: '🎯',
-    description: 'ساده‌ترین راه‌حلی که کار می‌کند را بسازید. پیچیدگی غیرضروری را حذف کنید. YAGNI و KISS از اینجا می‌آیند. سادگی به معنای انجام ندادن نیست، بلکه انجام دادن فقط آنچه لازم است.',
-    quote: 'همه چیز باید تا حد ممکن ساده باشد، اما نه ساده‌تر.',
+    name: 'سادگی',
+    nameEn: 'Simplicity',
+    description: 'انجام ساده‌ترین کار که می‌تواند جواب دهد. از پیچیدگی غیرضروری اجتناب کنید و فقط آنچه الان نیاز است بسازید.',
+    examples: [
+      'YAGNI - به آن نیاز نخواهی داشت',
+      'بازآرایی مداوم',
+      'حذف کد اضافی',
+      'طراحی ساده و قابل فهم',
+    ],
   },
   {
-    title: 'بازخورد',
-    english: 'Feedback',
-    slug: 'feedback',
-    icon: '🔄',
-    description: 'بازخورد سریع و مستمر به تیم کمک می‌کند مسیر را اصلاح کند. تست‌ها، Code Review ها، Demo ها و Retrospective ها همه منابع بازخورد هستند. هر چه بازخورد سریع‌تر باشد، اصلاح ارزان‌تر است.',
-    quote: 'زود شکست بخورید، سریع یاد بگیرید.',
+    name: 'بازخورد',
+    nameEn: 'Feedback',
+    description: 'دریافت بازخورد سریع و مداوم از همه منابع - تست‌ها، مشتری و تیم. بازخورد به بهبود مداوم کمک می‌کند.',
+    examples: [
+      'تست‌های واحد با اجرای سریع',
+      'یکپارچه‌سازی مداوم',
+      'نمایش‌های مکرر به مشتری',
+      'بازنگری کد',
+    ],
   },
   {
-    title: 'شجاعت',
-    english: 'Courage',
-    slug: 'courage',
-    icon: '💪',
-    description: 'شجاعت برای گفتن حقیقت، پذیرش اشتباهات، ریفکتور کردن کد، و انجام کار درست حتی وقتی سخت است. شجاعت به معنای بی‌پروایی نیست، بلکه تصمیم‌گیری بر اساس ارزش‌ها است.',
-    quote: 'شجاعت بدون ارزش‌های دیگر خطرناک است.',
+    name: 'شجاعت',
+    nameEn: 'Courage',
+    description: 'شجاعت برای انجام کارهای درست - بازآرایی کد، حذف قابلیت‌های بد، تغییر مسیر وقتی لازم است.',
+    examples: [
+      'حذف کد مرده',
+      'بازنویسی کد ضعیف',
+      'صحبت درباره مشکلات',
+      'امتحان کردن ایده‌های جدید',
+    ],
   },
   {
-    title: 'احترام',
-    english: 'Respect',
-    slug: 'respect',
-    icon: '🤝',
-    description: 'احترام به اعضای تیم، کاربران، و حتی کدی که روی آن کار می‌کنید. هر کسی ارزشمند است و نظرش مهم است. بدون احترام متقابل، همکاری مؤثر غیرممکن است.',
-    quote: 'همه اعضای تیم یکسان مهم هستند.',
+    name: 'احترام',
+    nameEn: 'Respect',
+    description: 'احترام متقابل بین تمام اعضای تیم. هر کسی ارزشمند است و نظراتش مهم است.',
+    examples: [
+      'گوش دادن به نظرات همه',
+      'پذیرش اشتباهات',
+      'کمک به همکاران',
+      'قدردانی از تلاش‌ها',
+    ],
   },
 ]
