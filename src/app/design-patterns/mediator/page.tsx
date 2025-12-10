@@ -39,17 +39,17 @@ export default function MediatorPage() {
             eCommerce Example
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Consider this eCommerce situation:
+            این وضعیت eCommerce را در نظر بگیرید:
           </p>
           <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderCommand</code> triggers the <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderHandler</code> to place the order</li>
-            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderHandler</code> notifies the Mediator to check the inventory</li>
-            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">CheckInventoryHandler</code> checks inventory and then requests to send a notification</li>
-            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">SendNotificationHandler</code> completes the process by sending a confirmation</li>
+            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderCommand</code> باعث <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderHandler</code> می‌شود تا سفارش را ثبت کند</li>
+            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">PlaceOrderHandler</code> به Mediator اطلاع می‌دهد تا موجودی را بررسی کند</li>
+            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">CheckInventoryHandler</code> موجودی را بررسی و سپس درخواست ارسال اطلاعیه می‌کند</li>
+            <li><code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">SendNotificationHandler</code> فرآیند را با ارسال تایید کامل می‌کند</li>
           </ol>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              The Order Service doesn't need to know about the Inventory Service or the Notification Service. Its sole focus is on order-related things. All coordination is handled by the Mediator.
+              Order Service نیازی به آگاهی از Inventory Service یا Notification Service ندارد. تمرکز آن فقط بر موضوعات مربوط به سفارش است. تمام هماهنگی توسط Mediator مدیریت می‌شود.
             </p>
           </div>
         </section>
@@ -59,9 +59,9 @@ export default function MediatorPage() {
             When to Use Mediator
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>Multiple components need to communicate in complex ways</li>
-            <li>Components need to be decoupled to allow easier changes</li>
-            <li>You want to encapsulate workflows or orchestrations that would otherwise be spread across multiple classes</li>
+            <li>چندین کامپوننت نیاز به ارتباط پیچیده دارند</li>
+            <li>کامپوننت‌ها برای تغییرات آسان‌تر باید جدا شوند</li>
+            <li>می‌خواهید workflows یا orchestrations را کپسوله کنید که ورنه در چند کلاس پراکنده می‌شوند</li>
           </ul>
         </section>
 
@@ -73,25 +73,25 @@ export default function MediatorPage() {
             <div>
               <h3 className="font-medium text-gray-900 dark:text-gray-100">Loose Coupling</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Components don't need to know about each other; they only interact through the Mediator.
+                کامپوننت‌ها نیازی به آگاهی از یکدیگر ندارند؛ فقط از طریق Mediator تعامل می‌کنند.
               </p>
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 dark:text-gray-100">Improved Readability and Maintenance</h3>
+              <h3 className="font-medium text-gray-900 dark:text-gray-100">بهبود خوانایی و نگهداری</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                The Mediator centralizes communication logic, simplifying the understanding of interactions.
+                Mediator منطق ارتباط را متمرکز می‌کند و درک تعاملات را ساده می‌کند.
               </p>
             </div>
             <div>
-              <h3 className="font-medium text-gray-900 dark:text-gray-100">Easier Debugging and Testing</h3>
+              <h3 className="font-medium text-gray-900 dark:text-gray-100">دیباگ و تست آسان‌تر</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                You can mock or replace the Mediator in tests, focusing only on specific interactions.
+                می‌توانید Mediator را در تست‌ها mock یا جایگزین کنید و فقط بر تعاملات خاص تمرکز کنید.
               </p>
             </div>
             <div>
               <h3 className="font-medium text-gray-900 dark:text-gray-100">Single Responsibility Principle</h3>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                Each class focuses solely on its main function, not on handling notifications or other services.
+                هر کلاس فقط بر عملکرد اصلی خود تمرکز می‌کند، نه بر مدیریت اعلان‌ها یا سرویس‌های دیگر.
               </p>
             </div>
           </div>
@@ -102,10 +102,10 @@ export default function MediatorPage() {
             Drawbacks
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Mediator Complexity:</strong> Can become a "god object" if responsible for too many interactions</li>
-            <li><strong>Single Point of Failure:</strong> All interactions go through the Mediator</li>
-            <li><strong>Harder to Trace:</strong> Debugging requests across modules can be challenging</li>
-            <li><strong>Performance Impact:</strong> Every interaction routed through Mediator adds overhead</li>
+            <li><strong>پیچیدگی Mediator:</strong> اگر مسئول تعاملات زیادی باشد می‌تواند تبدیل به "god object" شود</li>
+            <li><strong>نقطه واحد شکست:</strong> همه تعاملات از طریق Mediator عبور می‌کنند</li>
+            <li><strong>ردیابی سخت‌تر:</strong> دیباگ درخواست‌ها در ماژول‌ها می‌تواند چالش‌برانگیز باشد</li>
+            <li><strong>تاثیر عملکرد:</strong> هر تعامل که از طریق Mediator مسیریابی می‌شود overhead اضافه می‌کند</li>
           </ul>
         </section>
 
@@ -170,9 +170,9 @@ public class SendEmailHandler : INotificationHandler<OrderPlacedNotification>
             Related Patterns
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/cqrs" className="text-blue-600 dark:text-blue-400 hover:underline">CQRS Pattern</Link> - often paired with Mediator</li>
-            <li><Link href="/design-patterns/observer" className="text-blue-600 dark:text-blue-400 hover:underline">Observer Pattern</Link> - complements Mediator for event subscription</li>
-            <li><Link href="/design-patterns/chain-of-responsibility" className="text-blue-600 dark:text-blue-400 hover:underline">Chain of Responsibility</Link> - for delegating across handlers</li>
+            <li><Link href="/design-patterns/cqrs" className="text-blue-600 dark:text-blue-400 hover:underline">CQRS Pattern</Link> - اغلب با Mediator جفت می‌شود</li>
+            <li><Link href="/design-patterns/observer" className="text-blue-600 dark:text-blue-400 hover:underline">Observer Pattern</Link> - مکمل Mediator برای subscription رویدادها</li>
+            <li><Link href="/design-patterns/chain-of-responsibility" className="text-blue-600 dark:text-blue-400 hover:underline">Chain of Responsibility</Link> - برای واگذاری در handler ها</li>
           </ul>
         </section>
 
