@@ -174,8 +174,8 @@ public class UpdateInventoryHandler : INotificationHandler<NewOrderPlacedEvent>
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/domain-events-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Domain Events Pattern
+              <a href="https://handbook.com/design-patterns/domain-events-pattern" target="_blank" rel="noopener" className="hover:underline">
+                Handbook - Domain Events Pattern
               </a>
             </li>
             <li>

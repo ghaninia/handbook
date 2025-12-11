@@ -3,7 +3,7 @@ import './globals.css'
 import Providers from './providers'
 
 export const metadata: Metadata = {
-  title: 'DevIQ فارسی - مرجع توسعه نرم‌افزار',
+  title: 'Handbook فارسی - مرجع توسعه نرم‌افزار',
   description: 'مرجع کامل الگوهای طراحی، اصول و روش‌های توسعه نرم‌افزار به زبان فارسی',
 }
 

@@ -47,14 +47,14 @@ export default function AboutPage() {
     <div className="grid grid-cols-12 gap-6">
       {/* Header */}
       <div className="col-span-12">
-        <h1 className="text-3xl font-bold mb-3">درباره DevIQ</h1>
+        <h1 className="text-3xl font-bold mb-3">درباره Handbook</h1>
       </div>
 
       {/* Our Goal */}
       <section className="col-span-12 lg:col-span-6 card">
         <h2 className="text-xl font-bold mb-3">هدف ما</h2>
         <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
-          DevIQ یک مرجع آموزشی جامع است که با هدف کمک به توسعه‌دهندگان نرم‌افزار
+          Handbook یک مرجع آموزشی جامع است که با هدف کمک به توسعه‌دهندگان نرم‌افزار
           برای یادگیری و تسلط بر مفاهیم پیشرفته توسعه نرم‌افزار طراحی شده است.
         </p>
       </section>

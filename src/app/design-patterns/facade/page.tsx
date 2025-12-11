@@ -157,8 +157,8 @@ public class ProductFacade
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/facade-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Facade Pattern
+              <a href="https://handbook.com/design-patterns/facade-pattern" target="_blank" rel="noopener" className="hover:underline">
+                Handbook - Facade Pattern
               </a>
             </li>
             <li>

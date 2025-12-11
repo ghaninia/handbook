@@ -19,7 +19,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-bold text-gray-900 dark:text-white">
-              DevIQ
+              Handbook
             </span>
             <span className="text-sm text-gray-500 dark:text-gray-400 hidden sm:inline">
               مرجع توسعه نرم‌افزار

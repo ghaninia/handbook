@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Logo & Description */}
           <div className="col-span-12 md:col-span-4">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">DevIQ</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-gray-100">Handbook</span>
               <span className="text-sm text-gray-500 dark:text-gray-400">فارسی</span>
             </Link>
             <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
@@ -64,7 +64,7 @@ export default function Footer() {
         <div className="border-t border-gray-200 dark:border-gray-800 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              © ۱۴۰۴ DevIQ فارسی. ترجمه و بومی‌سازی محتوای deviq.com
+              © ۱۴۰۴ Handbook فارسی. ترجمه و بومی‌سازی محتوای handbook.com
             </p>
             <div className="flex items-center gap-4">
               <a
@@ -76,12 +76,12 @@ export default function Footer() {
                 <i className="ri-github-fill text-xl"></i>
               </a>
               <a
-                href="https://deviq.com"
+                href="https://handbook.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-gray-500 hover:text-blue-600 dark:hover:text-blue-400"
               >
-                deviq.com
+                handbook.com
               </a>
             </div>
           </div>

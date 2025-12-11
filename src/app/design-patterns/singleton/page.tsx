@@ -220,13 +220,13 @@ public class OrderService
               </a>
             </li>
             <li>
-              <a href="https://deviq.com/design-patterns/singleton" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Singleton Pattern
+              <a href="https://handbook.com/design-patterns/singleton" target="_blank" rel="noopener" className="hover:underline">
+                Handbook - Singleton Pattern
               </a>
             </li>
             <li>
-              <a href="https://deviq.com/principles/explicit-dependencies-principle" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Explicit Dependencies Principle
+              <a href="https://handbook.com/principles/explicit-dependencies-principle" target="_blank" rel="noopener" className="hover:underline">
+                Handbook - Explicit Dependencies Principle
               </a>
             </li>
           </ul>

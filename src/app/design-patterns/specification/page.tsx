@@ -205,8 +205,8 @@ public IEnumerable<T> List(ISpecification<T> spec)
               </a>
             </li>
             <li>
-              <a href="https://deviq.com/design-patterns/specification-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Specification Pattern
+              <a href="https://handbook.com/design-patterns/specification-pattern" target="_blank" rel="noopener" className="hover:underline">
+                Handbook - Specification Pattern
               </a>
             </li>
           </ul>
