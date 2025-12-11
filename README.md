@@ -4,7 +4,7 @@ A comprehensive React SSR (Server-Side Rendering) application built with Next.js
 
 ## 🔗 Live Preview
 
-**[View Live Demo →](https://v0-street-photogr-git-873617-mohamadaminghaninia-6303s-projects.vercel.app/)**
+**[View Live Demo →](http://ghaninia-handbook.vercel.app/)**
 
 ## 🌟 Features
 
