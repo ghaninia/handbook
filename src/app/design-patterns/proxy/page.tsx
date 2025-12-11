@@ -24,196 +24,271 @@ export default function ProxyPage() {
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Proxy?
+            Proxy Pattern چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            الگوی Proxy یک جانشین یا placeholder برای شی دیگر فراهم می‌کند تا دسترسی به آن را کنترل کند. Proxy دسترسی به شی اصلی را کنترل می‌کند و به شما اجازه می‌دهد قبل یا بعد از رسیدن درخواست به شی اصلی کاری انجام دهید.
+            الگوی Proxy یک placeholder برای object دیگری فراهم می‌کند تا access به آن را control کند. این می‌تواند برای abstracting دسترسی به data object ها مفید باشد و functionality اضافی مانند lazy loading، access control، یا caching فراهم کند.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Proxy همان رابط را پیاده‌سازی می‌کند که real subject دارد، بنابراین می‌توان در هر جایی که real subject مورد انتظار است از آن استفاده کرد.
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            در سطح بالا، این pattern معمولاً با موارد زیر implement می‌شود:
           </p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Types of Proxies
-          </h2>
-          <ul className="list-disc list-inside space-y-3 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Virtual Proxy:</strong> دسترسی به اشیاء گران‌ایجاد را کنترل می‌کند (lazy initialization)</li>
-            <li><strong>Remote Proxy:</strong> شی در فضای آدرس متفاوت را نمایندگی می‌کند</li>
-            <li><strong>Protection Proxy:</strong> دسترسی را بر اساس مجوزها کنترل می‌کند</li>
-            <li><strong>Caching Proxy:</strong> نتایج عملیات هزینه‌بر را cache می‌کند</li>
-            <li><strong>Smart Reference:</strong> هنگام دسترسی به شی عملیات اضافی انجام می‌دهد</li>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li>یک interface</li>
+            <li>یک implementation از interface</li>
+            <li>یک proxy برای wrap کردن implementation interface</li>
+            <li>یک client برای consume کردن proxy</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Virtual Proxy Example
+            انواع Proxy ها
           </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface IImage
-{
-    void Display();
-}
-
-// Real subject - expensive to create
-public class HighResolutionImage : IImage
-{
-    private readonly string _filename;
-    private byte[] _imageData;
-    
-    public HighResolutionImage(string filename)
-    {
-        _filename = filename;
-        LoadFromDisk(); // Expensive operation
-    }
-    
-    private void LoadFromDisk()
-    {
-        Console.WriteLine($"Loading {_filename} from disk...");
-        // Simulate loading large image
-        Thread.Sleep(2000);
-        _imageData = File.ReadAllBytes(_filename);
-    }
-    
-    public void Display()
-    {
-        Console.WriteLine($"Displaying {_filename}");
-    }
-}
-
-// Virtual Proxy - lazy loading
-public class ImageProxy : IImage
-{
-    private readonly string _filename;
-    private HighResolutionImage? _realImage;
-    
-    public ImageProxy(string filename)
-    {
-        _filename = filename;
-        // Don't load yet!
-    }
-    
-    public void Display()
-    {
-        // Load only when needed
-        _realImage ??= new HighResolutionImage(_filename);
-        _realImage.Display();
-    }
-}
-
-// Usage
-var images = new List<IImage>
-{
-    new ImageProxy("photo1.jpg"),
-    new ImageProxy("photo2.jpg"),
-    new ImageProxy("photo3.jpg")
-};
-
-// Images are NOT loaded yet
-
-images[0].Display(); // Only now photo1.jpg is loaded`}</pre>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            proxy های مختلفی وجود دارند که در کلاس کلی الگوی Proxy قرار می‌گیرند. این انواع شامل:
+          </p>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li><strong>Virtual Proxy Pattern</strong></li>
+            <li><strong>Remote Proxy Pattern</strong></li>
+            <li><strong>Cache Proxy Pattern</strong></li>
+            <li><strong>Synchronization Proxy Pattern</strong></li>
+            <li><strong>Smart Proxy Pattern</strong></li>
+          </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Caching Proxy Example
+            Virtual Proxy Pattern
           </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            یک virtual proxy می‌تواند creation و initialization یک real resource را تا زمانی که واقعاً نیاز باشد به تعویق بیندازد و با avoid کردن unnecessary overhead و کاهش resource consumption، performance را بهبود بخشد. proxy، creation و management real object را handle می‌کند و به client اجازه می‌دهد روی core functionality خود تمرکز کند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این pattern برخی drawback ها دارد. implement کردن lazy loading و manage کردن creation real object می‌تواند complexity به codebase اضافه کند. اگر به دقت implement نشود، overhead ایجاد و manage کردن proxy ها می‌تواند از benefit ها بیشتر شود.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            زمانی که creating real object resource-intensive یا time-consuming است، استفاده از virtual proxy منطقی است. هنگام dealing با loading heavy resource هایی مانند large image ها، virtual proxy توصیه می‌شود.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Remote Proxy Pattern
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            یک remote proxy می‌تواند network communication detail ها را encapsulate کند و local representation یک remote object فراهم کند که برای client transparent باشد. این نوع proxy، complexity های remote communication را پنهان می‌کند و local representation remote object فراهم می‌کند. با caching کردن result ها یا batching کردن request ها، remote proxy ها می‌توانند overhead network communication را کاهش دهند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            در حالی که remote proxy می‌تواند network communication ها را encapsulate کند و برای کمک به کاهش overhead network communication استفاده شود، با برخی drawback ها همراه است. Remote proxy ها به دلیل network communication، latency معرفی می‌کنند که می‌تواند application performance را تحت تأثیر قرار دهد. reliability remote proxy ها به network connectivity وابسته است و آنها را در برابر network failure ها آسیب‌پذیر می‌کند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            وقتی صحبت از network-related application ها می‌شود، remote proxy ها می‌توانند هنگام کار با distributed system هایی که object ها روی remote server ها قرار دارند کمک کنند. use case دیگری برای remote proxy ها، هنگام interaction با web API ها یا microservice ها از طریق network است.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Cache Proxy Pattern
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            یک cache proxy به کاهش load expensive query ها با store کردن value ها برای مدت زمان مشخص کمک می‌کند. با caching کردن result ها، caching proxy ها می‌توانند load روی server ها و database ها را کاهش دهند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            اما چیزهایی هست که هنگام implement کردن cache proxy باید در نظر گرفته شود. maintaining cache consistency می‌تواند challenging باشد، خاصه در distributed یا multi-threaded environment ها. تعیین کردن زمان invalidate کردن cached data و up-to-date نگه داشتن cache می‌تواند پیچیده باشد.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            cache proxy می‌تواند در application هایی که data را بیشتر از نوشتن می‌خوانند، مفید باشد. همچنین زمانی مفید است که result یک computation deterministic و expensive to compute باشد، چون caching کردن result می‌تواند performance را بهبود بخشد.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Synchronization Proxy Pattern
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            synchronization proxy در concurrency situation ها استفاده می‌شود تا اطمینان حاصل کند که access به real object در multiple thread ها synchronized است و از data corruption در multi-threaded environment ها جلوگیری کند. با encapsulate کردن synchronization logic، synchronization proxy ها manage کردن concurrency issue ها را آسان‌تر می‌کنند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Synchronization به دلیل locking و context switching، overhead معرفی می‌کند که می‌تواند application performance را تحت تأثیر قرار دهد. استفاده نادرست از lock ها می‌تواند منجر به deadlock شود، جایی که thread ها تا ابد منتظر یکدیگر برای release کردن lock ها هستند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            زمانی که multiple thread ها نیاز دارند به طور همزمان به shared resource ها access پیدا کنند و آنها را modify کنند، synchronization proxy می‌تواند برای اطمینان از thread safety استفاده شود. زمانی که operation های خاصی باید به صورت atomic اجرا شوند تا data consistency حفظ شود، synchronization proxy می‌تواند کمک کند.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Smart Proxy Pattern
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Smart proxy ها می‌توانند access control policy ها را enforce کنند و اطمینان حاصل کنند که فقط authorized user ها می‌توانند به operation ها یا data های خاصی access پیدا کنند. آنها می‌توانند method invocation ها را log کنند و auditing انجام دهند تا usage pattern ها را track کنند و anomaly ها را detect کنند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            implement کردن functionality اضافی در proxy ها می‌تواند code complexity و maintenance overhead را افزایش دهد. اضافه کردن logic اضافی به proxy ها می‌تواند performance overhead معرفی کند، خاصه برای frequently accessed operation ها.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            زمانی که security اولویت اصلی است و access control باید در object level enforce شود، smart proxy می‌تواند به شما اجازه دهد آن functionality را بدون تغییر object code اضافه کنید. Smart proxy ها همچنین می‌توانند برای logging user action ها و maintaining audit trail ها برای compliance یا debugging purposes استفاده شوند.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مثال Implementation
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            در اینجا مثال‌هایی از انواع مختلف Proxy Pattern در C# آورده شده است:
+          </p>
+          
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
+            Virtual Proxy - Lazy Loading
+          </h3>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface IWeatherService
+            <pre className="text-gray-800 dark:text-gray-200">{`public interface IExpensiveResource
 {
-    WeatherData GetWeather(string city);
+    string GetData();
 }
 
-public class WeatherApiService : IWeatherService
+public class ExpensiveResource : IExpensiveResource
 {
-    public WeatherData GetWeather(string city)
+    public ExpensiveResource()
     {
-        Console.WriteLine($"Calling external API for {city}...");
-        // Expensive API call
-        return new WeatherData(city, 22.5m);
+        Console.WriteLine("Creating expensive resource...");
+        // Simulate expensive initialization
+        Thread.Sleep(2000);
+    }
+    
+    public string GetData()
+    {
+        return "Expensive data";
     }
 }
 
-// Caching Proxy
-public class CachedWeatherService : IWeatherService
+// Virtual Proxy
+public class VirtualProxy : IExpensiveResource
 {
-    private readonly IWeatherService _realService;
-    private readonly Dictionary<string, (WeatherData Data, DateTime Expiry)> _cache = new();
-    private readonly TimeSpan _cacheDuration = TimeSpan.FromMinutes(5);
+    private ExpensiveResource? _realResource;
     
-    public CachedWeatherService(IWeatherService realService)
+    public string GetData()
+    {
+        // Create only when needed (lazy loading)
+        _realResource ??= new ExpensiveResource();
+        return _realResource.GetData();
+    }
+}`}</pre>
+          </div>
+
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
+            Cache Proxy
+          </h3>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public interface IDataService
+{
+    string GetExpensiveData(string key);
+}
+
+public class DatabaseService : IDataService
+{
+    public string GetExpensiveData(string key)
+    {
+        Console.WriteLine($"Fetching data from database for {key}...");
+        // Simulate expensive database call
+        Thread.Sleep(1000);
+        return $"Data for {key}";
+    }
+}
+
+// Cache Proxy
+public class CacheProxy : IDataService
+{
+    private readonly IDataService _realService;
+    private readonly Dictionary<string, (string Data, DateTime Expiry)> _cache = new();
+    
+    public CacheProxy(IDataService realService)
     {
         _realService = realService;
     }
     
-    public WeatherData GetWeather(string city)
+    public string GetExpensiveData(string key)
     {
-        var key = city.ToLowerInvariant();
-        
         if (_cache.TryGetValue(key, out var cached) && 
             cached.Expiry > DateTime.UtcNow)
         {
-            Console.WriteLine($"Returning cached data for {city}");
+            Console.WriteLine($"Returning cached data for {key}");
             return cached.Data;
         }
         
-        var data = _realService.GetWeather(city);
-        _cache[key] = (data, DateTime.UtcNow.Add(_cacheDuration));
+        var data = _realService.GetExpensiveData(key);
+        _cache[key] = (data, DateTime.UtcNow.AddMinutes(5));
         
         return data;
     }
 }`}</pre>
           </div>
-        </section>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Protection Proxy Example
-          </h2>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
+            Smart Proxy - Access Control & Logging
+          </h3>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface IDocument
+            <pre className="text-gray-800 dark:text-gray-200">{`public interface IBankAccount
 {
-    string GetContent();
-    void SetContent(string content);
+    decimal GetBalance();
+    void Withdraw(decimal amount);
 }
 
-public class SensitiveDocument : IDocument
+public class BankAccount : IBankAccount
 {
-    private string _content = "";
+    private decimal _balance = 1000m;
     
-    public string GetContent() => _content;
-    public void SetContent(string content) => _content = content;
+    public decimal GetBalance() => _balance;
+    
+    public void Withdraw(decimal amount)
+    {
+        if (amount <= _balance)
+            _balance -= amount;
+        else
+            throw new InvalidOperationException("Insufficient funds");
+    }
 }
 
-// Protection Proxy
-public class DocumentProxy : IDocument
+// Smart Proxy with access control and logging
+public class SecureBankAccountProxy : IBankAccount
 {
-    private readonly SensitiveDocument _document;
-    private readonly User _user;
+    private readonly BankAccount _account;
+    private readonly string _userId;
+    private readonly ILogger _logger;
     
-    public DocumentProxy(SensitiveDocument document, User user)
+    public SecureBankAccountProxy(BankAccount account, string userId, ILogger logger)
     {
-        _document = document;
-        _user = user;
+        _account = account;
+        _userId = userId;
+        _logger = logger;
     }
     
-    public string GetContent()
+    public decimal GetBalance()
     {
-        if (!_user.HasPermission("read"))
-            throw new UnauthorizedAccessException("Read access denied");
+        _logger.Log($"User {_userId} checked balance");
+        
+        if (!IsAuthorized("read"))
+            throw new UnauthorizedAccessException("Access denied");
             
-        return _document.GetContent();
+        return _account.GetBalance();
     }
     
-    public void SetContent(string content)
+    public void Withdraw(decimal amount)
     {
-        if (!_user.HasPermission("write"))
-            throw new UnauthorizedAccessException("Write access denied");
+        _logger.Log($"User {_userId} attempted withdrawal of {amount:C}");
+        
+        if (!IsAuthorized("withdraw"))
+            throw new UnauthorizedAccessException("Withdrawal access denied");
             
-        _document.SetContent(content);
+        _account.Withdraw(amount);
+        _logger.Log($"Withdrawal successful: {amount:C}");
+    }
+    
+    private bool IsAuthorized(string operation)
+    {
+        // Check user permissions
+        return true; // Simplified
     }
 }`}</pre>
           </div>
@@ -221,52 +296,59 @@ public class DocumentProxy : IDocument
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Proxy vs Decorator
+            نتیجه‌گیری
           </h2>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
-            <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 text-sm">
-              <li><strong>Proxy:</strong> دسترسی به شی را کنترل می‌کند. معمولاً lifecycle شی را مدیریت می‌کند.</li>
-              <li><strong>Decorator:</strong> قابلیت جدید اضافه می‌کند. معمولاً شیئی که wrap می‌کند را دریافت می‌کند.</li>
-            </ul>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            هر proxy pattern benefit های متمایزی ارائه می‌دهد و برای scenario های مختلف مناسب است. انتخاب pattern مناسب به requirement های خاص application شما بستگی دارد، مانند performance consideration ها، concurrency requirement ها، و security concern ها.
+          </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایا
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Lazy Initialization:</strong> ایجاد اشیاء گران را به تعویق می‌اندازد</li>
-            <li><strong>Access Control:</strong> بدون تغییر شی واقعی بررسی‌های امنیتی اضافه می‌کند</li>
-            <li><strong>Caching:</strong> با cache کردن نتایج عملکرد را بهبود می‌دهد</li>
-            <li><strong>Logging:</strong> دسترسی به شی واقعی را ردیابی می‌کند</li>
+            <li><strong>Control Access:</strong> دسترسی به object را control می‌کند</li>
+            <li><strong>Lazy Loading:</strong> expensive object creation را defer می‌کند</li>
+            <li><strong>Caching:</strong> performance را با cache کردن result ها بهبود می‌بخشد</li>
+            <li><strong>Security:</strong> authorization و authentication اضافه می‌کند</li>
+            <li><strong>Logging:</strong> access و operation ها را track می‌کند</li>
+            <li><strong>Remote Access:</strong> remote object ها را transparent می‌کند</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            نکات منفی
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/decorator" className="text-blue-600 dark:text-blue-400 hover:underline">Decorator Pattern</Link></li>
-            <li><Link href="/design-patterns/adapter" className="text-blue-600 dark:text-blue-400 hover:underline">Adapter Pattern</Link></li>
-            <li><Link href="/design-patterns/facade" className="text-blue-600 dark:text-blue-400 hover:underline">Facade Pattern</Link></li>
+            <li><strong>Complexity:</strong> layer اضافی از abstraction اضافه می‌کند</li>
+            <li><strong>Performance Overhead:</strong> proxy layer می‌تواند overhead اضافه کند</li>
+            <li><strong>Memory Usage:</strong> proxy object ها memory اضافی مصرف می‌کنند</li>
+            <li><strong>Debugging:</strong> debug کردن interaction ها پیچیده‌تر می‌شود</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            الگوهای مرتبط
+          </h2>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li><Link href="/design-patterns/decorator" className="text-blue-600 dark:text-blue-400 hover:underline">Decorator Pattern</Link> - هر دو object ها را wrap می‌کنند اما اهداف متفاوتی دارند</li>
+            <li><Link href="/design-patterns/adapter" className="text-blue-600 dark:text-blue-400 hover:underline">Adapter Pattern</Link> - interface conversion در مقابل access control</li>
+            <li><Link href="/design-patterns/facade" className="text-blue-600 dark:text-blue-400 hover:underline">Facade Pattern</Link> - simplified interface در مقابل controlled access</li>
+            <li><strong>Strategy Pattern</strong> - می‌تواند برای implement کردن different proxy behaviors استفاده شود</li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/proxy-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Proxy Pattern
-              </a>
-            </li>
-            <li>
-              <a href="http://bit.ly/DesignPatternsLibrary" target="_blank" rel="noopener" className="hover:underline">
-                Pluralsight - Design Patterns Library
+              <a href="#" className="hover:underline">
+                C# Design Patterns: Proxy (Pluralsight)
               </a>
             </li>
           </ul>
