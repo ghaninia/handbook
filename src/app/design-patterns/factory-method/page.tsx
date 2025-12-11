@@ -13,119 +13,81 @@ export default function FactoryMethodPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← بازگشت به الگوهای طراحی
+          ← Back to Design Patterns
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        الگوی Factory Method (متد کارخانه)
+        Factory Method Pattern
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Factory Method چیست؟
+            Factory Method Pattern چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            الگوی Factory Method رابطی برای ایجاد شیء تعریف می‌کند، اما به زیرکلاس‌ها اجازه می‌دهد تصمیم بگیرند که کدام کلاس را instantiate کنند. Factory Method به یک کلاس اجازه می‌دهد که instantiation را به زیرکلاس‌ها واگذار کند.
+            الگوی Factory Method یک object creation pattern از کتاب Design Patterns، توسط اصطلاحاً Gang of Four (GoF) است. این الگو به ما اجازه می‌دهد که interface یا abstract class برای ایجاد object تعریف کنیم و جزئیات خاص را به implementation ها واگذار کنیم. الگوی Factory Method امکان loose coupling و افزایش flexibility در ایجاد object ها در کد را فراهم می‌کند. همچنین به شما اجازه می‌دهد که پیچیدگی بالقوه object creation را encapsulate کنید.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            این الگو زمانی مفید است که نیاز به ایجاد اشیاء بدون مشخص کردن کلاس دقیق شیء ایجادشده دارید. با حذف نیاز به بایند کردن کلاس‌های مخصوص برنامه به کد شما، کوپلینگ شل را ترویج می‌کند.
+            این الگو این‌گونه کار می‌کند:
           </p>
+          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mt-4">
+            <li>یک interface یا abstract base class با method ایجاد object ایجاد کنید</li>
+            <li>interface را implement کنید یا از abstract base class inherit کنید و abstract method ها را تعریف کنید</li>
+            <li>implementation ها را در صورت نیاز swap کنید</li>
+          </ol>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            When to Use Factory Method
+            مثال Setup کردن Interface ها و Class ها
           </h2>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>یک کلاس نمی‌تواند کلاس اشیائی را که باید ایجاد کند پیش‌بینی کند</li>
-            <li>یک کلاس می‌خواهد زیرکلاس‌هایش اشیائی را که ایجاد می‌کند مشخص کنند</li>
-            <li>می‌خواهید دانش اینکه کدام کلاس ایجاد می‌شود را محلی کنید</li>
-            <li>می‌خواهید کتابخانه‌ای از اشیاء بدون فاش کردن پیاده‌سازی فراهم کنید</li>
-          </ul>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            C# Example
-          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            در اینجا مثالی از setup کردن interface ها و class ها با الگوی Factory Method است:
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Product interface
-public interface INotification
+            <pre className="text-gray-800 dark:text-gray-200">{`using System;
+
+interface IProductFactory 
 {
-    void Send(string message);
+    IProduct CreateProduct();
 }
 
-// Concrete products
-public class EmailNotification : INotification
+class MentoringFactory : IProductFactory 
 {
-    public void Send(string message)
+    public IProduct CreateProduct()
     {
-        Console.WriteLine($"Sending Email: {message}");
+        return new MentoringOpportunity();
     }
 }
 
-public class SmsNotification : INotification
+class TrainingFactory : IProductFactory 
 {
-    public void Send(string message)
+    public IProduct CreateProduct()
     {
-        Console.WriteLine($"Sending SMS: {message}");
+        return new TrainingOffering();
     }
 }
 
-public class PushNotification : INotification
+interface IProduct 
 {
-    public void Send(string message)
+    void DisplayDetails();
+}
+
+class MentoringOpportunity : IProduct 
+{
+    public void DisplayDetails()
     {
-        Console.WriteLine($"Sending Push: {message}");
+        Console.WriteLine("This is a mentoring opportunity.");
     }
 }
 
-// Creator abstract class with factory method
-public abstract class NotificationFactory
+class TrainingOffering : IProduct 
 {
-    // Factory method
-    public abstract INotification CreateNotification();
-    
-    // Business logic that uses the factory method
-    public void Notify(string message)
+    public void DisplayDetails()
     {
-        var notification = CreateNotification();
-        notification.Send(message);
-    }
-}
-
-// Concrete creators
-public class EmailNotificationFactory : NotificationFactory
-{
-    public override INotification CreateNotification()
-    {
-        return new EmailNotification();
-    }
-}
-
-public class SmsNotificationFactory : NotificationFactory
-{
-    public override INotification CreateNotification()
-    {
-        return new SmsNotification();
-    }
-}
-
-// Usage
-public class Application
-{
-    public void SendNotification(string type, string message)
-    {
-        NotificationFactory factory = type switch
-        {
-            "email" => new EmailNotificationFactory(),
-            "sms" => new SmsNotificationFactory(),
-            _ => throw new ArgumentException("Unknown notification type")
-        };
-        
-        factory.Notify(message);
+        Console.WriteLine("This is a training offering.");
     }
 }`}</pre>
           </div>
@@ -133,76 +95,74 @@ public class Application
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Static Factory Method
+            استفاده از Factory ها
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            A common variation is the static factory method, which is a static method that returns an instance:
+            حالا با این کد، چگونه factory ها استفاده می‌شوند؟ توجه کنید که تنها چیزی که در اینجا در حال تغییر است، implementation خاص factory است.
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public class Money
+            <pre className="text-gray-800 dark:text-gray-200">{`class Program 
 {
-    public decimal Amount { get; }
-    public string Currency { get; }
-    
-    private Money(decimal amount, string currency)
+    static void Main()
     {
-        Amount = amount;
-        Currency = currency;
-    }
-    
-    // Static factory methods
-    public static Money Dollars(decimal amount) 
-        => new Money(amount, "USD");
-    
-    public static Money Euros(decimal amount) 
-        => new Money(amount, "EUR");
-    
-    public static Money FromCurrency(decimal amount, string currency) 
-        => new Money(amount, currency);
-}
+        IProductFactory productFactory = new MentoringFactory();
+        IProduct productItem = productFactory.CreateProduct();
+        productItem.DisplayDetails();
 
-// Usage - more readable than constructors
-var price = Money.Dollars(99.99m);
-var shipping = Money.Euros(15.00m);`}</pre>
+        IProductFactory productFactory2 = new TrainingFactory();
+        IProduct productItem2 = productFactory2.CreateProduct();
+        productItem2.DisplayDetails();
+    }
+}`}</pre>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            استفاده با Dependency Injection
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            می‌توانید از dependency injection برای استفاده از factory interface ها در جاهای مورد نیاز استفاده کنید و سپس implementation های خاص factory ها را در صورت نیاز pass کنید.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            به عنوان مثال، فرض کنیم مجموعه‌ای از web page ها داریم که collection هایی از product ها را نمایش می‌دهند. base web page برای نمایش product ها - BaseProductDisplay - می‌تواند یک IProductFactory در آن inject شده باشد. تمام product display page ها از این page inherit می‌کنند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            برای page ای که mentoring opportunity ها را نمایش می‌دهد، MentoringFactory می‌تواند inject شود. برای page جداگانه‌ای که training offering ها را نمایش می‌دهد، TrainingFactory می‌تواند inject شود.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مزایای Factory Method
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>مسئولیت واحد:</strong> کد ایجاد از منطق کسب‌وکار جدا شده است</li>
-            <li><strong>اصل Open/Closed:</strong> انواع جدید بدون تغییر کد موجود اضافه می‌شوند</li>
-            <li><strong>کوپلینگ شل:</strong> کد کلاینت به کلاس‌های مشخص وابسته نیست</li>
-            <li><strong>تست‌پذیری:</strong> آسان برای mock کردن و تست</li>
+            <li><strong>Loose Coupling:</strong> کد client به concrete class های خاص وابسته نیست</li>
+            <li><strong>Encapsulation:</strong> پیچیدگی object creation مخفی می‌شود</li>
+            <li><strong>Flexibility:</strong> implementation های جدید بدون تغییر کد موجود اضافه می‌شوند</li>
+            <li><strong>Single Responsibility:</strong> کد object creation از business logic جدا است</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            الگوهای مرتبط
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
             <li><Link href="/design-patterns/abstract-factory" className="text-blue-600 dark:text-blue-400 hover:underline">Abstract Factory Pattern</Link></li>
             <li><Link href="/design-patterns/builder" className="text-blue-600 dark:text-blue-400 hover:underline">Builder Pattern</Link></li>
-            <li><Link href="/design-patterns/strategy" className="text-blue-600 dark:text-blue-400 hover:underline">Strategy Pattern</Link></li>
+            <li><Link href="/design-patterns/singleton" className="text-blue-600 dark:text-blue-400 hover:underline">Singleton Pattern</Link></li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            Learn More
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/factory-method-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Factory Method Pattern
-              </a>
-            </li>
-            <li>
-              <a href="http://bit.ly/DesignPatternsLibrary" target="_blank" rel="noopener" className="hover:underline">
-                Pluralsight - Design Patterns Library
+              <a href="#" className="hover:underline">
+                On-Demand Webinar: Exploring Design Patterns for Testing
               </a>
             </li>
           </ul>

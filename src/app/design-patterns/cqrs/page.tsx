@@ -13,12 +13,12 @@ export default function CQRSPage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← بازگشت به الگوهای طراحی
+          ← Back to Design Patterns
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        CQRS - جداسازی مسئولیت Command و Query
+        CQRS - Command Query Responsibility Segregation
       </h1>
 
       <div className="prose prose-lg max-w-none">
@@ -27,10 +27,10 @@ export default function CQRSPage() {
             CQRS چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            CQRS یک الگوی طراحی است که در معماری نرم‌افزار برای رسیدگی به پیچیدگی و مسایل عملکردی که می‌تواند در سیستم‌های مدیریتکننده هم عملیات خواندن (query) و هم عملیات نوشتن (command) پیش آید استفاده می‌شود. CQRS پیشنهاد <strong>جداسازی مدل‌های داده و عملیات</strong> برای خواندن و نوشتن را به جزء های جداگانه می‌دهد و هر کدام را برای مورد استفاده خاص خود بهینه می‌کند.
+            CQRS - Command Query Responsibility Segregation - یک الگوی طراحی است که در معماری نرم‌افزار برای رسیدگی به پیچیدگی و مسائل performance که می‌تواند در سیستم‌های مدیریتکننده هم عملیات read (query) و هم عملیات write (command) پیش آید، استفاده می‌شود. CQRS پیشنهاد جداسازی data model ها و operation های خواندن و نوشتن را به component های جداگانه می‌دهد، و هر کدام را برای use case خاص خود بهینه می‌کند.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            در معماری سنتی، همان مدل داده برای هم خواندن و هم نوشتن داده استفاده می‌شود. اما هنگامی که برنامه رشد می‌کند، الگوهای خواندن و نوشتن ممکن است نیازمندی‌ها و ویژگی‌های عملکردی متفاوتی داشته باشند.
+            در یک معماری monolithic سنتی، اغلب همان data model و database schema برای هم خواندن و هم نوشتن data استفاده می‌شود. با این حال، همانطور که application در پیچیدگی رشد می‌کند، pattern های read و write ممکن است requirement ها و ویژگی‌های performance متفاوتی داشته باشند. CQRS با جدا کردن مکانیزم‌های data storage و retrieval به رفع این مسئله کمک می‌کند.
           </p>
         </section>
 
@@ -38,172 +38,106 @@ export default function CQRSPage() {
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
             نحوه کار CQRS
           </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این‌ها برخی از ویژگی‌های کلیدی CQRS و نحوه کارش هستند.
+          </p>
           
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            جداسازی مدل‌ها
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">جداسازی Model ها</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            به جای استفاده از یک مدل داده واحد برای هم خواندن و هم نوشتن، CQRS توصیه به داشتن مدل‌های جداگانه می‌کند:
+            به جای استفاده از یک data model واحد برای هم reading و هم writing، CQRS توصیه به داشتن model های جداگانه می‌کند. command model برای handle کردن write operation ها بهینه‌سازی شده و data consistency و integrity را تضمین می‌کند. query model برای efficient data retrieval طراحی شده و برای read operation ها بهینه‌سازی شده است.
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li><strong>Command Model:</strong> برای مدیریت عملیات نوشتن بهینه‌سازی شده و سازگاری و یکپارچگی داده‌ها را تضمین می‌کند</li>
-            <li><strong>Query Model:</strong> برای بازیابی کارآمد داده‌ها طراحی و برای عملیات خواندن بهینه‌سازی شده است</li>
-          </ul>
 
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            مسیرهای Command و Query
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Command و Query Path ها</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            کد برنامه به دو مسیر مجزا تقسیم می‌شود:
+            کد application به دو path مجزا تقسیم می‌شود: Command Path و Query Path. Command Path عملیات write مانند creating، updating، یا deleting data را handle می‌کند. Query Path عملیات read را handle می‌کند و برای querying و displaying data به کاربران بهینه‌سازی شده است.
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li><strong>Command Path:</strong> عملیات نوشتن را مدیریت می‌کند (ایجاد، به‌روزرسانی، حذف)</li>
-            <li><strong>Query Path:</strong> عملیات خواندن بهینه‌سازی شده برای نمایش داده‌ها را مدیریت می‌کند</li>
-          </ul>
-
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            ذخیره‌سازی بهینه‌سازی شده داده‌ها
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Optimized Data Stores</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Query Model اغلب از ذخیره‌های داده تخصصی بهینه‌سازی شده برای query استفاده می‌کند، مانند پایگاه‌داده‌های فقط خواندنی، مکانیزم‌های caching یا ایندکس‌های جستجو. چون عملیات نوشتن ناهم‌زمان هستند و از مدل‌های جداگانه استفاده می‌کنند، طبیعی است که داده‌های ذخیرم query برای به‌روزرسانی‌های اخیر تأخیر داشته باشند.
+            Query Model اغلب از data store های تخصصی که برای querying بهینه‌سازی شده‌اند استفاده می‌کند، مانند database های read-only، مکانیزم‌های caching، یا search index ها. این data store ها برای efficient retrieval و presentation data به کاربران طراحی شده‌اند. از آنجایی که write operation ها asynchronous هستند و از model های جداگانه استفاده می‌کنند، غیرعادی نیست که data در query store برای update های اخیر تأخیر داشته باشد، مگر اقدامات مشخصی برای رسیدگی به این رفتار انجام شود.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            اغلب رویکردی که اتخاذ می‌شود این است که به کاربر اطلاع دهید که تغییرات ممکن است مدتی طول بکشد تا ظاهر شوند، همراه با پیاده‌سازی تغییر کاربر در app محلی حتی اگر query store هنوز آن را منعکس نکرده باشد. برای مثال، پس از اینکه کاربری comment ای به مکالمه اضافه کرد، comment در browser/app محلی آنها ظاهر می‌شود حتی اگر هنوز توسط command processor در server handle نشده باشد (و بنابراین برای کس دیگری قابل مشاهده نیست).
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Asynchronous Benefits
+            مزایای Asynchronous
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Consider this example with social media:
+            در حالی که CQRS ذاتاً نیاز به رویکرد asynchronous ندارد، اغلب با ارتباط asynchronous برای دستیابی به scalability، responsiveness، و separation of concerns بهتر جفت می‌شود. ارتباط asynchronous می‌تواند در سناریوهایی که write operation ها نیاز به پردازش مستقل از read operation ها دارند و جایی که eventual consistency قابل قبول است کمک کند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این مثال با social media را در نظر بگیرید:
           </p>
           <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li>User posts a message → API sends a <strong>command</strong> to create a new post</li>
-            <li>Command is validated and handled → data changes are made → event is triggered</li>
-            <li>User looks up profile details → UI makes a call with a <strong>query</strong></li>
-            <li>Query returns the data with profile details</li>
-            <li>Event updates the read database and synchronizes</li>
-            <li>Eventually, the profile indicates there is an update</li>
+            <li>کاربر message ای در profile خود post می‌کند. وقتی این اتفاق می‌افتد، API یک command برای ایجاد post جدید ارسال می‌کند.</li>
+            <li>command validate شده و سپس handle می‌شود. این زمانی است که data change ها انجام می‌شوند. وقتی data change ها انجام شدند، یک event trigger شده و برای پردازش بیشتر به queue یا bus ارسال می‌شود.</li>
+            <li>کاربر می‌خواهد جزئیات profile خود را جستجو کند. UI با query فراخوانی API انجام می‌دهد.</li>
+            <li>query data را با جزئیات profile برمی‌گرداند.</li>
+            <li>event برای update کردن read database وارد می‌شود و database را synchronize می‌کند.</li>
+            <li>در نهایت، جزئیات profile نشان می‌دهند که update وجود دارد و صفحه نیاز به refresh شدن دارد تا message جدید را ببیند.</li>
           </ol>
           <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mt-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              The nature of the reads and writes separated means that reads are not blocked by writes. There is <strong>eventual consistency</strong> - the read database will be in sync with the write database eventually, not immediately.
+              ماهیت جدا بودن read ها و write ها به این معنی است که read ها لزوماً توسط write ها block نمی‌شوند. eventual consistency وجود دارد که به این معنی است که read database در نهایت با write database sync خواهد شد، نه لزوماً فوری.
             </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Common Patterns with CQRS
+            Pattern های رایج با CQRS
           </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            CQRS همچنین با pattern های دیگر شامل Event Sourcing و Materialized Views دیده می‌شود.
+          </p>
           
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            Event Sourcing
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Event Sourcing</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Event Sourcing is often combined with CQRS to capture all changes to application state as a sequence of events. By replaying these events, you can reconstruct the state at any point in time.
+            Event Sourcing اغلب با CQRS ترکیب می‌شود، اگرچه قطعاً پیش‌نیازی برای استفاده از CQRS در application شما نیست. Event Sourcing برای capture کردن تمام تغییرات application state به عنوان sequence ای از event ها استفاده می‌شود. این event ها transition ها در data سیستم را نمایندگی می‌کنند. با replay کردن این event ها، می‌توانید state سیستم را در هر نقطه زمانی بازسازی کنید. این رویکرد audit trail قابل اعتمادی فراهم می‌کند و می‌تواند debugging و troubleshooting را تسهیل کند.
           </p>
 
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-4">
-            Materialized Views
-          </h3>
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Materialized Views</h3>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Materialized Views are also seen with CQRS as read-only sources for queries. They are structured to allow for efficient querying and can improve response times.
+            Materialized View ها همچنین با CQRS، به عنوان source های read-only برای query های CQRS دیده می‌شوند. Materialized view ها aggregate های read-only از data هستند که به شکلی ساختار یافته‌اند که امکان querying efficient data را فراهم می‌کنند. این‌ها می‌توانند برای بهبود response time های query ها استفاده شوند، زیرا materialized view ها برای داشتن data بهینه‌سازی شده برای query ها ساخته شده‌اند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            C# Example with MediatR
+            نتیجه‌گیری
           </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Command
-public record CreateOrderCommand(
-    string CustomerId, 
-    List<OrderItem> Items) : IRequest<int>;
-
-// Command Handler
-public class CreateOrderHandler : IRequestHandler<CreateOrderCommand, int>
-{
-    private readonly IOrderRepository _repository;
-    
-    public CreateOrderHandler(IOrderRepository repository)
-    {
-        _repository = repository;
-    }
-    
-    public async Task<int> Handle(CreateOrderCommand request, 
-        CancellationToken cancellationToken)
-    {
-        var order = new Order(request.CustomerId, request.Items);
-        await _repository.AddAsync(order);
-        return order.Id;
-    }
-}
-
-// Query
-public record GetOrderQuery(int OrderId) : IRequest<OrderDto>;
-
-// Query Handler - uses optimized read model
-public class GetOrderHandler : IRequestHandler<GetOrderQuery, OrderDto>
-{
-    private readonly IReadOnlyOrderRepository _readRepository;
-    
-    public GetOrderHandler(IReadOnlyOrderRepository readRepository)
-    {
-        _readRepository = readRepository;
-    }
-    
-    public async Task<OrderDto> Handle(GetOrderQuery request, 
-        CancellationToken cancellationToken)
-    {
-        return await _readRepository.GetByIdAsync(request.OrderId);
-    }
-}`}</pre>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Conclusion
-          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            CQRS می‌تواند مزایای متعددی شامل بهبود performance، scalability، و maintainability سیستم‌های پیچیده به همراه داشته باشد. با این حال، همچنین پیچیدگی اضافی را معرفی می‌کند و ممکن است برای همه project ها مناسب نباشد. پیاده‌سازی CQRS نیاز به در نظر گیری دقیق requirement های application و trade-off ها دارد.
+          </p>
           <div className="bg-yellow-50 dark:bg-yellow-900/20 border-r-4 border-yellow-500 p-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              CQRS can bring several benefits including improved performance, scalability, and maintainability. However, it also introduces <strong>additional complexity</strong> and may not be suitable for all projects. It's recommended to assess whether the complexity is justified by the specific needs of your application.
+              <strong>مهم:</strong> در حالی که CQRS الگوی قدرتمندی است، راه‌حل یکسان برای همه نیست. توصیه می‌شود ارزیابی کنید که آیا پیچیدگی معرفی شده توسط CQRS توسط نیازهای مشخص application شما توجیه می‌شود.
             </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            الگوهای مرتبط
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/mediator" className="text-blue-600 dark:text-blue-400 hover:underline">Mediator Pattern</Link></li>
-            <li><Link href="/design-patterns/repository" className="text-blue-600 dark:text-blue-400 hover:underline">Repository Pattern</Link></li>
-            <li><Link href="/design-patterns/domain-events" className="text-blue-600 dark:text-blue-400 hover:underline">Domain Events Pattern</Link></li>
+            <li><Link href="/design-patterns/mediator" className="text-blue-600 dark:text-blue-400 hover:underline">Mediator Pattern</Link> - برای manage کردن communication بین component ها</li>
+            <li><Link href="/design-patterns/repository" className="text-blue-600 dark:text-blue-400 hover:underline">Repository Pattern</Link> - برای abstraction data access</li>
+            <li><Link href="/design-patterns/domain-events" className="text-blue-600 dark:text-blue-400 hover:underline">Domain Events Pattern</Link> - برای handle کردن domain event ها</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            منابع
           </h2>
-          <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
-            <li>
-              <a href="https://deviq.com/design-patterns/cqrs-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - CQRS Pattern
-              </a>
-            </li>
-            <li>
-              <a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/cqrs" target="_blank" rel="noopener" className="hover:underline">
-                Azure Architecture: CQRS
-              </a>
-            </li>
-            <li>
-              <a href="https://martinfowler.com/bliki/CQRS.html" target="_blank" rel="noopener" className="hover:underline">
-                Martin Fowler - CQRS
-              </a>
-            </li>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li>Azure Architecture: CQRS</li>
+            <li>Introducing CQRS (Ardalis)</li>
+            <li>CQRS (Martin Fowler)</li>
+            <li>AWS Prescriptive Guidance: CQRS</li>
           </ul>
         </section>
       </div>
