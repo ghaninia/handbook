@@ -53,7 +53,7 @@ export default function Header() {
               </button>
             )}
             <a
-              href="https://github.com"
+              href="https://github.com/ghaninia/handbook"
               target="_blank"
               rel="noopener noreferrer"
               className="w-9 h-9 rounded-md flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors text-gray-600 dark:text-gray-400"
