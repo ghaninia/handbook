@@ -24,17 +24,19 @@ export default function UnitOfWorkPage() {
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Unit of Work?
+            الگوی Unit of Work چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
             الگوی Unit of Work (UoW) فهرستی از تغییرات (درج، به‌روزرسانی، حذف) بر اشیاء domain نگهداری می‌کند و نوشتن این تغییرات را به عنوان یک عملیات atomic واحد (معمولاً یک transaction دیتابیس) هماهنگ می‌کند. به تضمین یکپارچگی، کاهش round-tripها و فراهم کردن یک نقطه commit (یا rollback) واحد کمک می‌کند.
           </p>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
+          
+          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-6">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
               <strong>Martin Fowler آن را اینطور توصیف می‌کند:</strong> الگویی که "پیگیری همه کارهایی که حین یک تراکنش تجاری انجام می‌دهید و می‌تواند بر دیتابیس تاثیر بگذارد. وقتی کارتان تمام شد، همه کارهایی که برای تغییر دیتابیس بر اساس کارتان لازم است را مشخص می‌کند."
             </p>
           </div>
-          <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
+
+          <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-6">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
               <strong>نکته برای توسعه‌دهندگان .NET:</strong> اکثر ORMها (مثل Entity Framework Core) قبلاً الگوی Unit of Work را از طریق اشیاء context/session اصلی پیاده‌سازی کرده‌اند. اضافه کردن انتزاع شما اختیاری است اما بسته به برنامه و مسائلی مثل تست، رفتارهای cross-cutting، مرزهای transactional در چند repository، ارسال domain events و غیره ممکن است توجیه‌پذیر باشد.
             </p>
@@ -43,64 +45,64 @@ export default function UnitOfWorkPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            The Problem
+            مشکل
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
             بدون Unit of Work، کد برنامه ممکن است:
           </p>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li>Perform multiple database operations independently (risking partial failure)</li>
-            <li>Open/close multiple transactions unnecessarily (hurting performance)</li>
-            <li>Lack a single semantic boundary describing a business-level operation (e.g., "Place Order")</li>
-            <li>Have difficulty batching or deferring side-effects until persistence succeeds (e.g., publishing domain events, sending emails, writing messages to an outbox table)</li>
-          </ol>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            This can lead to data inconsistencies, duplicated logic for transaction management, and leaky persistence concerns creeping into application or domain layers.
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
+            <li><strong>عملیات مستقل دیتابیس:</strong> چندین عملیات دیتابیس را به صورت مستقل انجام دهد (ریسک شکست جزئی)</li>
+            <li><strong>تراکنش‌های غیرضروری:</strong> چندین تراکنش را بدون ضرورت باز/بسته کند (ضرر به عملکرد)</li>
+            <li><strong>فقدان مرز معنایی:</strong> فاقد یک مرز معنایی واحد برای توصیف یک عملیات سطح تجاری باشد (مثل "ثبت سفارش")</li>
+            <li><strong>دشواری batch کردن side-effectها:</strong> مشکل در batch کردن یا به تعویق انداختن side-effectها تا persistence موفق شود (مثل انتشار domain events، ارسال ایمیل، نوشتن پیام‌ها در جدول outbox)</li>
+          </ul>
+          
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این می‌تواند منجر به ناسازگاری‌های داده، منطق تکراری برای مدیریت تراکنش، و نشت مسائل persistence به لایه‌های application یا domain شود.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            The Solution
+            راه‌حل
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The Unit of Work groups a set of operations into a single transactional boundary:
+            Unit of Work مجموعه‌ای از عملیات را در یک مرز transactional واحد گروه‌بندی می‌کند:
           </p>
           <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
-            <li>Start tracking changes (begin a transaction)</li>
-            <li>Execute domain/application logic that mutates domain entities</li>
-            <li>Persist all accumulated changes in one atomic commit</li>
+            <li><strong>شروع پیگیری تغییرات</strong> (شروع یک تراکنش)</li>
+            <li><strong>اجرای منطق domain/application</strong> که entity های domain را تغییر می‌دهد</li>
+            <li><strong>ذخیره تمام تغییرات انباشته</strong> در یک commit atomic</li>
           </ol>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            If you're utilizing a messaging based architecture, you may pair the Unit of Work with an <Link href="/design-patterns/outbox" className="text-blue-600 dark:text-blue-400 hover:underline">Outbox Pattern</Link> to ensure reliable message delivery. The messages are stored in an outbox table and only dispatched after the main transaction managed by the Unit of Work commits successfully.
+          
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            اگر از معماری مبتنی بر messaging نیز استفاده می‌کنید، ممکن است Unit of Work را با الگوی Outbox ترکیب کنید تا تحویل قابل اعتماد پیام را تضمین کنید. پیام‌ها در جدول outbox ذخیره می‌شوند و فقط پس از commit موفق تراکنش اصلی که توسط Unit of Work مدیریت می‌شود، ارسال می‌شوند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Relationship to Repository Pattern
+            رابطه با الگوی Repository
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
             این الگوها اغلب با هم استفاده می‌شوند:
           </p>
-          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Repository</strong> دسترسی به دیتا برای انتیتی‌های domain را انتزاع می‌کند</li>
-            <li><strong>Unit of Work</strong> ماندگاری تغییرات را در یک یا چند repository در یک transaction واحد هماهنگ می‌کند</li>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4 mb-4">
+            <li><strong>Repository:</strong> دسترسی به داده برای entity های domain را انتزاع می‌کند</li>
+            <li><strong>Unit of Work:</strong> persistence تغییرات را در یک یا چند repository در یک تراکنش واحد هماهنگ می‌کند</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Implementation Example
+            مثال پیاده‌سازی
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            یکی از راه‌های پیاده‌سازی الگوی Unit of Work ایجاد رابط <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">IUnitOfWork</code> است که قرارداد شروع، commit و rollback کردن transactionها را تعریف می‌کند.
+            یکی از راه‌های پیاده‌سازی الگوی Unit of Work ایجاد interface IUnitOfWork است که قرارداد برای شروع، commit و rollback تراکنش‌ها را تعریف می‌کند.
           </p>
 
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
-            Unit of Work Interface
-          </h3>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">Unit of Work Interface</h3>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-6 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public interface IUnitOfWork
 {
     Task BeginTransactionAsync(CancellationToken cancellationToken);
@@ -118,10 +120,8 @@ public interface IRepository<T> where T : EntityBase
 }`}</pre>
           </div>
 
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
-            Using Unit of Work in Application Code
-          </h3>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">استفاده در Application Code</h3>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-6 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public class OrderService
 {
     private readonly IUnitOfWork _unitOfWork;
@@ -129,8 +129,8 @@ public interface IRepository<T> where T : EntityBase
     private readonly IRepository<OrderItem> _orderItemRepository;
 
     public OrderService(
-        IUnitOfWork unitOfWork,
-        IRepository<Order> orderRepository,
+        IUnitOfWork unitOfWork, 
+        IRepository<Order> orderRepository, 
         IRepository<OrderItem> orderItemRepository)
     {
         _unitOfWork = unitOfWork;
@@ -160,21 +160,25 @@ public interface IRepository<T> where T : EntityBase
     }
 }`}</pre>
           </div>
+        </section>
 
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            نکته درباره این مثال
+          </h2>
+          <div className="bg-yellow-50 dark:bg-yellow-900/20 border-r-4 border-yellow-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              <strong>Note about this example:</strong> Notice the example <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-xs">IRepository&lt;T&gt;</code> interface lacks a <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-xs">CommitAsync</code> or <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-xs">SaveChangesAsync</code> method. This is intentional as the repository implementation is not responsible for managing transactions. Instead, that responsibility lies with the Unit of Work when these two patterns are paired together.
+              توجه کنید که interface IRepository&lt;T&gt; در مثال فاقد متد CommitAsync یا SaveChangesAsync است. این عمدی است زیرا می‌توان نتیجه گرفت که پیاده‌سازی repository مسئول مدیریت تراکنش‌ها نیست. در عوض، این مسئولیت با Unit of Work است زمانی که این دو الگو با هم ترکیب می‌شوند.
             </p>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Entity Framework Core Implementation
+            پیاده‌سازی با Entity Framework
           </h2>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Entity Framework Core already implements Unit of Work through DbContext. Here's how you can wrap it:
-          </p>
+          
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">EF Core Unit of Work</h3>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public class EfUnitOfWork : IUnitOfWork
 {
@@ -188,8 +192,7 @@ public interface IRepository<T> where T : EntityBase
 
     public async Task BeginTransactionAsync(CancellationToken cancellationToken)
     {
-        _transaction = await _context.Database
-            .BeginTransactionAsync(cancellationToken);
+        _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
     }
 
     public async Task CommitTransactionAsync(CancellationToken cancellationToken)
@@ -197,40 +200,23 @@ public interface IRepository<T> where T : EntityBase
         try
         {
             await _context.SaveChangesAsync(cancellationToken);
-            
-            if (_transaction != null)
-            {
-                await _transaction.CommitAsync(cancellationToken);
-            }
+            await _transaction?.CommitAsync(cancellationToken);
+        }
+        catch
+        {
+            await _transaction?.RollbackAsync(cancellationToken);
+            throw;
         }
         finally
         {
-            await DisposeTransactionAsync();
+            _transaction?.Dispose();
         }
     }
 
     public async Task RollbackTransactionAsync(CancellationToken cancellationToken)
     {
-        try
-        {
-            if (_transaction != null)
-            {
-                await _transaction.RollbackAsync(cancellationToken);
-            }
-        }
-        finally
-        {
-            await DisposeTransactionAsync();
-        }
-    }
-
-    private async Task DisposeTransactionAsync()
-    {
-        if (_transaction != null)
-        {
-            await _transaction.DisposeAsync();
-            _transaction = null;
-        }
+        await _transaction?.RollbackAsync(cancellationToken);
+        _transaction?.Dispose();
     }
 }`}</pre>
           </div>
@@ -238,55 +224,62 @@ public interface IRepository<T> where T : EntityBase
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایا
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Atomicity:</strong> All changes succeed or fail together</li>
-            <li><strong>Performance:</strong> Reduces database round-trips</li>
-            <li><strong>Consistency:</strong> Maintains data integrity across multiple operations</li>
-            <li><strong>Testability:</strong> Can be mocked for unit testing</li>
-            <li><strong>Cross-cutting concerns:</strong> Perfect place for logging, caching, events</li>
+            <li><strong>یکپارچگی داده:</strong> تضمین atomicity تمام عملیات</li>
+            <li><strong>کاهش Round-trips:</strong> batch کردن تغییرات در یک عملیات</li>
+            <li><strong>مرز transactional واضح:</strong> تعریف مشخص شروع و پایان تراکنش</li>
+            <li><strong>مدیریت side-effects:</strong> کنترل زمان انجام عملیات جانبی</li>
+            <li><strong>Rollback آسان:</strong> امکان برگشت تمام تغییرات در صورت خطا</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            معایب
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/repository" className="text-blue-600 dark:text-blue-400 hover:underline">Repository Pattern</Link></li>
-            <li><Link href="/design-patterns/outbox" className="text-blue-600 dark:text-blue-400 hover:underline">Outbox Pattern</Link></li>
-            <li><Link href="/design-patterns/domain-events" className="text-blue-600 dark:text-blue-400 hover:underline">Domain Events</Link></li>
+            <li><strong>پیچیدگی اضافی:</strong> ممکن است برای سناریوهای ساده over-engineering باشد</li>
+            <li><strong>Lock طولانی:</strong> نگه داشتن تراکنش برای مدت طولانی</li>
+            <li><strong>مصرف حافظه:</strong> track کردن تغییرات تا زمان commit</li>
+            <li><strong>وابستگی به ORM:</strong> پیاده‌سازی وابسته به ORM مورد استفاده</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            الگوهای مرتبط
+          </h2>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li><Link href="/design-patterns/repository" className="text-blue-600 dark:text-blue-400 hover:underline">Repository Pattern</Link> - اغلب با Unit of Work ترکیب می‌شود</li>
+            <li><Link href="/design-patterns/outbox" className="text-blue-600 dark:text-blue-400 hover:underline">Outbox Pattern</Link> - برای reliable message delivery</li>
+            <li><Link href="/design-patterns/domain-events" className="text-blue-600 dark:text-blue-400 hover:underline">Domain Events</Link> - برای side-effects پس از commit</li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
-            <li>
-              <a href="https://deviq.com/design-patterns/unit-of-work-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Unit of Work Pattern
-              </a>
-            </li>
             <li>
               <a href="https://martinfowler.com/eaaCatalog/unitOfWork.html" target="_blank" rel="noopener" className="hover:underline">
                 Unit of Work by Martin Fowler
               </a>
             </li>
             <li>
-              <a href="https://learn.microsoft.com/en-us/ef/core/saving/transactions" target="_blank" rel="noopener" className="hover:underline">
+              <a href="https://docs.microsoft.com/en-us/ef/core/saving/transactions" target="_blank" rel="noopener" className="hover:underline">
                 Microsoft Docs – EF Core Transactions
               </a>
             </li>
             <li>
-              <a href="https://www.pluralsight.com/courses/fundamentals-domain-driven-design" target="_blank" rel="noopener" className="hover:underline">
+              <a href="https://www.pluralsight.com/courses/domain-driven-design-fundamentals" target="_blank" rel="noopener" className="hover:underline">
                 Pluralsight - Domain-Driven Design Fundamentals
               </a>
             </li>
             <li>
-              <a href="https://udidahan.com/2011/03/05/entities-transactions-and-broken-boundaries/" target="_blank" rel="noopener" className="hover:underline">
+              <a href="https://udidahan.com/2009/06/29/dont-create-aggregate-roots/" target="_blank" rel="noopener" className="hover:underline">
                 Entities, Transactions, and Broken Boundaries by Udi Dahan
               </a>
             </li>
