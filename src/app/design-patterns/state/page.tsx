@@ -18,298 +18,198 @@ export default function StatePage() {
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        State Pattern
+        State Design Pattern
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is State?
+            الگوی State چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            الگوی State به شی اجازه می‌دهد وقتی حالت داخلی‌ش تغییر می‌کند، رفتارش را تغییر دهد. اشی به نظر می‌رسد که کلاسش را تغییر می‌دهد. این الگو وقتی مفید است که اشیاء بسته به حالت‌شان رفتار متفاوتی دارند و می‌خواهید از دستورات شرطی بزرگ اجتناب کنید.
+            الگوی طراحی State برای مدل‌سازی تغییرات در وضعیت یا حالت یک شیء استفاده می‌شود با تفویض قوانین چنین تغییراتی به اشیاء منفردی که هر کدام نمایانگر یک حالت ممکن هستند. شما می‌توانید الگوی State را به عنوان نمایانده یک Finite State Machine در نظر بگیرید، مانند این یکی برای پالیس‌های بیمه.
           </p>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            به جای داشتن دستورات پیچیده if/else یا switch، هر حالت با یک کلاس جداگانه نمایندگی می‌شود که یک رابط مشترک پیاده‌سازی می‌کند.
+            در diagram بالا، که نمایانگر یک گراف است، هر دایره یک node و هر فلش اتصال‌دهنده یک edge نامیده می‌شود. الگوی State تمام node ها در یک diagram را به عنوان یک نوع واحد مدل می‌کند، و هر node فردی را به عنوان یک زیرنوع خاص. نوع پایه node متدهایی برای تمام edge های ممکن تعریف می‌کند؛ زیرکلاس‌ها متدهایی که نمایانگر انتقال‌های حالت مجاز از آن node هستند را پیاده‌سازی می‌کنند.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            The Problem
+            نمونه Policy States
           </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
+          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              اشیاء با رفتار پیچیده وابسته به حالت به دستورات شرطی بزرگ و سخت برای نگهداری منجر می‌شوند.
+              تصور کنید یک پالیس بیمه دارای حالت‌های مختلفی است: Unwritten، Open، Closed، Cancelled، و Void. هر انتقال بین این حالت‌ها قوانین تجاری خاص دارد.
             </p>
           </div>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Without State Pattern - complex conditionals
-public class MediaPlayer
-{
-    private PlayerState _state = PlayerState.Stopped;
-    
-    public void Play()
-    {
-        if (_state == PlayerState.Stopped)
-        {
-            // Start playing
-            _state = PlayerState.Playing;
-        }
-        else if (_state == PlayerState.Paused)
-        {
-            // Resume playing
-            _state = PlayerState.Playing;
-        }
-        else if (_state == PlayerState.Playing)
-        {
-            // Already playing, do nothing
-        }
-    }
-    
-    public void Pause()
-    {
-        if (_state == PlayerState.Playing)
-        {
-            _state = PlayerState.Paused;
-        }
-        else
-        {
-            // Can't pause when stopped or already paused
-        }
-    }
-    
-    // More methods with similar complex conditionals...
-}`}</pre>
-          </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            State Pattern Implementation
+            پیاده‌سازی الگوی State در C#
           </h2>
           
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
-            1. Define State Interface
-          </h3>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface IPlayerState
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">تعریف Interface</h3>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            ابتدا interface IPolicyState را تعریف می‌کنیم که تمام عملیات مختلفی که می‌توانند برای تغییر حالت پالیس استفاده شوند را مشخص می‌کند:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-6 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public interface IPolicyState
 {
-    void Play(MediaPlayer player);
-    void Pause(MediaPlayer player);
-    void Stop(MediaPlayer player);
-    string GetStatus();
-}
-
-public class MediaPlayer
-{
-    private IPlayerState _currentState;
-    
-    public MediaPlayer()
-    {
-        _currentState = new StoppedState();
-    }
-    
-    public void SetState(IPlayerState state)
-    {
-        _currentState = state;
-    }
-    
-    public void Play() => _currentState.Play(this);
-    public void Pause() => _currentState.Pause(this);
-    public void Stop() => _currentState.Stop(this);
-    public string GetStatus() => _currentState.GetStatus();
+    void Open(DateTime? writtenDate = null);
+    void Void();
+    void Update();
+    void Close(DateTime closedDate);
+    void Cancel();
 }`}</pre>
           </div>
 
-          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2 mt-6">
-            2. Implement Concrete States
-          </h3>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public class StoppedState : IPlayerState
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">کلاس Context (Policy)</h3>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            کلاس Policy این interface را پیاده‌سازی می‌کند و تمام فراخوانی‌ها را به property State خود منتقل می‌کند:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-6 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public partial class Policy : IPolicyState
 {
-    public void Play(MediaPlayer player)
+    private Policy()
     {
-        Console.WriteLine("Starting playback...");
-        player.SetState(new PlayingState());
+        _cancelledState = new CancelledState(this);
+        _closedState = new ClosedState(this);
+        _openState = new OpenState(this);
+        _unwrittenState = new UnwrittenState(this);
+        _voidState = new VoidState(this);
+        State = _unwrittenState;
     }
-    
-    public void Pause(MediaPlayer player)
-    {
-        Console.WriteLine("Cannot pause when stopped");
-    }
-    
-    public void Stop(MediaPlayer player)
-    {
-        Console.WriteLine("Already stopped");
-    }
-    
-    public string GetStatus() => "Stopped";
-}
 
-public class PlayingState : IPlayerState
-{
-    public void Play(MediaPlayer player)
+    public Policy(string policyNumber) : this()
     {
-        Console.WriteLine("Already playing");
+        Number = policyNumber;
     }
-    
-    public void Pause(MediaPlayer player)
-    {
-        Console.WriteLine("Pausing playback...");
-        player.SetState(new PausedState());
-    }
-    
-    public void Stop(MediaPlayer player)
-    {
-        Console.WriteLine("Stopping playback...");
-        player.SetState(new StoppedState());
-    }
-    
-    public string GetStatus() => "Playing";
-}
 
-public class PausedState : IPlayerState
+    public int Id { get; set; }
+    public string Number { get; set; }
+    public DateTime? DateOpened { get; private set; }
+    public DateTime? DateClosed { get; private set; }
+
+    private readonly IPolicyStateCommands _cancelledState;
+    private readonly IPolicyStateCommands _closedState;
+    private readonly IPolicyStateCommands _openState;
+    private readonly IPolicyStateCommands _unwrittenState;
+    private readonly IPolicyStateCommands _voidState;
+    public IPolicyStateCommands State { get; private set; }
+
+    public void Cancel() => State.Cancel();
+    public void Close(DateTime closedDate) => State.Close(closedDate);
+    public void Open(DateTime? writtenDate = null) => State.Open(writtenDate);
+    public void Update() => State.Update();
+    public void Void() => State.Void();
+}`}</pre>
+          </div>
+
+          <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">پیاده‌سازی State خاص</h3>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            از حالت Unwritten، تنها عملیات معتبری که می‌تواند بر روی پالیس انجام شود Open و Void هستند. این منطق در کلاس UnwrittenState نمایش داده می‌شود:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-6 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public partial class Policy
 {
-    public void Play(MediaPlayer player)
+    public class UnwrittenState : IPolicyStateCommands
     {
-        Console.WriteLine("Resuming playback...");
-        player.SetState(new PlayingState());
+        private readonly Policy _policy;
+
+        public UnwrittenState(Policy policy)
+        {
+            _policy = policy;
+        }
+        
+        public void Cancel() => 
+            throw new InvalidOperationException("Cannot cancel a policy before it's been Opened.");
+
+        public void Close(DateTime closedDate) => 
+            throw new InvalidOperationException("Cannot close a policy before it's been Opened.");
+
+        public void Open(DateTime? writtenDate = null)
+        {
+            _policy.State = _policy._openState;
+            _policy.DateOpened = writtenDate;
+        }
+
+        public void Update() => 
+            throw new InvalidOperationException("Cannot update a policy before it's been Opened.");
+
+        public void Void()
+        {
+            _policy.State = _policy._voidState;
+        }
+
+        public List<string> ListValidOperations()
+        {
+            return new List<string> { "Open", "Void" };
+        }
     }
-    
-    public void Pause(MediaPlayer player)
-    {
-        Console.WriteLine("Already paused");
-    }
-    
-    public void Stop(MediaPlayer player)
-    {
-        Console.WriteLine("Stopping from pause...");
-        player.SetState(new StoppedState());
-    }
-    
-    public string GetStatus() => "Paused";
 }`}</pre>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Order State Machine Example
+            چه زمانی استفاده کنیم؟
           </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface IOrderState
-{
-    void Pay(Order order);
-    void Ship(Order order);
-    void Cancel(Order order);
-    void Deliver(Order order);
-    string Status { get; }
-}
-
-public class Order
-{
-    private IOrderState _state;
-    public decimal Total { get; set; }
-    
-    public Order(decimal total)
-    {
-        Total = total;
-        _state = new PendingState();
-    }
-    
-    public void SetState(IOrderState state) => _state = state;
-    
-    public void Pay() => _state.Pay(this);
-    public void Ship() => _state.Ship(this);
-    public void Cancel() => _state.Cancel(this);
-    public void Deliver() => _state.Deliver(this);
-    public string GetStatus() => _state.Status;
-}
-
-public class PendingState : IOrderState
-{
-    public string Status => "Pending Payment";
-    
-    public void Pay(Order order)
-    {
-        Console.WriteLine("Payment received");
-        order.SetState(new PaidState());
-    }
-    
-    public void Ship(Order order) => 
-        Console.WriteLine("Cannot ship unpaid order");
-    
-    public void Cancel(Order order)
-    {
-        Console.WriteLine("Order cancelled");
-        order.SetState(new CancelledState());
-    }
-    
-    public void Deliver(Order order) => 
-        Console.WriteLine("Cannot deliver unpaid order");
-}
-
-public class PaidState : IOrderState
-{
-    public string Status => "Paid";
-    
-    public void Pay(Order order) => 
-        Console.WriteLine("Already paid");
-    
-    public void Ship(Order order)
-    {
-        Console.WriteLine("Order shipped");
-        order.SetState(new ShippedState());
-    }
-    
-    public void Cancel(Order order)
-    {
-        Console.WriteLine("Refunding payment...");
-        order.SetState(new CancelledState());
-    }
-    
-    public void Deliver(Order order) => 
-        Console.WriteLine("Cannot deliver unshipped order");
-}`}</pre>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            الگوی State کاندید خوبی برای استفاده است زمانی که شیء شما مجموعه نسبتاً پیچیده‌ای از حالت‌های ممکن دارد، با قوانین تجاری مختلف زیادی برای اینکه چگونه انتقال‌های حالت رخ می‌دهند و چه کاری باید هنگام تغییر حالت انجام شود.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            اگر شیء به سادگی دارای یک property status است که می‌تواند هر زمان به هر وضعیتی با منطق خاص حداقل به‌روزرسانی شود، الگوی State پیچیدگی غیرضروری اضافه می‌کند. با این حال، برای اشیایی که مفاهیم دنیای واقعی را با work flow های پیچیده نمایندگی می‌کنند، الگوی State می‌تواند انتخاب خوبی باشد.
+          </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایا
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Single Responsibility:</strong> هر state رفتار خودش را handle می‌کند</li>
-            <li><strong>Open/Closed:</strong> state های جدید بدون تغییر موجودی‌ها قابل اضافه‌اند</li>
-            <li><strong>حذف Conditionals:</strong> دیگر دستورات پیچیده if/switch نداریم</li>
-            <li><strong>انتقال واضح State:</strong> تغییرات state صریح و قابل پیگیری هستند</li>
+            <li><strong>کاهش پیچیدگی شرطی:</strong> نیاز به دستورات if و switch در اشیایی که الزامات رفتاری متفاوتی منحصر به انتقال‌های حالت مختلف دارند را از بین می‌برد</li>
+            <li><strong>قابلیت نمایش با FSM:</strong> اگر بتوانید حالت شیء را با یک diagram finite state machine نمایش دهید، تبدیل diagram به انواع و متدهای الگوی State نسبتاً آسان است</li>
+            <li><strong>اصل Open/Closed:</strong> حالت‌های جدید بدون تغییر کد موجود قابل اضافه هستند</li>
+            <li><strong>Single Responsibility:</strong> هر state کلاس مسئولیت مشخصی دارد</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            معایب
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/strategy" className="text-blue-600 dark:text-blue-400 hover:underline">Strategy Pattern</Link></li>
-            <li><Link href="/design-patterns/memento" className="text-blue-600 dark:text-blue-400 hover:underline">Memento Pattern</Link></li>
+            <li><strong>کد زیاد:</strong> الگوی State نیاز به نوشتن کد زیادی دارد. بسته به تعداد متدهای انتقال حالت مختلف و تعداد حالت‌های ممکن یک شیء، می‌توان به سرعت دهها یا بیشتر متد مختلف داشت</li>
+            <li><strong>پیچیدگی ریاضی:</strong> برای N حالت با M متد انتقال، تعداد کل متدهای ضروری (N+1)*M خواهد بود</li>
+            <li><strong>Over-engineering:</strong> برای حالت‌های ساده ممکن است غیرضروری باشد</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            الگوهای مرتبط
+          </h2>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li><Link href="/design-patterns/strategy" className="text-blue-600 dark:text-blue-400 hover:underline">Strategy Pattern</Link> - ساختار مشابه دارد اما هدف متفاوت</li>
+            <li><Link href="/design-patterns/observer" className="text-blue-600 dark:text-blue-400 hover:underline">Observer Pattern</Link> - برای اطلاع‌رسانی تغییرات state</li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/state-design-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - State Pattern
+              <a href="https://github.com/ardalis/DesignPatternsInCSharp" target="_blank" rel="noopener" className="hover:underline">
+                Complete State Pattern Example with Unit Tests on GitHub
               </a>
             </li>
             <li>
-              <a href="http://bit.ly/DesignPatternsLibrary" target="_blank" rel="noopener" className="hover:underline">
-                Pluralsight - Design Patterns Library
+              <a href="https://webgraphviz.com/" target="_blank" rel="noopener" className="hover:underline">
+                WebGraphViz - Online State Diagram Generator
               </a>
             </li>
           </ul>
