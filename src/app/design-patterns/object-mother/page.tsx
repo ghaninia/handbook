@@ -24,25 +24,29 @@ export default function ObjectMotherPage() {
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Object Mother?
+            Object Mother Pattern چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            الگوی Object Mother یک factory pattern است که عمدتاً در تست‌نویسی استفاده می‌شود. اشیاء تست آماده برای استفاده فراهم می‌کند که باعث تمیزتر شدن تست‌ها و کاهش تکرار کد ایجاد اشیاء در تست‌ها می‌شود.
+            الگوی Object Mother توسط Martin Fowler به عنوان نام جذابی برای factory که standard fixture هایی را که می‌توانند در چندین test استفاده شوند، return می‌کند، توصیف شد. نام خودش در یک project Thoughtworks ابداع شد.
           </p>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            Object Mother کلاسی است که متدهای static factory برای ایجاد اشیاء در حالت معتبر برای تست فراهم می‌کند. ایجاد اشیاء تست را متمرکز می‌کند و تست‌ها را قابل نگهداری‌تر و خواناتر می‌سازد.
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Object mother نوعی class است که در testing برای کمک به ایجاد example object هایی که برای testing استفاده می‌کنید، استفاده می‌شود.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            The Problem
+            مشکل Test Fixture ها
           </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              تست‌ها اغلب به اشیاء پیچیده با خصوصیات متعدد نیاز دارند. بدون Object Mother، کد راه‌اندازی تست تکراری و سخت برای نگهداری می‌شود.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            وقتی test ها را در یک system با اندازه معقول می‌نویسید، متوجه می‌شوید که باید مقدار زیادی example data ایجاد کنید. اگر بخواهم sick pay calculation روی یک employee تست کنم، به یک employee نیاز دارم. اما این فقط یک simple object نیست—به marital status employee، تعداد dependent ها، مقداری employment و payroll history نیاز خواهم داشت. احتمالاً این می‌تواند object های زیادی برای ایجاد باشد. این set data به طور کلی به عنوان test fixture شناخته می‌شود.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            اولین حرکت ایجاد fixture در setup method یک xunit test است—به این شکل می‌تواند در چندین test reuse شود. اما مشکل این کار این است که اغلب به data مشابه در چندین test class نیاز دارید. در این نقطه منطقی است که یک factory object داشته باشید که بتواند standard fixture ها را return کند. شاید 'John'، employee ای که همین هفته گذشته استخدام شده؛ 'Heather' employee ای که یک دهه در اطراف بوده است.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Object Mother فقط یک نام جذاب برای چنین factory ای است. این نام در یک project Thoughtworks در قرن گذشته ابداع شد و به اندازه کافی جذاب است که stuck شده است.
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`// Without Object Mother - duplicated setup in every test
 [Test]
@@ -72,205 +76,158 @@ public void ShouldApplyDiscount_ForPremiumCustomer()
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Object Mother Implementation
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public static class CustomerMother
-{
-    public static Customer Default()
-    {
-        return new Customer
-        {
-            Id = 1,
-            Name = "Test Customer",
-            Email = "test@example.com",
-            Type = CustomerType.Regular,
-            JoinDate = DateTime.Now.AddMonths(-6),
-            Address = AddressMother.Default()
-        };
-    }
-    
-    public static Customer Premium()
-    {
-        var customer = Default();
-        customer.Type = CustomerType.Premium;
-        customer.JoinDate = DateTime.Now.AddYears(-2);
-        return customer;
-    }
-    
-    public static Customer New()
-    {
-        var customer = Default();
-        customer.JoinDate = DateTime.Now;
-        return customer;
-    }
-    
-    public static Customer WithName(string name)
-    {
-        var customer = Default();
-        customer.Name = name;
-        return customer;
-    }
-    
-    public static Customer FromCity(string city)
-    {
-        var customer = Default();
-        customer.Address = AddressMother.InCity(city);
-        return customer;
-    }
-}
-
-public static class AddressMother
-{
-    public static Address Default()
-    {
-        return new Address
-        {
-            Street = "123 Test Street",
-            City = "Test City",
-            PostalCode = "12345"
-        };
-    }
-    
-    public static Address InCity(string city)
-    {
-        var address = Default();
-        address.City = city;
-        return address;
-    }
-}`}</pre>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Clean Tests with Object Mother
-          </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              تست‌ها خواناتر و متمرکز بر رفتار تحت تست می‌شوند.
-            </p>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`[Test]
-public void ShouldApplyDiscount_ForPremiumCustomer()
-{
-    var customer = CustomerMother.Premium();
-    var discount = _discountService.Calculate(customer);
-    
-    Assert.That(discount, Is.EqualTo(0.10m));
-}
-
-[Test]
-public void ShouldNotApplyDiscount_ForNewCustomer()
-{
-    var customer = CustomerMother.New();
-    var discount = _discountService.Calculate(customer);
-    
-    Assert.That(discount, Is.EqualTo(0));
-}
-
-[Test]
-public void ShouldApplyLocalDelivery_ForLocalCustomers()
-{
-    var customer = CustomerMother.FromCity("New York");
-    var delivery = _deliveryService.CalculateOptions(customer);
-    
-    Assert.That(delivery.HasLocalDelivery, Is.True);
-}`}</pre>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Combining with Builder Pattern
+            Canned Objects و Personas
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            Object Mother can be combined with the Builder pattern for more flexibility:
+            Canned object هایی که Object Mother تولید می‌کند برای team آشنا می‌شوند، اغلب حتی discussion ها با user ها را invade می‌کنند. به این شکل آنها شبیه notion personas هستند—اگرچه آنها همیشه people نیستند. آنها می‌توانند insurance policy ها، supply contract ها، هر data ای که test framework نیاز دارد باشند. استفاده از data مشابه در چندین test به people کمک می‌کند که با example هایی که استفاده می‌کنید آشنا باشند.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این canned object ها اغلب برای یک test خاص درست نیستند، اما اغلب می‌توانند با مقداری setup اضافی درست شوند. "بیایید John را بگیریم و او را دو ماه پیش sick کنیم." گاهی اوقات نیاز خواهید داشت یک canned object جدید به mother اضافه کنید، اما سعی کنید اگر می‌توانید یکی از موجودها را tweak کنید—به این شکل reader test اگر با canned object های موجود آشنا باشد سریع‌تر درک خواهد کرد.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            معمولاً چندین نوع object خواهید داشت که نیاز به birth دارید، پس دستی است که mother های متفاوت برای class های مختلف داشته باشید: مثلاً CustomerMother، ProductMother، و غیره.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            نکات منفی Object Mother
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Object Mother ها ایرادات خود را دارند. به خصوص heavy coupling وجود دارد به این معنا که test های زیادی به exact data در mother ها وابسته خواهند بود. در نتیجه tricky است اگر بخواهید آن standard data را به هر دلیلی تغییر دهید. تغییرات در class ها همچنین منجر به نیاز migrate کردن test ها خواهد شد—اگرچه این در هر حال issue خواهد بود.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Structure و Factory Method Pattern
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            الگوی Object Mother بر الگوی Factory Method Pattern بنا شده است. الگوی Object Mother method هایی برای customize کردن creation object ها، update کردن object ها در طول testing، و enable کردن object deletion از data storage اضافه می‌کند. Object creation در Object Mother class handle می‌شود، نه در داخل test ها.
+          </p>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            برای مثال، یک Object Mother class برای user ها—مانند در devBetter—می‌تواند چیزی شبیه این باشد:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public static class CustomerMother
-{
-    public static CustomerBuilder Build() => new CustomerBuilder();
-    
-    public static Customer Default() => Build().Build();
-    public static Customer Premium() => Build().AsPremium().Build();
-}
+            <pre className="text-gray-800 dark:text-gray-200">{`TestUsers
++CreateRegularUser()
++CreateMemberUser()
++CreateAlumniUser()
++CreateAdminUser()`}</pre>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Downfall الگوی Object Mother این است که class می‌تواند در طول زمان با repetitive code bloated شود. DRY مهم است که در نظر داشته باشید، چون ممکن است بخش‌هایی از object creation بین انواع مختلف object ها با همان mother تکرار شود.
+          </p>
+        </section>
 
-public class CustomerBuilder
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مثال پیاده‌سازی
+          </h2>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public static class EmployeeMother
 {
-    private Customer _customer = new()
+    public static Employee CreateJohn()
     {
-        Id = 1,
-        Name = "Test Customer",
-        Email = "test@example.com",
-        Type = CustomerType.Regular
-    };
-    
-    public CustomerBuilder WithName(string name)
-    {
-        _customer.Name = name;
-        return this;
+        return new Employee
+        {
+            Name = "John Doe",
+            MaritalStatus = MaritalStatus.Single,
+            Dependents = 0,
+            HireDate = DateTime.Now.AddDays(-7),
+            Salary = 50000
+        };
     }
     
-    public CustomerBuilder WithEmail(string email)
+    public static Employee CreateHeather()
     {
-        _customer.Email = email;
-        return this;
+        return new Employee
+        {
+            Name = "Heather Smith",
+            MaritalStatus = MaritalStatus.Married,
+            Dependents = 2,
+            HireDate = DateTime.Now.AddYears(-10),
+            Salary = 75000
+        };
     }
     
-    public CustomerBuilder AsPremium()
+    public static Employee CreateSickEmployee()
     {
-        _customer.Type = CustomerType.Premium;
-        return this;
+        var employee = CreateJohn();
+        employee.SickDays = 15;
+        employee.LastSickDate = DateTime.Now.AddMonths(-2);
+        return employee;
     }
-    
-    public Customer Build() => _customer;
-}
-
-// Usage - fluent and flexible
-var customer = CustomerMother.Build()
-    .WithName("Jane Doe")
-    .AsPremium()
-    .Build();`}</pre>
+}`}</pre>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            استفاده در Test ها
+          </h2>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`[Test]
+public void ShouldCalculateSickPay_ForNewEmployee()
+{
+    var employee = EmployeeMother.CreateJohn();
+    var sickPay = _calculator.CalculateSickPay(employee);
+    
+    Assert.That(sickPay, Is.EqualTo(0));
+}
+
+[Test]
+public void ShouldCalculateSickPay_ForLongTermEmployee()
+{
+    var employee = EmployeeMother.CreateHeather();
+    var sickPay = _calculator.CalculateSickPay(employee);
+    
+    Assert.That(sickPay, Is.GreaterThan(0));
+}`}</pre>
+          </div>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مزایای Object Mother Pattern
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>DRY:</strong> کد ایجاد object متمرکز شده است</li>
-            <li><strong>Readability:</strong> هدف تست واضح‌تر است</li>
-            <li><strong>Maintainability:</strong> تغییرات ساختار object فقط در یک جا نیاز به اعمال دارد</li>
-            <li><strong>Consistency:</strong> همه تست‌ها از حالت‌های object معتبر یکسان استفاده می‌کنند</li>
+            <li><strong>Reusability:</strong> standard fixture ها در چندین test قابل استفاده هستند</li>
+            <li><strong>Maintainability:</strong> تغییرات object structure فقط در یک جا نیاز است</li>
+            <li><strong>Readability:</strong> test ها با نام‌های meaningful برای object ها خواناتر هستند</li>
+            <li><strong>Consistency:</strong> همه test ها از همان standard data استفاده می‌کنند</li>
+            <li><strong>Team Communication:</strong> canned object ها برای team آشنا می‌شوند</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Related Patterns
+            الگوهای مرتبط
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><Link href="/design-patterns/builder" className="text-blue-600 dark:text-blue-400 hover:underline">Builder Pattern</Link></li>
-            <li><Link href="/design-patterns/factory-method" className="text-blue-600 dark:text-blue-400 hover:underline">Factory Method Pattern</Link></li>
+            <li><Link href="/design-patterns/builder" className="text-blue-600 dark:text-blue-400 hover:underline">Builder Pattern</Link> - جایگزین Object Mother Pattern</li>
+            <li><Link href="/design-patterns/factory-method" className="text-blue-600 dark:text-blue-400 hover:underline">Factory Method Pattern</Link> - Object Mother بر آن بنا شده است</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/object-mother-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Object Mother Pattern
+              <a href="#" className="hover:underline">
+                Object Mother - Martin Fowler
               </a>
             </li>
             <li>
-              <a href="https://martinfowler.com/bliki/ObjectMother.html" target="_blank" rel="noopener" className="hover:underline">
-                Martin Fowler - ObjectMother
+              <a href="#" className="hover:underline">
+                Object Mother - C2.com
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                On-Demand Webinar: Exploring Design Patterns for Testing
               </a>
             </li>
           </ul>

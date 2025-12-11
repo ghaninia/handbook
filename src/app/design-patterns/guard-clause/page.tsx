@@ -13,36 +13,40 @@ export default function GuardClausePage() {
     >
       <div className="mb-6">
         <Link href="/design-patterns" className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-          ← بازگشت به الگوهای طراحی
+          ← Back to Design Patterns
         </Link>
       </div>
 
       <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        Guard Clause (بند نگهبان)
+        Guard Clause
       </h1>
 
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Guard Clause چیست؟
+            پیچیدگی در کد چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            پیچیدگی در کد درک آنچه که کد انجام می‌دهد را دشوار می‌کند. کوچک‌ترین واحد کد ما معمولاً تابع یا متد است. شما باید بتوانید با نگاه به یک تابع مشخص به سرعت تشخیص دهید که چه کاری انجام می‌دهد. این کار اگر تابع کوچک، خوب نامگذاری شده و متمرکز باشد آسان‌تر است.
-          </p>
-          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            یکی از عواملی که به طور مداوم علیه سادگی کار می‌کند پیچیدگی شرطی است، که اغلب به شکل دستورات <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">if</code> و <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">switch</code> ظاهر می‌شود. <strong>guard clause</strong> به سادگی بررسی‌ای است که فوراً از تابع خروج می‌کند، یا با دستور return یا با exception.
+            Complexity در کد درک آنچه که کد انجام می‌دهد را سخت‌تر می‌کند. کوچک‌ترین واحد کد ما معمولاً function یا method است. شما باید بتوانید با نگاه کردن به یک function مشخص به سرعت تشخیص دهید که چه کاری انجام می‌دهد. این کار معمولاً اگر function کوچک، نام‌گذاری مناسب داشته، و focused باشد بسیار آسان‌تر است. یک factor که مدام در مقابل simplicity کار می‌کند conditional complexity است، که اغلب به شکل statement های if و switch ظاهر می‌شود. هنگامی که به درستی مدیریت نشود، این دو construct می‌توانند به سرعت function ها را از simple و قابل فهم به long، obtuse، و scary تبدیل کنند. یک راه برای کاهش برخی از complexity ها استفاده از guard clause ها است.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Before: Without Guard Clauses
+            Guard Clauses چیست؟
           </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-2">
-              <strong>مشکل:</strong> کد عمیقاً تودرتو خواندن و نگهداری آن دشوار است.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            Guard clause به سادگی check ای است که فوراً از function خارج می‌شود، یا با return statement یا با exception. اگر شما عادت دارید function هایی بنویسید که بررسی می‌کنند تا اطمینان حاصل کنند همه چیز برای اجرای function valid است، سپس main function code را می‌نویسید، و بعد else statement های برای handle کردن error case ها می‌نویسید، این شامل invert کردن workflow فعلی شماست. مزیت این است که کد شما معمولاً کوتاه‌تر و ساده‌تر خواهد بود، و کمتر deeply indented است.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مثال بدون Guard Clauses
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            مثالی از function که از guard clause ها استفاده نمی‌کند:
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public void Subscribe(User user, Subscription subscription, Term term)
 {
@@ -78,15 +82,13 @@ export default function GuardClausePage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            After: With Guard Clauses
+            Refactored با Guard Clauses
           </h2>
-          <div className="bg-green-50 dark:bg-green-900/20 border-r-4 border-green-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm mb-2">
-              <strong>Solution:</strong> Invert the logic and exit early. The code is flatter and easier to read.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این کد می‌تواند refactor شود تا نیاز به else clause ها را حذف کند. این کار با invert کردن logic if statement ها و قراردادن exception throwing statement ها در داخل این if statement ها انجام می‌شود. نتیجه این‌گونه خواهد بود:
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public void Subscribe(User user, Subscription subscription, Term term)
+            <pre className="text-gray-800 dark:text-gray-200">{`public void Subscribe2(User user, Subscription subscription, Term term)
 {
     if (user == null)
     {
@@ -99,24 +101,25 @@ export default function GuardClausePage() {
     if (term == Term.Annually)
     {
         // subscribe annually
-        return;
     }
-    if (term == Term.Monthly)
+    else if (term == Term.Monthly)
     {
         // subscribe monthly
-        return;
     }
-    throw new InvalidEnumArgumentException(nameof(term));
+    else
+    {
+        throw new InvalidEnumArgumentException(nameof(term));
+    }
 }`}</pre>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Using Guard Helper Class (DRY)
+            استفاده از Helper Guard Class
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            The checks for null and the behavior of throwing exceptions is a violation of the DRY principle. Pull this code into a helper class:
+            Check های null و رفتار مشترک throwing یک نوع خاص exception به وضوح نقض اصل DRY است. این کد می‌تواند به یک helper method کشیده شود:
           </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
             <pre className="text-gray-800 dark:text-gray-200">{`public static class Guard
@@ -128,41 +131,32 @@ export default function GuardClausePage() {
             throw new ArgumentNullException(argumentName);
         }
     }
-    
-    public static void AgainstNullOrEmpty(string argument, string argumentName)
-    {
-        if (string.IsNullOrEmpty(argument))
-        {
-            throw new ArgumentException(
-                "Value cannot be null or empty.", argumentName);
-        }
-    }
-    
-    public static void AgainstNegative(int argument, string argumentName)
-    {
-        if (argument < 0)
-        {
-            throw new ArgumentOutOfRangeException(
-                argumentName, "Value cannot be negative.");
-        }
-    }
-    
     public static void AgainstInvalidTerms(Term term, string argumentName)
     {
-        if (term != Term.Annually && term != Term.Monthly)
+        // note: currently there are only two enum options
+        if (term != Term.Annually &&
+            term != Term.Monthly)
         {
             throw new InvalidEnumArgumentException(argumentName);
         }
     }
-}
+}`}</pre>
+          </div>
+        </section>
 
-// Now the original function is clean:
-public void Subscribe(User user, Subscription subscription, Term term)
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            Function نهایی با Guard Methods
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            این helper guard method ها سپس می‌توانند بدون نیاز به include کردن حتی هیچ if statement در calling function فراخوانی شوند، چون اگر exception رخ دهد به سمت بالا bubble خواهد کرد و از original function خارج خواهد شد. حالا original function می‌تواند به این شکل update شود:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public void Subscribe3(User user, Subscription subscription, Term term)
 {
     Guard.AgainstNull(user, nameof(user));
     Guard.AgainstNull(subscription, nameof(subscription));
     Guard.AgainstInvalidTerms(term, nameof(term));
-    
     if (term == Term.Annually)
     {
         // subscribe annually
@@ -171,64 +165,41 @@ public void Subscribe(User user, Subscription subscription, Term term)
     // subscribe monthly
 }`}</pre>
           </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+            در طول زمان می‌توانید به اضافه کردن Guard helper method های اضافی برای هر case مشترک دیگری که نیاز به بررسی دارید ادامه دهید، مانند empty string ها، negative number ها، invalid enum value ها و غیره.
+          </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Ardalis.GuardClauses NuGet Package
-          </h2>
-          <div className="bg-blue-50 dark:bg-blue-900/20 border-r-4 border-blue-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              Don't reinvent the wheel! Use the <strong>Ardalis.GuardClauses</strong> NuGet package which provides many common guard clauses out of the box and is easily extensible.
-            </p>
-          </div>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Install: Install-Package Ardalis.GuardClauses
-
-using Ardalis.GuardClauses;
-
-public void ProcessOrder(Order order, Customer customer)
-{
-    Guard.Against.Null(order, nameof(order));
-    Guard.Against.Null(customer, nameof(customer));
-    Guard.Against.NullOrEmpty(order.Items, nameof(order.Items));
-    Guard.Against.NegativeOrZero(order.Total, nameof(order.Total));
-    
-    // Process the order...
-}`}</pre>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایای Guard Clauses
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>Readability:</strong> Code is flatter and easier to follow</li>
-            <li><strong>Fail Fast:</strong> Invalid input is caught early</li>
-            <li><strong>Single Responsibility:</strong> Validation is separated from business logic</li>
-            <li><strong>DRY:</strong> Guard methods can be reused across the codebase</li>
+            <li><strong>Readability:</strong> کد flat تر و راحت‌تر برای follow کردن است</li>
+            <li><strong>Early Exit:</strong> validation failure ها زودتر detect می‌شوند</li>
+            <li><strong>Reduced Nesting:</strong> کاهش deeply nested conditional structure ها</li>
+            <li><strong>DRY Principle:</strong> common validation logic قابل reuse است</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/guard-clause" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Guard Clause
+              <a href="#" className="hover:underline">
+                What are Guard Clauses (YouTube)
               </a>
             </li>
             <li>
-              <a href="https://www.nuget.org/packages/Ardalis.GuardClauses" target="_blank" rel="noopener" className="hover:underline">
-                Ardalis.GuardClauses NuGet Package
+              <a href="#" className="hover:underline">
+                Ardalis.GuardClauses Nuget Package
               </a>
             </li>
             <li>
-              <a href="https://youtu.be/0ATjSblw9dY" target="_blank" rel="noopener" className="hover:underline">
-                YouTube - What are Guard Clauses
+              <a href="#" className="hover:underline">
+                Guard Clauses (Podcast Episode) (7 min)
               </a>
             </li>
           </ul>

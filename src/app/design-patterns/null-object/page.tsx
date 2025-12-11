@@ -24,218 +24,143 @@ export default function NullObjectPage() {
       <div className="prose prose-lg max-w-none">
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            What is Null Object?
+            Null Object Pattern چیست؟
           </h2>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-            الگوی Null Object یک شی به عنوان جانشین برای نبود شی از نوع مشخصی فراهم می‌کند. رفتار هوشمند هیچ‌کاری فراهم می‌کند و جزئیات را از همکارانش پنهان می‌کند.
+            الگوی Null Object برای اولین بار در کتاب Pattern Languages of Program Design توسط James Coplien در سال ۱۹۹۵ توصیف شد. هدف این الگو کاهش نیاز به اضافه کردن check ها و رفتار خاص برای handle کردن null instance های variable های خاصی است که در application ها propagate می‌شوند. در عوض، رفتاری که هنگام encounter شدن null باید رخ دهد را شناسایی کنید، این رفتار را در instance ای از type مورد نظر encapsulate کنید، و این instance را به عنوان یک مقدار خاص و ثابت از آن type تعریف کنید.
           </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            مثال Call Center Application
+          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            برای instance، یک call center application را در نظر بگیرید که customer ها را بر اساس phone number آنها lookup می‌کند:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public Customer GetByPhoneNumber(string phoneNumber)
+{
+  return _customerRepository
+         .List(c => c.PhoneNumber == phoneNumber)
+         .FirstOrDefault();
+}`}</pre>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            حالا تصور کنید که در جای دیگری application نیاز به display کردن برخی جزئیات در مورد customer پیدا شده دارد، مانند تعداد کل order ها و مقدار خرج شده. application باید مراقب باشد که برای null check کند:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`var customer = GetByPhoneNumber(phone);
+
+int orderCount = customer != null ? customer.OrderCount : 0;
+decimal totalPurchase = customer != null ? customer.TotalPurchase : 0m;`}</pre>
+          </div>
           <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-            به جای استفاده از مراجع <code className="px-1 py-0.5 bg-gray-200 dark:bg-gray-700 rounded text-sm">null</code> برای نشان دادن نبود شی، از یک null object مخصوص استفاده می‌کنید که رابط مورد انتظار را پیاده‌سازی می‌کند اما هیچ کاری نمی‌کند یا مقادیر پیش‌فرض فراهم می‌کند.
+            این نوع کد حتی verbose تر می‌شود اگر full if block ها استفاده شوند، و خیلی آسان است که یک check را miss کنید، در این صورت یک runtime null reference exception محتمل است.
           </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            The Problem with Null
+            پیاده‌سازی Null Object Pattern
           </h2>
-          <div className="bg-red-50 dark:bg-red-900/20 border-r-4 border-red-500 p-4 mb-4">
-            <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-sm">
-              Null references cause NullReferenceExceptions and require defensive null checks scattered throughout your code.
-            </p>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            برای implement کردن الگوی Null Object، یک instance از Customer برای represent کردن case "not found" customer ایجاد می‌شود:
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`// Without Null Object - defensive checks everywhere
-public void ProcessCustomer(Customer customer)
+            <pre className="text-gray-800 dark:text-gray-200">{`public class Customer
 {
-    if (customer != null)
-    {
-        if (customer.Name != null)
-        {
-            Console.WriteLine($"Processing {customer.Name}");
-        }
-        if (customer.Address != null)
-        {
-            // Process address...
-        }
-    }
-}
+  public static Customer NotFound =
+     new Customer() { OrderCount=0, TotalSales=0m };
 
-// This is error-prone and clutters the code`}</pre>
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            C# Example: Customer Null Object
-          </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface ICustomer
-{
-    string Name { get; }
-    bool IsNull { get; }
-    void Pay(decimal amount);
-}
-
-public class Customer : ICustomer
-{
-    public string Name { get; }
-    public bool IsNull => false;
-    
-    public Customer(string name)
-    {
-        Name = name;
-    }
-    
-    public void Pay(decimal amount)
-    {
-        Console.WriteLine($"{Name} paid {amount:C}");
-    }
-}
-
-// Null Object - implements same interface
-public class NullCustomer : ICustomer
-{
-    // Static instance - flyweight pattern
-    public static readonly NullCustomer Instance = new();
-    
-    private NullCustomer() { }
-    
-    public string Name => "Unknown Customer";
-    public bool IsNull => true;
-    
-    public void Pay(decimal amount)
-    {
-        // Do nothing - intentionally empty
-    }
-}
-
-// Alternative: static property on Customer class
-public class Customer : ICustomer
-{
-    public static ICustomer NotFound => NullCustomer.Instance;
-    
-    // ... rest of implementation
+  // other properties and behavior
 }`}</pre>
           </div>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Usage Example
-          </h2>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            روش دیگر implement کردن الگوی Null Object، استفاده از inheritance است:
+          </p>
           <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public class CustomerRepository
+            <pre className="text-gray-800 dark:text-gray-200">{`public class NullObjectCustomer : Customer
 {
-    private readonly Dictionary<int, ICustomer> _customers = new();
-    
-    // Never returns null - returns NullCustomer instead
-    public ICustomer GetById(int id)
-    {
-        return _customers.TryGetValue(id, out var customer) 
-            ? customer 
-            : NullCustomer.Instance;
-    }
-}
-
-// Clean client code - no null checks needed
-public class OrderService
-{
-    private readonly CustomerRepository _repository;
-    
-    public void ProcessOrder(int customerId, decimal amount)
-    {
-        var customer = _repository.GetById(customerId);
-        
-        // No null check needed!
-        Console.WriteLine($"Processing order for {customer.Name}");
-        customer.Pay(amount);
-        
-        // Optional: check if we need special handling
-        if (customer.IsNull)
-        {
-            LogWarning("Order processed for unknown customer");
-        }
-    }
+  public NullObjectCustomer(){
+    OrderCount=0;
+    TotalSales=0m;
+  }
+  // other properties and behavior
 }`}</pre>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            سپس، هر جا که method ای دارید که می‌تواند null Customer return کند، به جای آن static instance را return کنید:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`public Customer GetByPhoneNumber(string phoneNumber)
+{
+ var customer = _customerRepository
+                .List(c => c.PhoneNumber == phoneNumber)
+                .FirstOrDefault();
+  if(customer == null) { return Customer.NotFound; }
+  return customer;
+}`}</pre>
+          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            اگر از NullObjectCustomer استفاده می‌کنید، کد همان است، به جز:
+          </p>
+          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
+            <pre className="text-gray-800 dark:text-gray-200">{`return new NullObjectCustomer();`}</pre>
           </div>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Logger Example
+            نتایج پیاده‌سازی
           </h2>
-          <div className="bg-gray-50 dark:bg-gray-900 p-4 rounded-lg mb-4 font-mono text-sm overflow-x-auto" dir="ltr">
-            <pre className="text-gray-800 dark:text-gray-200">{`public interface ILogger
-{
-    void Log(string message);
-    void LogError(Exception ex);
-}
-
-public class ConsoleLogger : ILogger
-{
-    public void Log(string message) 
-        => Console.WriteLine($"[LOG] {message}");
-    
-    public void LogError(Exception ex) 
-        => Console.WriteLine($"[ERROR] {ex.Message}");
-}
-
-public class NullLogger : ILogger
-{
-    public static readonly NullLogger Instance = new();
-    
-    private NullLogger() { }
-    
-    public void Log(string message) { }
-    public void LogError(Exception ex) { }
-}
-
-// Usage - inject NullLogger when logging should be disabled
-public class PaymentProcessor
-{
-    private readonly ILogger _logger;
-    
-    // Default to NullLogger if none provided
-    public PaymentProcessor(ILogger? logger = null)
-    {
-        _logger = logger ?? NullLogger.Instance;
-    }
-    
-    public void ProcessPayment(decimal amount)
-    {
-        _logger.Log($"Processing payment of {amount:C}");
-        // Process payment...
-        _logger.Log("Payment processed successfully");
-    }
-}`}</pre>
-          </div>
+          <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+            یک بار که الگوی Null Object در جایش قرار گرفت، حتی نیازی به داشتن local variable ها (orderCount، totalPurchase) که در مثال بالا نشان داده شد نیست، چون آنها فقط به دلیل اینکه customer instance ممکن بود null باشد وجود داشتند. به همین ترتیب، null check های آنها نیاز نیستند—کلاً کد client ساده‌تر است، و احتمالاً duplicate code کمتری دارد، چون اغلب این نوع null check ها در سراسر code base proliferate می‌شوند (این نشانه این واقعیت است که null ها اصل Liskov Substitution Principle را نقض می‌کنند).
+          </p>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            Benefits
+            مزایای Null Object Pattern
           </h2>
           <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
-            <li><strong>حذف بررسی‌های null:</strong> کد سمت client ساده‌تر و تمیزتر است</li>
-            <li><strong>جلوگیری از NullReferenceException:</strong> متدها همیشه به صورت ایمن قابل فراخوانی هستند</li>
-            <li><strong>Polymorphism:</strong> Null objects به طور یکپارچه با سایر پیاده‌سازی‌ها کار می‌کنند</li>
-            <li><strong>رفتار اختیاری:</strong> غیرفعال کردن قابلیت‌ها بدون نیاز به conditionals آسان است</li>
+            <li><strong>حذف Null Check ها:</strong> کد client ساده‌تر و خوانا‌تر می‌شود</li>
+            <li><strong>جلوگیری از NullReferenceException:</strong> خطر runtime error ها کاهش می‌یابد</li>
+            <li><strong>Polymorphism Support:</strong> null object ها مانند real object ها رفتار می‌کنند</li>
+            <li><strong>Default Behavior:</strong> رفتار reasonable default برای missing object ها فراهم می‌کند</li>
+            <li><strong>کد تمیزتر:</strong> defensive programming کمتر نیاز است</li>
           </ul>
         </section>
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
-            References
+            نکات منفی
+          </h2>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 dark:text-gray-300 mr-4">
+            <li><strong>پیچیدگی اضافی:</strong> کلاس‌های اضافی برای maintain کردن</li>
+            <li><strong>مخفی کردن مشکلات:</strong> ممکن است real issue ها را mask کند</li>
+            <li><strong>Memory Usage:</strong> instance های اضافی ایجاد می‌شود</li>
+          </ul>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">
+            منابع
           </h2>
           <ul className="list-disc list-inside space-y-2 text-blue-600 dark:text-blue-400 mr-4">
             <li>
-              <a href="https://deviq.com/design-patterns/null-object-pattern" target="_blank" rel="noopener" className="hover:underline">
-                DevIQ - Null Object Pattern
+              <a href="#" className="hover:underline">
+                Nulls Break Polymorphism
               </a>
             </li>
             <li>
-              <a href="https://app.pluralsight.com/library/courses/c-sharp-design-patterns-null-object" target="_blank" rel="noopener" className="hover:underline">
-                Pluralsight - C# Design Patterns: Null Object
+              <a href="#" className="hover:underline">
+                Wikipedia Null Object Pattern
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">
+                Null Object Pattern video by Scott Bain with some good examples
               </a>
             </li>
           </ul>
